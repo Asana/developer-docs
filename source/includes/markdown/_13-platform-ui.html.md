@@ -617,7 +617,6 @@ When testing your application, you should:
 * Try to "break" your forms (e.g., test watched fields, limit invalid submissions, test typeahead fetches, etc.)
 * Test and proof-read any custom error messages
 * Test the auth flow from both the web browser and [desktop app](https://asana.com/download)
-  * You can enter the installation flow manually by navigating to `https://app.asana.com/-/install_platform_ui_app?app_id=<app_client_id>`
 * Test [Rule Actions](/docs/rule-actions) with a variety of trigger combinations
 
 <hr>
@@ -643,7 +642,7 @@ For the end user, the installation flow can be triggered through either one of t
 <br>
 <img src="../images/app-directory.png" alt="app directory"/>
 
-Note that subsequent interactions with the same application by the same user will _not_ trigger the following installation flow. To force the installation flow in its entirety again (e.g., for QA purposes), you can visit `https://app.asana.com/-/install_platform_ui_app?app_id=<app_client_id>`, replacing the value of the `app_id` query parameter with the application's Client ID (accessible via the [developer console](https://app.asana.com/0/developer-console)).
+Note that subsequent interactions with the same application by the same user will _not_ trigger the following installation flow.
 
 <hr>
 
@@ -797,8 +796,7 @@ Before you begin, be sure you already have a [developer sandbox]((/docs/develope
 2. Follow the instructions in the [README](https://github.com/Asana/app-components-example-app/blob/main/README.md) to run the server. This server needs to remain on as you use the example app.
 3. Open the developer sandbox in your browser.
 4. In an existing project, go to **Customize** > **Add App** > **External Example App** to install the App Components example app. 
-    - **Important**: The installation flow this takes you through is only shown once per user. To see it a second time, navigate to 
-      `https://app.asana.com/-/install_platform_ui_app?app_id=<app_client_id>`, replacing the value of the `app_id` query parameter with the application's Client ID (accessible via the [developer console](https://app.asana.com/0/developer-console)).
+    - **Important**: The installation flow this takes you through is only shown once per user.
 <br>
 <br>
 <img src="../images/example-app-gallery-tile.png" />
