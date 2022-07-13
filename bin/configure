@@ -1,0 +1,138 @@
+#! /bin/bash -e
+
+start_fresh() (
+  make clean
+)
+
+install_home_brew_deps() (
+  homebrew_deps=(
+    asdf
+    maven
+    moreutils
+  )
+
+  brew install --quiet "${homebrew_deps[@]}"
+)
+
+install_asdf_plugins() (
+  export ASDF_RUBY_BUILD_VERSION=v20220630
+
+  asdf_add_plugins() (
+    set -e
+
+    asdf_add_plugin() (
+      set -e
+      lang="$1"
+      output="$(mktemp)"
+
+      if ! asdf plugin-add "$lang" | tee "$output"; then
+        if [[ "$(cat "$output")" != "Plugin named $lang already added" ]]; then
+          exit 1
+        fi
+      fi
+    )
+
+    for lang in "$@"; do
+      asdf_add_plugin "$lang"
+    done
+  )
+
+  asdf_plugins=(
+    ruby
+    python
+    nodejs
+  )
+
+  asdf_add_plugins "${asdf_plugins[@]}"
+  asdf install
+)
+
+update_asdf_ruby_gems() (
+  asdf exec gem pristine --all
+  asdf exec gem install bundler
+)
+
+install_codez_python_deps() (
+  pushd "$OPENAPI_DIR"
+  python -m pip install -r requirements.txt
+)
+
+mvn_repo="$(realpath .)/.m2"
+
+clear_and_make_local_mvn_repo() (
+  rm -rf "$mvn_repo"
+)
+
+git_clone_fresh() (
+  set -e
+  repo="$1"
+  shift
+  dir="$1"
+  rm -rf "$dir"
+  mkdir -p "$dir"
+  git clone --quiet "$repo" "$dir"
+)
+
+install_swagger_parser() (
+  dir="build-swagger_parser"
+  git_clone_fresh "git@github.com:Asana/swagger-parser.git" "$dir"
+  pushd "$dir"
+  git checkout rossgrambo-2.0.17-with-data-wrapper
+  mvn --quiet clean package \
+    "-Dmaven.repo.local=$mvn_repo" \
+    org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file \
+    -Dfile=modules/swagger-parser-v3/target/swagger-parser-v3-2.0.17.jar \
+    -DpomFile=modules/swagger-parser-v3/pom.xml
+)
+
+install_swagger_codegen_generators() (
+  dir="build-swagger_codegen_generators"
+  git_clone_fresh "git@github.com:Asana/swagger-codegen-generators.git" "$dir"
+  pushd "$dir"
+  git checkout rossgrambo-1.0.15-asana-configs
+  mvn --quiet clean package org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file \
+    "-Dmaven.repo.local=$mvn_repo" \
+    -Dfile=target/swagger-codegen-generators-1.0.15.jar
+)
+
+install_swagger_codegen_cli() (
+  dir="build-swagger_codegen"
+  git_clone_fresh "git@github.com:swagger-api/swagger-codegen.git" "$dir"
+  pushd "$dir"
+  git checkout v3.0.15
+  mvn --quiet clean package \
+    "-Dmaven.repo.local=$mvn_repo"
+
+  popd
+  cp \
+    "$dir/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar" \
+    swagger-codegen-cli.jar
+)
+
+to_run=(
+  start_fresh
+  install_home_brew_deps
+  install_asdf_plugins
+  update_asdf_ruby_gems
+  install_codez_python_deps
+  clear_and_make_local_mvn_repo
+  install_swagger_parser
+  install_swagger_codegen_generators
+  install_swagger_codegen_cli
+  make
+)
+
+if [[ "$#" -gt 0 ]]; then
+  to_run=("$@")
+fi
+
+for arg in "${to_run[@]}"; do
+  echo
+  echo "***"
+  echo "*** Running '$arg'"
+  $arg
+  echo "***"
+  echo
+done
+
+source "$(brew --prefix asdf)/libexec/asdf.sh"

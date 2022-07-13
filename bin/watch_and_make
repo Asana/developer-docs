@@ -1,0 +1,25 @@
+#! /bin/bash -e
+
+to_watch=(
+  "$(realpath .)"
+  "$(realpath "$OPENAPI_DIR")"
+)
+
+run_make() (
+  echo
+  echo "***"
+  echo
+  echo "  Rebuilding due to changes in \$OPENAPI_DIR."
+  echo
+  echo "***"
+  echo
+
+  while IFS= read -r; do
+    echo "Running make"
+    if make --jobs 8 "$@"; then
+      echo "make succeeded" >&2
+    fi
+  done
+)
+
+fswatch -ro "${to_watch[@]}" | run_make "$@"

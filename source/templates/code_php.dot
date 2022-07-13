@@ -1,1 +1,1 @@
-{{=data.operation.operationId}}
+!START SAMPLE!{{=data.operation.operationId}}!END SAMPLE!
