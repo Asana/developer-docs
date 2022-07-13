@@ -1,0 +1,24 @@
+#! /bin/bash -e
+
+to_watch=(
+  "$(realpath .)"
+  "$(realpath "$OPENAPI_DIR/dist/public_asana_oas.yaml")"
+  "$(realpath "$OPENAPI_DIR/app_components_oas.yaml")"
+)
+
+run_make() (
+  echo
+  echo "***"
+  echo
+  echo "  Rebuilding due to changes in \$OPENAPI_DIR."
+  echo
+  echo "***"
+  echo
+
+  while IFS= read -r; do
+    echo "Running make"
+    make "$@"
+  done
+)
+
+fswatch -ro "${to_watch[@]}" | run_make "$@"

@@ -1,0 +1,44 @@
+#! /bin/bash -e
+
+export ASDF_RUBY_BUILD_VERSION=v20220630
+
+homebrew_deps=(
+  asdf
+  maven
+  moreutils
+)
+
+brew install --quiet "${homebrew_deps[@]}"
+
+asdf_add_plugins() (
+  set -e
+
+  asdf_add_plugin() (
+    set -e
+    lang="$1"
+    output="$(mktemp)"
+
+    if ! asdf plugin-add "$lang" | tee "$output"; then
+      if [[ "$(cat "$output")" != "Plugin named $lang already added" ]]; then
+        exit 1
+      fi
+    fi
+  )
+
+  for lang in "$@"; do
+    asdf_add_plugin "$lang"
+  done
+)
+
+asdf_plugins=(
+  ruby
+  python
+  nodejs
+)
+
+asdf_add_plugins "${asdf_plugins[@]}"
+asdf install
+
+asdf exec gem pristine --all
+asdf exec gem install bundler
+source "$(brew --prefix asdf)/libexec/asdf.sh"

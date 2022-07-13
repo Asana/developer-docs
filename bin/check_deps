@@ -1,0 +1,31 @@
+#! /bin/bash -e
+
+if ! command -v brew >/dev/null; then
+  echo "Missing homebrew dependency. Have you run \$CODEZ/admin/mac_configure.sh?" >&2
+  exit 1
+fi
+
+if ! command -v asdf >/dev/null; then
+  echo "Missing asdf dependency. This can be install via homebrew" >&2
+fi
+
+if ! command -v bundle >/dev/null; then
+  echo "Missing bundler dependency. This can be install via gems" >&2
+fi
+
+if ! command -v mvn >/dev/null; then
+  echo "Missing Maven dependency. This can be install via homebrew" >&2
+fi
+
+if ! command -v fswatch >/dev/null; then
+  echo "Missing fswatch dependency. This can be install via homebrew" >&2
+fi
+
+if [[ -z "$OPENAPI_DIR" ]]; then
+  echo "Missing \$OPENAPI_DIR env variable. Please set this to point to the
+    OAS directory in \$CODEZ" >&3
+  exit 1
+fi
+
+# shellcheck disable=SC1091
+source "$(brew --prefix asdf)/libexec/asdf.sh"
