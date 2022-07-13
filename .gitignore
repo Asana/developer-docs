@@ -29,3 +29,14 @@ doc/
 
 # Vagrant artifacts
 ubuntu-*-console.log
+
+# Bundler
+vendor/
+
+# npm
+node_modules/
+
+# build process
+build*
+.m2
+swagger-codegen-cli.jar
