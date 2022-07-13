@@ -29,3 +29,12 @@ doc/
 
 # Vagrant artifacts
 ubuntu-*-console.log
+
+# Bundler
+vendor/
+
+# npm
+node_modules/
+
+# build process
+build*
