@@ -41,4 +41,10 @@ asdf install
 
 asdf exec gem pristine --all
 asdf exec gem install bundler
+
+{
+  pushd "$OPENAPI_DIR"
+  python -m pip install -r requirements.txt
+}
+
 source "$(brew --prefix asdf)/libexec/asdf.sh"
