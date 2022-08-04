@@ -36,6 +36,8 @@ info:
     - ErrorResponse
     - GoalResponse
     - GoalCompact
+    - GoalRelationshipResponse
+    - GoalRelationshipCompact
     - JobResponse
     - JobCompact
     - OrganizationExportResponse
@@ -545,11 +547,15 @@ tags:
     description: >-
       A `goal` is an object in the goal-tracking system that helps your organization
       drive measurable results.
+  - name: Goal Relationships
+    description: >-
+      A *goal relationship* is an object representing the relationship between a goal
+      and another goal, a project, or a portfolio.
   - name: Jobs
     description: >-
       Jobs represent processes that handle asynchronous work. A Job created when an
       endpoint requests an action
-      that will be handled asynchronously, such as project or task duplication. 
+      that will be handled asynchronously, such as project or task duplication.
 
 
       Only the creator of the duplication process can access the duplication
@@ -593,7 +599,7 @@ tags:
       state of multiple projects, including a progress report and the most
       recent [status update](/docs/asana-statuses).
 
-      Portfolios have some restrictions on size. Each portfolio has a max of 250
+      Portfolios have some restrictions on size. Each portfolio has a max of 500
       items and, like projects, a max of 20 custom fields.
   - name: Portfolio Memberships
     description: >-
@@ -888,6 +894,16 @@ components:
         type: string
       example: '12345'
       x-env-variable: goal
+    goal_relationship_path_gid:
+      name: goal_relationship_gid
+      in: path
+      description: >-
+        Globally unique identifier for the goal relationship.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: goal_relationship
     job_path_gid:
       name: job_gid
       in: path
@@ -1287,7 +1303,7 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     ServiceUnavailable:
       description: >-
-        Either the upstream service is unavailable to the API, or he API has been
+        Either the upstream service is unavailable to the API, or the API has been
         intentionally shut off.
       content:
         application/json:
@@ -1425,7 +1441,8 @@ components:
           format: binary
         parent:
           description: >
-            Required identifier of the parent task or project_brief, as a string.
+            Required identifier of the parent task, project, or project_brief, as
+            a string.
           type: string
         url:
           description: >
@@ -2485,6 +2502,61 @@ components:
               type: string
               readOnly: true
               example: '8.12'
+            progress_source:
+              description: >-
+                This field defines how the progress value of a goal metric is being
+                calculated. A goal's progress can be provided manually by the user,
+                or calculated automatically from contributing subgoals or projects.
+              type: string
+              enum:
+                - manual
+                - subgoal_progress
+                - project_task_completion
+                - project_milestone_completion
+              example: manual
+    GoalRemoveSupportingRelationshipRequest:
+      type: object
+      required:
+        - supporting_resource
+      properties:
+        supporting_resource:
+          description: >-
+            The gid of the supporting resource to remove from the parent goal. Must
+            be the gid of a goal, project, or portfolio.
+          type: string
+          example: '12345'
+    GoalAddSupportingRelationshipRequest:
+      type: object
+      required:
+        - supporting_resource
+      properties:
+        supporting_resource:
+          description: >-
+            The gid of the supporting resource to add to the parent goal. Must be
+            the gid of a goal, project, or portfolio.
+          type: string
+          example: '12345'
+        insert_before:
+          description: >-
+            An id of a subgoal of this parent goal. The new
+            subgoal will be added before the one specified here.
+            `insert_before` and `insert_after` parameters cannot both
+            be specified. Currently only supported when adding a subgoal.
+          type: string
+          example: '1331'
+        insert_after:
+          description: >-
+            An id of a subgoal of this parent goal. The new
+            subgoal will be added after the one specified here.
+            `insert_before` and `insert_after` parameters cannot both
+            be specified. Currently only supported when adding a subgoal.
+          type: string
+          example: '1331'
+        contribution_weight:
+          description: The weight that the supporting resource's progress will contribute
+            to the supported goal's progress. This can only be 0 or 1.
+          type: number
+          example: 1
     GoalMetricCurrentValueRequest:
       allOf:
         - $ref: '#/components/schemas/AsanaResource'
@@ -2601,6 +2673,60 @@ components:
               nullable: true
               allOf:
                 - $ref: '#/components/schemas/StatusUpdateCompact'
+    GoalRelationshipBase:
+      allOf:
+        - $ref: '#/components/schemas/GoalRelationshipCompact'
+        - type: object
+          properties:
+            supported_goal:
+              allOf:
+                - $ref: '#/components/schemas/GoalCompact'
+                - type: object
+                  readOnly: true
+                  description: >-
+                    The goal that the supporting resource supports.
+    GoalRelationshipCompact:
+      allOf:
+        - $ref: '#/components/schemas/AsanaResource'
+        - type: object
+          description: >-
+            A *goal relationship* is an object representing the relationship between
+            a goal and another goal, a project, or a portfolio.
+          x-docs-overrides:
+            properties.resource_type.example: goal_relationship
+          properties:
+            resource_subtype:
+              description: >-
+                The subtype of this resource. Different subtypes retain many of the
+                same fields and behavior, but may render differently in Asana or
+                represent resources with different semantic meaning.
+              type: string
+              readOnly: true
+              example: subgoal
+              enum:
+                - subgoal
+                - supporting_work
+            supporting_resource:
+              allOf:
+                - $ref: '#/components/schemas/ProjectCompact'
+                - type: object
+                  readOnly: true
+                  description: >-
+                    The supporting resource that supports the goal. This can be either
+                    a project, portfolio, or goal.
+            contribution_weight:
+              description: The weight that the supporting resource's progress contributes
+                to the supported goal's progress. This can only be 0 or 1.
+              type: number
+              example: 1
+    GoalRelationshipRequest:
+      allOf:
+        - $ref: '#/components/schemas/GoalRelationshipBase'
+        - type: object
+    GoalRelationshipResponse:
+      allOf:
+        - $ref: '#/components/schemas/GoalRelationshipBase'
+        - type: object
     JobBase:
       $ref: '#/components/schemas/JobCompact'
     JobCompact:
@@ -2805,7 +2931,7 @@ components:
             update.
 
             Portfolios have some restrictions on size. Each portfolio has a max of
-            250 items and, like projects, a max of 20 custom fields.
+            500 items and, like projects, a max of 20 custom fields.
           x-docs-overrides:
             properties.resource_type.example: portfolio
           properties:
@@ -3446,6 +3572,14 @@ components:
               description: >-
                 A url that points directly to the object within Asana.
               example: https://app.asana.com/0/resource/123456789/list
+            project_brief:
+              allOf:
+                - $ref: '#/components/schemas/ProjectBriefCompact'
+                - type: object
+                  description: >-
+                    [Opt In](/docs/input-output-options).
+                    The project brief associated with this project.
+                  nullable: true
             created_from_template:
               allOf:
                 - $ref: '#/components/schemas/ProjectTemplateCompact'
@@ -4137,6 +4271,20 @@ components:
           properties:
             created_by:
               $ref: '#/components/schemas/UserCompact'
+            type:
+              type: string
+              enum:
+                - comment
+                - system
+              readOnly: true
+              example: comment
+            is_editable:
+              description: >-
+                *Conditional*. Whether the text of the story can be edited
+                after creation.
+              type: boolean
+              readOnly: true
+              example: false
             is_edited:
               description: >-
                 *Conditional*. Whether the text of the story has been edited
@@ -4362,17 +4510,14 @@ components:
               readOnly: true
               example: web
             target:
-              description: >-
-                The object this story is associated with. Currently may only be a
-                task.
-              readOnly: true
-              properties:
-                gid:
-                  type: string
-                  example: '1234'
-                name:
-                  type: string
-                  example: Bug Task
+              allOf:
+                - $ref: '#/components/schemas/TaskCompact'
+                - type: object
+                  readOnly: true
+                  description: >-
+                    The object this story is associated with. Currently may only be
+                    a
+                    task.
     StoryResponseDates:
       description: >-
         *Conditional*
@@ -4771,21 +4916,6 @@ components:
               type: integer
               example: 3
               readOnly: true
-            resource_subtype:
-              type: string
-              description: >-
-                The subtype of this resource. Different subtypes retain many of
-                the same fields and behavior, but may render differently in Asana
-                or represent resources with different semantic meaning.
-
-                The resource_subtype `milestone` represent a single moment in
-                time. This means tasks with this subtype cannot have a start_date.
-              enum:
-                - default_task
-                - milestone
-                - section
-                - approval
-              example: default_task
             start_at:
               description: >-
                 Date and time on which work begins for the task, or null if the task
@@ -4824,6 +4954,21 @@ components:
               description: The name of the task.
               type: string
               example: Bug Task
+            resource_subtype:
+              type: string
+              description: >-
+                The subtype of this resource. Different subtypes retain many of
+                the same fields and behavior, but may render differently in Asana
+                or represent resources with different semantic meaning.
+
+                The resource_subtype `milestone` represent a single moment in
+                time. This means tasks with this subtype cannot have a start_date.
+              enum:
+                - default_task
+                - milestone
+                - section
+                - approval
+              example: default_task
     TaskCountResponse:
       description: A response object returned from the task count endpoint.
       type: object
@@ -5202,6 +5347,14 @@ components:
               description: >
                 The organization/workspace the team belongs to.
               example: '123456789'
+            visibility:
+              description: >
+                The visibility of the team to users in the same organization
+              type: string
+              enum:
+                - secret
+                - request_to_join
+                - public
     TeamResponse:
       allOf:
         - $ref: '#/components/schemas/TeamBase'
@@ -5793,7 +5946,7 @@ paths:
           description: >-
             Globally unique identifier for object to fetch statuses from. Must be
             a GID
-            for a task or project_brief.
+            for a task, project, or project_brief.
           schema:
             type: string
           example: '159874'
@@ -5843,7 +5996,7 @@ paths:
         in order for the server to reliably and properly handle the request.
       tags:
         - Attachments
-      operationId: createAttachmentForTask
+      operationId: createAttachmentForObject
       requestBody:
         description: |-
           The file you want to upload.
@@ -6534,6 +6687,212 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+  /goal_relationships/{goal_relationship_gid}:
+    parameters:
+      - $ref: '#/components/parameters/goal_relationship_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/fields'
+    get:
+      summary: Get a goal relationship
+      description: |-
+        Returns the complete updated goal relationship record for a single goal relationship.
+      tags:
+        - Goal Relationships
+      operationId: getGoalRelationship
+      responses:
+        200:
+          description: Successfully retrieved the record for the goal relationship.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/GoalRelationshipResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update a goal relationship
+      description: |-
+        An existing goal relationship can be updated by making a PUT request on the URL for
+        that goal relationship. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged.
+
+        Returns the complete updated goal relationship record.
+      tags:
+        - Goal Relationships
+      operationId: updateGoalRelationship
+      requestBody:
+        description: The updated fields for the goal relationship.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/GoalRelationshipRequest'
+      responses:
+        200:
+          description: Successfully updated the goal relationship.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/GoalRelationshipResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /goal_relationships:
+    get:
+      summary: Get goal relationships
+      description: |-
+        Returns compact goal relationship records.
+      tags:
+        - Goal Relationships
+      operationId: getGoalRelationships
+      parameters:
+        - $ref: '#/components/parameters/pretty'
+        - $ref: '#/components/parameters/fields'
+        - name: supported_goal
+          required: true
+          in: query
+          description: Globally unique identifier for the supported goal in the goal
+            relationship.
+          schema:
+            type: string
+          example: '12345'
+        - name: resource_subtype
+          in: query
+          description: If provided, filter to goal relationships with a given resource_subtype.
+          schema:
+            type: string
+          example: subgoal
+      responses:
+        200:
+          description: Successfully retrieved the requested goal relationships.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GoalRelationshipCompact'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /goals/{goal_gid}/addSupportingRelationship:
+    parameters:
+      - $ref: '#/components/parameters/goal_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/fields'
+    post:
+      summary: Add a supporting goal relationship
+      description: |-
+        Creates a goal relationship by adding a supporting resource to a given goal.
+
+        Returns the newly created goal relationship record.
+      tags:
+        - Goal Relationships
+      operationId: addSupportingRelationship
+      requestBody:
+        description: The supporting resource to be added to the goal
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/GoalAddSupportingRelationshipRequest'
+      responses:
+        200:
+          description: Successfully created the goal relationship.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/GoalRelationshipResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /goals/{goal_gid}/removeSupportingRelationship:
+    parameters:
+      - $ref: '#/components/parameters/goal_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/fields'
+    post:
+      summary: Removes a supporting goal relationship
+      description: |-
+        Removes a goal relationship for a given parent goal.
+      tags:
+        - Goal Relationships
+      operationId: removeSupportingRelationship
+      requestBody:
+        description: The supporting resource to be removed from the goal
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/GoalRemoveSupportingRelationshipRequest'
+      responses:
+        200:
+          description: Successfully removed the goal relationship.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /goals/{goal_gid}:
     parameters:
       - $ref: '#/components/parameters/goal_path_gid'
@@ -6850,95 +7209,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /goals/{goal_gid}/addSubgoal:
-    parameters:
-      - $ref: '#/components/parameters/goal_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    post:
-      summary: Add a subgoal to a parent goal
-      description: |-
-        Adds a subgoal to a parent goal. *A goal can have at most 100 subgoals, and a subgoal can have at most 4 parent goals.
-
-        Returns an empty data block.
-      tags:
-        - Goals
-      operationId: addSubgoal
-      requestBody:
-        description: The goal to add as a subgoal
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/GoalAddSubgoalRequest'
-      responses:
-        200:
-          description: Successfully added goal as subgoal.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/EmptyResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        402:
-          $ref: '#/components/responses/PaymentRequired'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /goals/{goal_gid}/removeSubgoal:
-    parameters:
-      - $ref: '#/components/parameters/goal_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    post:
-      summary: Remove a subgoal from a goal
-      description: Removes a goal as a subgoal of a specified parent goal.
-      tags:
-        - Goals
-      operationId: removeSubgoal
-      requestBody:
-        description: The goal to be removed as a subgoal
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/GoalRemoveSubgoalRequest'
-      responses:
-        200:
-          description: Successfully removed subgoal.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/EmptyResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        402:
-          $ref: '#/components/responses/PaymentRequired'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
   /goals/{goal_gid}/addFollowers:
     parameters:
       - $ref: '#/components/parameters/goal_path_gid'
@@ -7022,168 +7292,6 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/GoalResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        402:
-          $ref: '#/components/responses/PaymentRequired'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /goals/{goal_gid}/addSupportingWork:
-    parameters:
-      - $ref: '#/components/parameters/goal_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    post:
-      summary: Add a project/portfolio as supporting work for a goal.
-      description: >-
-        Adds a project or portfolio as supporting work for a goal. *A goal can have
-        at most 10 supporting projects/portfolios, and a project/portfolio can support
-        at most 10 goals*.
-      tags:
-        - Goals
-      operationId: addSupportingWorkForGoal
-      requestBody:
-        description: The project/portfolio to set as supporting work
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/GoalAddSupportingWorkRequest'
-      responses:
-        200:
-          description: Successfully set specified project/portfolio as supporting
-            work on the given goal.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/EmptyResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        402:
-          $ref: '#/components/responses/PaymentRequired'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /goals/{goal_gid}/removeSupportingWork:
-    parameters:
-      - $ref: '#/components/parameters/goal_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    post:
-      summary: Remove a project/portfolio as supporting work for a goal.
-      description: >-
-        Removes a project or portfolio as supporting work for a goal.
-      tags:
-        - Goals
-      operationId: removeSupportingWorkForGoal
-      requestBody:
-        description: The project/portfolio to remove as supporting work
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/GoalAddSupportingWorkRequest'
-      responses:
-        200:
-          description: Successfully removed specified project/portfolio as supporting
-            work on the given goal.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/EmptyResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        402:
-          $ref: '#/components/responses/PaymentRequired'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /goals/{goal_gid}/subgoals:
-    parameters:
-      - $ref: '#/components/parameters/goal_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    get:
-      summary: Get subgoals from a goal
-      description: Returns a compact representation of all of the subgoals of a goal.
-      tags:
-        - Goals
-      operationId: getSubgoalsForGoal
-      responses:
-        200:
-          description: Successfully retrieved the specified goal's subgoals.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/GoalCompact'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        402:
-          $ref: '#/components/responses/PaymentRequired'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /goals/{goal_gid}/supportingWork:
-    parameters:
-      - $ref: '#/components/parameters/goal_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    get:
-      summary: Get supporting work from a goal
-      description: Returns any portfolios or projects associated with specified goal.
-      tags:
-        - Goals
-      operationId: supportingWork
-      responses:
-        200:
-          description: Successfully returned supporting work.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/ProjectCompact'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -7803,7 +7911,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/CustomFieldSettingResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -7888,7 +7996,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/PortfolioResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -7932,7 +8040,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/PortfolioResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -9093,7 +9201,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/ProjectResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -9137,7 +9245,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/ProjectResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -9185,7 +9293,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/ProjectResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -9230,7 +9338,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/ProjectResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -10906,9 +11014,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/EmptyResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -10993,9 +11099,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/TaskCompact'
+                    $ref: '#/components/schemas/EmptyResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -11040,9 +11144,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/EmptyResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -11280,7 +11382,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/TaskResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -11324,7 +11426,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/EmptyResponse'
+                    $ref: '#/components/schemas/TaskResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:

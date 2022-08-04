@@ -859,13 +859,11 @@ components:
           type: string
           example: 'https://www.app-server.com/app/typeahead'
         value:
-          description: >-
-            *Optional*. The value for the form field, which is the chosen [TypeaheadItem](/docs/typeahead-item) object.
-          type: object
-          required:
-            $ref: '#/components/schemas/TypeaheadItem/required'
-          properties:
-            $ref: '#/components/schemas/TypeaheadItem/properties'
+          allOf:
+            - $ref: '#/components/schemas/TypeaheadItem'
+            - type: object
+              description: >-
+                *Optional*. The value for the form field, which is the chosen [TypeaheadItem](/docs/typeahead-item) object.
     FormMetadataResponse:
       description: >-
         Contains the metadata that describes how to display and manage a form.

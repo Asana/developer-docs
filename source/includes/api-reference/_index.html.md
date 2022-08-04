@@ -151,7 +151,7 @@ Get the full record for a single attachment.
 |424<span class="param-type"> [Error](#schemaerror)</span>|You have exceeded one of the enforced rate limits in the API. See the [documentation on rate limiting](https://developers.asana.com/docs/#rate-limits) for more information.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
 |501<span class="param-type"> [Error](#schemaerror)</span>|There is an issue between the load balancers and Asana's API.|
-|503<span class="param-type"> [Error](#schemaerror)</span>|Either the upstream service is unavailable to the API, or he API has been intentionally shut off.|
+|503<span class="param-type"> [Error](#schemaerror)</span>|Either the upstream service is unavailable to the API, or the API has been intentionally shut off.|
 |504<span class="param-type"> [Error](#schemaerror)</span>|This request took too long to complete.|
 
 </section><hr class="half-line">
@@ -358,7 +358,7 @@ Returns the compact records for all attachments on the object.
 |---|---|
 |?limit<span class="param-type"> integer</span>|Results per page.|
 |?offset<span class="param-type"> string</span>|Offset token.|
-|?parent<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for object to fetch statuses from. Must be a GID for a task or project_brief.|
+|?parent<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for object to fetch statuses from. Must be a GID for a task, project, or project_brief.|
 |?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
 |?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
 
@@ -377,7 +377,7 @@ Returns the compact records for all attachments on the object.
 <section>
 ## Upload an attachment
 
-<a id="opIdcreateAttachmentForTask"></a>
+<a id="opIdcreateAttachmentForObject"></a>
 
 > Code samples
 
@@ -395,7 +395,7 @@ const asana = require('asana');
 
 const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
 
-client.attachments.createAttachmentForTask({field: "value", field: "value", pretty: true})
+client.attachments.createAttachmentForObject({field: "value", field: "value", pretty: true})
     .then((result) => {
         console.log(result);
     });
@@ -406,7 +406,7 @@ import asana
 
 client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
 
-result = client.attachments.create_attachment_for_task({'field': 'value', 'field': 'value'}, opt_pretty=True)
+result = client.attachments.create_attachment_for_object({'field': 'value', 'field': 'value'}, opt_pretty=True)
 ```
 
 ```ruby
@@ -416,7 +416,7 @@ client = Asana::Client.new do |c|
     c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
 end
 
-result = client.attachments.create_attachment_for_task(field: "value", field: "value", options: {pretty: true})
+result = client.attachments.create_attachment_for_object(field: "value", field: "value", options: {pretty: true})
 ```
 
 ```java
@@ -424,7 +424,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-Attachment result = client.attachments.createAttachmentForTask(file, parent, url, name)
+Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -437,7 +437,7 @@ require 'php-asana/vendor/autoload.php';
 
 $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
 
-$result = $client->attachments->createAttachmentForTask(array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
+$result = $client->attachments->createAttachmentForObject(array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
 ```
 
 > Body parameter
@@ -510,7 +510,7 @@ in order for the server to reliably and properly handle the request.
 |body<span class="param-type"> object</span><div class="param-required">required</div>|The file you want to upload.|
 |» file<span class="param-type"> string(binary)</span>|Required for `asana` attachments.|
 |» name<span class="param-type"> string</span>|The name of the external resource being attached. Required for attachments of type `external`.|
-|» parent<span class="param-type"> string</span>|Required identifier of the parent task or project_brief, as a string.|
+|» parent<span class="param-type"> string</span>|Required identifier of the parent task, project, or project_brief, as a string.|
 |» resource_subtype<span class="param-type"> string</span>|The type of the attachment. Must be one of the [given values](/docs/attachment). If not specified, a file attachment of type `asana` will be assumed. Note that if the value of `resource_subtype` is `external`, a `parent`, `name`, and `url` must also be provided.|
 |» url<span class="param-type"> string</span>|The URL of the external resource being attached. Required for attachments of type `external`.|
 |?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
@@ -2907,7 +2907,7 @@ tasks contained within the project.*
 <h1 id="goals">Goals</h1>
 
 <pre class="highlight http tab-http">
-<code><a href="/docs/get-a-goal"><span class="get-verb">GET</span> <span class=""nn>/goals/{goal_gid}</span></a><br><a href="/docs/update-a-goal"><span class="put-verb">PUT</span> <span class=""nn>/goals/{goal_gid}</span></a><br><a href="/docs/delete-a-goal"><span class="delete-verb">DELETE</span> <span class=""nn>/goals/{goal_gid}</span></a><br><a href="/docs/get-goals"><span class="get-verb">GET</span> <span class=""nn>/goals</span></a><br><a href="/docs/create-a-goal"><span class="post-verb">POST</span> <span class=""nn>/goals</span></a><br><a href="/docs/create-a-goal-metric"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/setMetric</span></a><br><a href="/docs/update-a-goal-metric"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/setMetricCurrentValue</span></a><br><a href="/docs/add-a-subgoal-to-a-parent-goal"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/addSubgoal</span></a><br><a href="/docs/remove-a-subgoal-from-a-goal"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/removeSubgoal</span></a><br><a href="/docs/add-a-collaborator-to-a-goal"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/addFollowers</span></a><br><a href="/docs/remove-a-collaborator-from-a-goal"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/removeFollowers</span></a><br><a href="/docs/add-a-project/portfolio-as-supporting-work-for-a-goal."><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/addSupportingWork</span></a><br><a href="/docs/remove-a-project/portfolio-as-supporting-work-for-a-goal."><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/removeSupportingWork</span></a><br><a href="/docs/get-subgoals-from-a-goal"><span class="get-verb">GET</span> <span class=""nn>/goals/{goal_gid}/subgoals</span></a><br><a href="/docs/get-supporting-work-from-a-goal"><span class="get-verb">GET</span> <span class=""nn>/goals/{goal_gid}/supportingWork</span></a><br><a href="/docs/get-parent-goals-from-a-goal"><span class="get-verb">GET</span> <span class=""nn>/goals/{goal_gid}/parentGoals</span></a></code>
+<code><a href="/docs/get-a-goal"><span class="get-verb">GET</span> <span class=""nn>/goals/{goal_gid}</span></a><br><a href="/docs/update-a-goal"><span class="put-verb">PUT</span> <span class=""nn>/goals/{goal_gid}</span></a><br><a href="/docs/delete-a-goal"><span class="delete-verb">DELETE</span> <span class=""nn>/goals/{goal_gid}</span></a><br><a href="/docs/get-goals"><span class="get-verb">GET</span> <span class=""nn>/goals</span></a><br><a href="/docs/create-a-goal"><span class="post-verb">POST</span> <span class=""nn>/goals</span></a><br><a href="/docs/create-a-goal-metric"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/setMetric</span></a><br><a href="/docs/update-a-goal-metric"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/setMetricCurrentValue</span></a><br><a href="/docs/add-a-collaborator-to-a-goal"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/addFollowers</span></a><br><a href="/docs/remove-a-collaborator-from-a-goal"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/removeFollowers</span></a><br><a href="/docs/get-parent-goals-from-a-goal"><span class="get-verb">GET</span> <span class=""nn>/goals/{goal_gid}/parentGoals</span></a></code>
 </pre>
 
 <span class="description">
@@ -3024,6 +3024,7 @@ $result = $client->goals->getGoal($goal_gid, array('param' => 'value', 'param' =
       "current_number_value": 8.12,
       "initial_number_value": 5.2,
       "precision": 2,
+      "progress_source": "manual",
       "resource_subtype": "number",
       "target_number_value": 10.2,
       "unit": "none"
@@ -3223,6 +3224,7 @@ $result = $client->goals->updateGoal($goal_gid, array('field' => 'value', 'field
       "current_number_value": 8.12,
       "initial_number_value": 5.2,
       "precision": 2,
+      "progress_source": "manual",
       "resource_subtype": "number",
       "target_number_value": 10.2,
       "unit": "none"
@@ -3675,6 +3677,7 @@ $result = $client->goals->createGoal(array('field' => 'value', 'field' => 'value
       "current_number_value": 8.12,
       "initial_number_value": 5.2,
       "precision": 2,
+      "progress_source": "manual",
       "resource_subtype": "number",
       "target_number_value": 10.2,
       "unit": "none"
@@ -3836,6 +3839,7 @@ $result = $client->goals->createGoalMetric($goal_gid, array('field' => 'value', 
     "current_number_value": 8.12,
     "initial_number_value": 5.2,
     "precision": 2,
+    "progress_source": "manual",
     "target_number_value": 10.2,
     "unit": "none"
   }
@@ -3888,6 +3892,7 @@ $result = $client->goals->createGoalMetric($goal_gid, array('field' => 'value', 
       "current_number_value": 8.12,
       "initial_number_value": 5.2,
       "precision": 2,
+      "progress_source": "manual",
       "resource_subtype": "number",
       "target_number_value": 10.2,
       "unit": "none"
@@ -3940,6 +3945,7 @@ Creates and adds a goal metric to a specified goal. Note that this replaces an e
 |»» current_number_value<span class="param-type"> number</span>|This number is the current value of a goal metric of type number.|
 |»» initial_number_value<span class="param-type"> number</span>|This number is the start value of a goal metric of type number.|
 |»» precision<span class="param-type"> integer</span>|*Conditional*. Only relevant for goal metrics of type ‘Number’. This field dictates the number of places after the decimal to round to, i.e. 0 is integer values, 1 rounds to the nearest tenth, and so on. Must be between 0 and 6, inclusive.|
+|»» progress_source<span class="param-type"> string</span>|This field defines how the progress value of a goal metric is being calculated. A goal's progress can be provided manually by the user, or calculated automatically from contributing subgoals or projects.|
 |»» target_number_value<span class="param-type"> number</span>|This number is the end value of a goal metric of type number. This number cannot equal `initial_number_value`.|
 |»» unit<span class="param-type"> string</span>|A supported unit of measure for the goal metric, or none.|
 |/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
@@ -3955,6 +3961,10 @@ For percentage format, this may be unintuitive, as a value of 0.25 has a precisi
 
 |Parameter|Value|
 |---|---|
+| progress_source|manual|
+| progress_source|subgoal_progress|
+| progress_source|project_task_completion|
+| progress_source|project_milestone_completion|
 | unit|none|
 | unit|currency|
 | unit|percentage|
@@ -4094,6 +4104,7 @@ $result = $client->goals->updateGoalMetric($goal_gid, array('field' => 'value', 
       "current_number_value": 8.12,
       "initial_number_value": 5.2,
       "precision": 2,
+      "progress_source": "manual",
       "resource_subtype": "number",
       "target_number_value": 10.2,
       "unit": "none"
@@ -4161,264 +4172,6 @@ Returns the complete updated goal metric record.
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-</section><hr class="half-line">
-<section>
-## Add a subgoal to a parent goal
-
-<a id="opIdaddSubgoal"></a>
-
-> Code samples
-
-```shell
-curl -X POST https://app.asana.com/api/1.0/goals/{goal_gid}/addSubgoal \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'Authorization: Bearer {access-token}' \
-  -d '{"data": {"field":"value","field":"value"} }'
-
-```
-
-```javascript--nodejs
-const asana = require('asana');
-
-const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
-
-client.goals.addSubgoal(goalGid, {field: "value", field: "value", pretty: true})
-    .then((result) => {
-        console.log(result);
-    });
-```
-
-```python
-import asana
-
-client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-result = client.goals.add_subgoal(goal_gid, {'field': 'value', 'field': 'value'}, opt_pretty=True)
-```
-
-```ruby
-require 'asana'
-
-client = Asana::Client.new do |c|
-    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-end
-
-result = client.goals.add_subgoal(goal_gid: 'goal_gid', field: "value", field: "value", options: {pretty: true})
-```
-
-```java
-import com.asana.Client;
-
-Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-JsonElement result = client.goals.addSubgoal(goalGid)
-    .data("field", "value")
-    .data("field", "value")
-    .option("pretty", true)
-    .execute();
-```
-
-```php
-<?php
-require 'php-asana/vendor/autoload.php';
-
-$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-$result = $client->goals->addSubgoal($goal_gid, array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
-```
-
-> Body parameter
-
-```json
-{
-  "data": {
-    "insert_after": "1331",
-    "insert_before": "1331",
-    "subgoal": "1331"
-  }
-}
-```
-
-> 200 Response
-
-```json
-{
-  "data": {}
-}
-```
-
-> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
-
-<p>
-<code> <span class="post-verb">POST</span> /goals/{goal_gid}/addSubgoal</code>
-</p>
-
-<span class="description">
-Adds a subgoal to a parent goal. *A goal can have at most 100 subgoals, and a subgoal can have at most 4 parent goals.
-
-Returns an empty data block.
-</span>
-
-<h3 id="add-a-subgoal-to-a-parent-goal-parameters">Parameters</h3>
-
-|Name|Description|
-|---|---|
-|body<span class="param-type"> object</span><div class="param-required">required</div>|The goal to add as a subgoal|
-|» data<span class="param-type"> object</span>|none|
-|»» insert_after<span class="param-type"> string</span>|An id of a subgoal of this parent goal. The new subgoal will be added after the one specified here. `insert_before` and `insert_after` parameters cannot both be specified.|
-|»» insert_before<span class="param-type"> string</span>|An id of a subgoal of this parent goal. The new subgoal will be added before the one specified here. `insert_before` and `insert_after` parameters cannot both be specified.|
-|»» subgoal<span class="param-type"> string</span><div class="param-required">required</div>|The goal gid to add as subgoal to a parent goal|
-|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
-|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
-|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
-
-<h3 id="add-a-subgoal-to-a-parent-goal-responses">Responses</h3>
-
-|Status|Description|
-|---|---|
-|200<span class="param-type"> Inline</span>|Successfully added goal as subgoal.|
-|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
-|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
-|402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
-|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
-|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
-|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="add-a-subgoal-to-a-parent-goal-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
-
-</section><hr class="half-line">
-<section>
-## Remove a subgoal from a goal
-
-<a id="opIdremoveSubgoal"></a>
-
-> Code samples
-
-```shell
-curl -X POST https://app.asana.com/api/1.0/goals/{goal_gid}/removeSubgoal \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'Authorization: Bearer {access-token}' \
-  -d '{"data": {"field":"value","field":"value"} }'
-
-```
-
-```javascript--nodejs
-const asana = require('asana');
-
-const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
-
-client.goals.removeSubgoal(goalGid, {field: "value", field: "value", pretty: true})
-    .then((result) => {
-        console.log(result);
-    });
-```
-
-```python
-import asana
-
-client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-result = client.goals.remove_subgoal(goal_gid, {'field': 'value', 'field': 'value'}, opt_pretty=True)
-```
-
-```ruby
-require 'asana'
-
-client = Asana::Client.new do |c|
-    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-end
-
-result = client.goals.remove_subgoal(goal_gid: 'goal_gid', field: "value", field: "value", options: {pretty: true})
-```
-
-```java
-import com.asana.Client;
-
-Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-JsonElement result = client.goals.removeSubgoal(goalGid)
-    .data("field", "value")
-    .data("field", "value")
-    .option("pretty", true)
-    .execute();
-```
-
-```php
-<?php
-require 'php-asana/vendor/autoload.php';
-
-$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-$result = $client->goals->removeSubgoal($goal_gid, array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
-```
-
-> Body parameter
-
-```json
-{
-  "data": {
-    "subgoal": "1331"
-  }
-}
-```
-
-> 200 Response
-
-```json
-{
-  "data": {}
-}
-```
-
-> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
-
-<p>
-<code> <span class="post-verb">POST</span> /goals/{goal_gid}/removeSubgoal</code>
-</p>
-
-<span class="description">
-Removes a goal as a subgoal of a specified parent goal.
-</span>
-
-<h3 id="remove-a-subgoal-from-a-goal-parameters">Parameters</h3>
-
-|Name|Description|
-|---|---|
-|body<span class="param-type"> object</span><div class="param-required">required</div>|The goal to be removed as a subgoal|
-|» data<span class="param-type"> object</span>|none|
-|»» subgoal<span class="param-type"> string</span><div class="param-required">required</div>|The goal gid to remove as subgoal from the parent goal|
-|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
-|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
-|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
-
-<h3 id="remove-a-subgoal-from-a-goal-responses">Responses</h3>
-
-|Status|Description|
-|---|---|
-|200<span class="param-type"> Inline</span>|Successfully removed subgoal.|
-|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
-|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
-|402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
-|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
-|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
-|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="remove-a-subgoal-from-a-goal-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -4546,6 +4299,7 @@ $result = $client->goals->addFollowers($goal_gid, array('field' => 'value', 'fie
       "current_number_value": 8.12,
       "initial_number_value": 5.2,
       "precision": 2,
+      "progress_source": "manual",
       "resource_subtype": "number",
       "target_number_value": 10.2,
       "unit": "none"
@@ -4739,6 +4493,7 @@ $result = $client->goals->removeFollowers($goal_gid, array('field' => 'value', '
       "current_number_value": 8.12,
       "initial_number_value": 5.2,
       "precision": 2,
+      "progress_source": "manual",
       "resource_subtype": "number",
       "target_number_value": 10.2,
       "unit": "none"
@@ -4799,477 +4554,6 @@ Requests to add/remove followers, if successful, will return the complete update
 |Status|Description|
 |---|---|
 |200<span class="param-type"> [Goal](#schemagoal)</span>|Successfully removed users as collaborators.|
-|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
-|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
-|402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
-|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
-|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
-|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-</section><hr class="half-line">
-<section>
-## Add a project/portfolio as supporting work for a goal.
-
-<a id="opIdaddSupportingWorkForGoal"></a>
-
-> Code samples
-
-```shell
-curl -X POST https://app.asana.com/api/1.0/goals/{goal_gid}/addSupportingWork \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'Authorization: Bearer {access-token}' \
-  -d '{"data": {"field":"value","field":"value"} }'
-
-```
-
-```javascript--nodejs
-const asana = require('asana');
-
-const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
-
-client.goals.addSupportingWorkForGoal(goalGid, {field: "value", field: "value", pretty: true})
-    .then((result) => {
-        console.log(result);
-    });
-```
-
-```python
-import asana
-
-client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-result = client.goals.add_supporting_work_for_goal(goal_gid, {'field': 'value', 'field': 'value'}, opt_pretty=True)
-```
-
-```ruby
-require 'asana'
-
-client = Asana::Client.new do |c|
-    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-end
-
-result = client.goals.add_supporting_work_for_goal(goal_gid: 'goal_gid', field: "value", field: "value", options: {pretty: true})
-```
-
-```java
-import com.asana.Client;
-
-Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-JsonElement result = client.goals.addSupportingWorkForGoal(goalGid)
-    .data("field", "value")
-    .data("field", "value")
-    .option("pretty", true)
-    .execute();
-```
-
-```php
-<?php
-require 'php-asana/vendor/autoload.php';
-
-$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-$result = $client->goals->addSupportingWorkForGoal($goal_gid, array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
-```
-
-> Body parameter
-
-```json
-{
-  "data": {
-    "supporting_work": "1331"
-  }
-}
-```
-
-> 200 Response
-
-```json
-{
-  "data": {}
-}
-```
-
-> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
-
-<p>
-<code> <span class="post-verb">POST</span> /goals/{goal_gid}/addSupportingWork</code>
-</p>
-
-<span class="description">
-Adds a project or portfolio as supporting work for a goal. *A goal can have at most 10 supporting projects/portfolios, and a project/portfolio can support at most 10 goals*.
-</span>
-
-<h3 id="add-a-project/portfolio-as-supporting-work-for-a-goal.-parameters">Parameters</h3>
-
-|Name|Description|
-|---|---|
-|body<span class="param-type"> object</span><div class="param-required">required</div>|The project/portfolio to set as supporting work|
-|» data<span class="param-type"> object</span>|none|
-|»» supporting_work<span class="param-type"> string</span><div class="param-required">required</div>|The project/portfolio gid to add as supporting work for a goal|
-|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
-|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
-|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
-
-<h3 id="add-a-project/portfolio-as-supporting-work-for-a-goal.-responses">Responses</h3>
-
-|Status|Description|
-|---|---|
-|200<span class="param-type"> Inline</span>|Successfully set specified project/portfolio as supporting work on the given goal.|
-|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
-|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
-|402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
-|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
-|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
-|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="add-a-project/portfolio-as-supporting-work-for-a-goal.-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
-
-</section><hr class="half-line">
-<section>
-## Remove a project/portfolio as supporting work for a goal.
-
-<a id="opIdremoveSupportingWorkForGoal"></a>
-
-> Code samples
-
-```shell
-curl -X POST https://app.asana.com/api/1.0/goals/{goal_gid}/removeSupportingWork \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json' \
-  -H 'Authorization: Bearer {access-token}' \
-  -d '{"data": {"field":"value","field":"value"} }'
-
-```
-
-```javascript--nodejs
-const asana = require('asana');
-
-const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
-
-client.goals.removeSupportingWorkForGoal(goalGid, {field: "value", field: "value", pretty: true})
-    .then((result) => {
-        console.log(result);
-    });
-```
-
-```python
-import asana
-
-client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-result = client.goals.remove_supporting_work_for_goal(goal_gid, {'field': 'value', 'field': 'value'}, opt_pretty=True)
-```
-
-```ruby
-require 'asana'
-
-client = Asana::Client.new do |c|
-    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-end
-
-result = client.goals.remove_supporting_work_for_goal(goal_gid: 'goal_gid', field: "value", field: "value", options: {pretty: true})
-```
-
-```java
-import com.asana.Client;
-
-Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-JsonElement result = client.goals.removeSupportingWorkForGoal(goalGid)
-    .data("field", "value")
-    .data("field", "value")
-    .option("pretty", true)
-    .execute();
-```
-
-```php
-<?php
-require 'php-asana/vendor/autoload.php';
-
-$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-$result = $client->goals->removeSupportingWorkForGoal($goal_gid, array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
-```
-
-> Body parameter
-
-```json
-{
-  "data": {
-    "supporting_work": "1331"
-  }
-}
-```
-
-> 200 Response
-
-```json
-{
-  "data": {}
-}
-```
-
-> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
-
-<p>
-<code> <span class="post-verb">POST</span> /goals/{goal_gid}/removeSupportingWork</code>
-</p>
-
-<span class="description">
-Removes a project or portfolio as supporting work for a goal.
-</span>
-
-<h3 id="remove-a-project/portfolio-as-supporting-work-for-a-goal.-parameters">Parameters</h3>
-
-|Name|Description|
-|---|---|
-|body<span class="param-type"> object</span><div class="param-required">required</div>|The project/portfolio to remove as supporting work|
-|» data<span class="param-type"> object</span>|none|
-|»» supporting_work<span class="param-type"> string</span><div class="param-required">required</div>|The project/portfolio gid to add as supporting work for a goal|
-|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
-|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
-|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
-
-<h3 id="remove-a-project/portfolio-as-supporting-work-for-a-goal.-responses">Responses</h3>
-
-|Status|Description|
-|---|---|
-|200<span class="param-type"> Inline</span>|Successfully removed specified project/portfolio as supporting work on the given goal.|
-|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
-|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
-|402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
-|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
-|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
-|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="remove-a-project/portfolio-as-supporting-work-for-a-goal.-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
-
-</section><hr class="half-line">
-<section>
-## Get subgoals from a goal
-
-<a id="opIdgetSubgoalsForGoal"></a>
-
-> Code samples
-
-```shell
-curl -X GET https://app.asana.com/api/1.0/goals/{goal_gid}/subgoals \
-  -H 'Accept: application/json' \
-  -H 'Authorization: Bearer {access-token}'
-
-```
-
-```javascript--nodejs
-const asana = require('asana');
-
-const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
-
-client.goals.getSubgoalsForGoal(goalGid, {param: "value", param: "value", opt_pretty: true})
-    .then((result) => {
-        console.log(result);
-    });
-```
-
-```python
-import asana
-
-client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-result = client.goals.get_subgoals_for_goal(goal_gid, {'param': 'value', 'param': 'value'}, opt_pretty=True)
-```
-
-```ruby
-require 'asana'
-
-client = Asana::Client.new do |c|
-    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-end
-
-result = client.goals.get_subgoals_for_goal(goal_gid: 'goal_gid', param: "value", param: "value", options: {pretty: true})
-```
-
-```java
-import com.asana.Client;
-
-Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-List<JsonElement> result = client.goals.getSubgoalsForGoal(goalGid)
-    .option("pretty", true)
-    .execute();
-```
-
-```php
-<?php
-require 'php-asana/vendor/autoload.php';
-
-$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-$result = $client->goals->getSubgoalsForGoal($goal_gid, array('param' => 'value', 'param' => 'value'), array('opt_pretty' => 'true'))
-```
-
-> 200 Response
-
-```json
-{
-  "data": [
-    {
-      "gid": "12345",
-      "resource_type": "goal",
-      "name": "Grow web traffic by 30%",
-      "owner": {
-        "gid": "12345",
-        "resource_type": "user",
-        "name": "Greg Sanchez"
-      }
-    }
-  ]
-}
-```
-
-> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
-
-<p>
-<code> <span class="get-verb">GET</span> /goals/{goal_gid}/subgoals</code>
-</p>
-
-<span class="description">
-Returns a compact representation of all of the subgoals of a goal.
-</span>
-
-<h3 id="get-subgoals-from-a-goal-parameters">Parameters</h3>
-
-|Name|Description|
-|---|---|
-|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
-|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
-|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
-
-<h3 id="get-subgoals-from-a-goal-responses">Responses</h3>
-
-|Status|Description|
-|---|---|
-|200<span class="param-type"> [GoalCompact](#schemagoalcompact)</span>|Successfully retrieved the specified goal's subgoals.|
-|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
-|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
-|402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
-|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
-|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
-|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-</section><hr class="half-line">
-<section>
-## Get supporting work from a goal
-
-<a id="opIdsupportingWork"></a>
-
-> Code samples
-
-```shell
-curl -X GET https://app.asana.com/api/1.0/goals/{goal_gid}/supportingWork \
-  -H 'Accept: application/json' \
-  -H 'Authorization: Bearer {access-token}'
-
-```
-
-```javascript--nodejs
-const asana = require('asana');
-
-const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
-
-client.goals.supportingWork(goalGid, {param: "value", param: "value", opt_pretty: true})
-    .then((result) => {
-        console.log(result);
-    });
-```
-
-```python
-import asana
-
-client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-result = client.goals.supporting_work(goal_gid, {'param': 'value', 'param': 'value'}, opt_pretty=True)
-```
-
-```ruby
-require 'asana'
-
-client = Asana::Client.new do |c|
-    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-end
-
-result = client.goals.supporting_work(goal_gid: 'goal_gid', param: "value", param: "value", options: {pretty: true})
-```
-
-```java
-import com.asana.Client;
-
-Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-List<Project> result = client.goals.supportingWork(goalGid)
-    .option("pretty", true)
-    .execute();
-```
-
-```php
-<?php
-require 'php-asana/vendor/autoload.php';
-
-$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-$result = $client->goals->supportingWork($goal_gid, array('param' => 'value', 'param' => 'value'), array('opt_pretty' => 'true'))
-```
-
-> 200 Response
-
-```json
-{
-  "data": [
-    {
-      "gid": "12345",
-      "resource_type": "project",
-      "name": "Stuff to buy"
-    }
-  ]
-}
-```
-
-> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
-
-<p>
-<code> <span class="get-verb">GET</span> /goals/{goal_gid}/supportingWork</code>
-</p>
-
-<span class="description">
-Returns any portfolios or projects associated with specified goal.
-</span>
-
-<h3 id="get-supporting-work-from-a-goal-parameters">Parameters</h3>
-
-|Name|Description|
-|---|---|
-|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
-|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
-|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
-
-<h3 id="get-supporting-work-from-a-goal-responses">Responses</h3>
-
-|Status|Description|
-|---|---|
-|200<span class="param-type"> [ProjectCompact](#schemaprojectcompact)</span>|Successfully returned supporting work.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
@@ -5391,6 +4675,664 @@ Returns a compact representation of all of the parent goals of a goal.
 
 </section><hr class="full-line">
 <section class="full-section">
+<a id="asana-goal-relationships"></a>
+<h1 id="goal-relationships">Goal Relationships</h1>
+
+<pre class="highlight http tab-http">
+<code><a href="/docs/get-a-goal-relationship"><span class="get-verb">GET</span> <span class=""nn>/goal_relationships/{goal_relationship_gid}</span></a><br><a href="/docs/update-a-goal-relationship"><span class="put-verb">PUT</span> <span class=""nn>/goal_relationships/{goal_relationship_gid}</span></a><br><a href="/docs/get-goal-relationships"><span class="get-verb">GET</span> <span class=""nn>/goal_relationships</span></a><br><a href="/docs/add-a-supporting-goal-relationship"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/addSupportingRelationship</span></a><br><a href="/docs/removes-a-supporting-goal-relationship"><span class="post-verb">POST</span> <span class=""nn>/goals/{goal_gid}/removeSupportingRelationship</span></a></code>
+</pre>
+
+<span class="description">
+A *goal relationship* is an object representing the relationship between a goal and another goal, a project, or a portfolio.
+</span>
+
+</section>
+<hr class="half-line">
+<section>
+## Get a goal relationship
+
+<a id="opIdgetGoalRelationship"></a>
+
+> Code samples
+
+```shell
+curl -X GET https://app.asana.com/api/1.0/goal_relationships/{goal_relationship_gid} \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```javascript--nodejs
+const asana = require('asana');
+
+const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+client.goalrelationships.getGoalRelationship(goalRelationshipGid, {param: "value", param: "value", opt_pretty: true})
+    .then((result) => {
+        console.log(result);
+    });
+```
+
+```python
+import asana
+
+client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+result = client.goal_relationships.get_goal_relationship(goal_relationship_gid, {'param': 'value', 'param': 'value'}, opt_pretty=True)
+```
+
+```ruby
+require 'asana'
+
+client = Asana::Client.new do |c|
+    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+end
+
+result = client.goal_relationships.get_goal_relationship(goal_relationship_gid: 'goal_relationship_gid', param: "value", param: "value", options: {pretty: true})
+```
+
+```java
+import com.asana.Client;
+
+Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+JsonElement result = client.goalrelationships.getGoalRelationship(goalRelationshipGid)
+    .option("pretty", true)
+    .execute();
+```
+
+```php
+<?php
+require 'php-asana/vendor/autoload.php';
+
+$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+$result = $client->goalrelationships->getGoalRelationship($goal_relationship_gid, array('param' => 'value', 'param' => 'value'), array('opt_pretty' => 'true'))
+```
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "gid": "12345",
+    "resource_type": "goal_relationship",
+    "contribution_weight": 1,
+    "resource_subtype": "subgoal",
+    "supported_goal": {
+      "gid": "12345",
+      "resource_type": "goal",
+      "name": "Grow web traffic by 30%",
+      "owner": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    },
+    "supporting_resource": {
+      "gid": "12345",
+      "resource_type": "project",
+      "name": "Stuff to buy"
+    }
+  }
+}
+```
+
+> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
+
+<p>
+<code> <span class="get-verb">GET</span> /goal_relationships/{goal_relationship_gid}</code>
+</p>
+
+<span class="description">
+Returns the complete updated goal relationship record for a single goal relationship.
+</span>
+
+<h3 id="get-a-goal-relationship-parameters">Parameters</h3>
+
+|Name|Description|
+|---|---|
+|/goal_relationship_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal relationship.|
+|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
+|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
+
+<h3 id="get-a-goal-relationship-responses">Responses</h3>
+
+|Status|Description|
+|---|---|
+|200<span class="param-type"> [GoalRelationship](#schemagoalrelationship)</span>|Successfully retrieved the record for the goal relationship.|
+|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
+|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
+|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
+|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
+|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
+
+</section><hr class="half-line">
+<section>
+## Update a goal relationship
+
+<a id="opIdupdateGoalRelationship"></a>
+
+> Code samples
+
+```shell
+curl -X PUT https://app.asana.com/api/1.0/goal_relationships/{goal_relationship_gid} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}' \
+  -d '{"data": {"field":"value","field":"value"} }'
+
+```
+
+```javascript--nodejs
+const asana = require('asana');
+
+const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+client.goalrelationships.updateGoalRelationship(goalRelationshipGid, {field: "value", field: "value", pretty: true})
+    .then((result) => {
+        console.log(result);
+    });
+```
+
+```python
+import asana
+
+client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+result = client.goal_relationships.update_goal_relationship(goal_relationship_gid, {'field': 'value', 'field': 'value'}, opt_pretty=True)
+```
+
+```ruby
+require 'asana'
+
+client = Asana::Client.new do |c|
+    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+end
+
+result = client.goal_relationships.update_goal_relationship(goal_relationship_gid: 'goal_relationship_gid', field: "value", field: "value", options: {pretty: true})
+```
+
+```java
+import com.asana.Client;
+
+Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+JsonElement result = client.goalrelationships.updateGoalRelationship(goalRelationshipGid)
+    .data("field", "value")
+    .data("field", "value")
+    .option("pretty", true)
+    .execute();
+```
+
+```php
+<?php
+require 'php-asana/vendor/autoload.php';
+
+$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+$result = $client->goalrelationships->updateGoalRelationship($goal_relationship_gid, array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
+```
+
+> Body parameter
+
+```json
+{
+  "data": {
+    "contribution_weight": 1
+  }
+}
+```
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "gid": "12345",
+    "resource_type": "goal_relationship",
+    "contribution_weight": 1,
+    "resource_subtype": "subgoal",
+    "supported_goal": {
+      "gid": "12345",
+      "resource_type": "goal",
+      "name": "Grow web traffic by 30%",
+      "owner": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    },
+    "supporting_resource": {
+      "gid": "12345",
+      "resource_type": "project",
+      "name": "Stuff to buy"
+    }
+  }
+}
+```
+
+> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
+
+<p>
+<code> <span class="put-verb">PUT</span> /goal_relationships/{goal_relationship_gid}</code>
+</p>
+
+<span class="description">
+An existing goal relationship can be updated by making a PUT request on the URL for
+that goal relationship. Only the fields provided in the `data` block will be updated;
+any unspecified fields will remain unchanged.
+
+Returns the complete updated goal relationship record.
+</span>
+
+<h3 id="update-a-goal-relationship-parameters">Parameters</h3>
+
+|Name|Description|
+|---|---|
+|body<span class="param-type"> object</span><div class="param-required">required</div>|The updated fields for the goal relationship.|
+|» data<span class="param-type"> object</span>|A *goal relationship* is an object representing the relationship between a goal and another goal, a project, or a portfolio.|
+|»» contribution_weight<span class="param-type"> number</span>|The weight that the supporting resource's progress contributes to the supported goal's progress. This can only be 0 or 1.|
+|/goal_relationship_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal relationship.|
+|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
+|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
+
+<h3 id="update-a-goal-relationship-responses">Responses</h3>
+
+|Status|Description|
+|---|---|
+|200<span class="param-type"> [GoalRelationship](#schemagoalrelationship)</span>|Successfully updated the goal relationship.|
+|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
+|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
+|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
+|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
+|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
+
+</section><hr class="half-line">
+<section>
+## Get goal relationships
+
+<a id="opIdgetGoalRelationships"></a>
+
+> Code samples
+
+```shell
+curl -X GET https://app.asana.com/api/1.0/goal_relationships?supported_goal=12345 \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```javascript--nodejs
+const asana = require('asana');
+
+const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+client.goalrelationships.getGoalRelationships({param: "value", param: "value", opt_pretty: true})
+    .then((result) => {
+        console.log(result);
+    });
+```
+
+```python
+import asana
+
+client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+result = client.goal_relationships.get_goal_relationships({'param': 'value', 'param': 'value'}, opt_pretty=True)
+```
+
+```ruby
+require 'asana'
+
+client = Asana::Client.new do |c|
+    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+end
+
+result = client.goal_relationships.get_goal_relationships(supported_goal: '&#x27;supported_goal_example&#x27;', param: "value", param: "value", options: {pretty: true})
+```
+
+```java
+import com.asana.Client;
+
+Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+List<JsonElement> result = client.goalrelationships.getGoalRelationships(resourceSubtype, supportedGoal)
+    .option("pretty", true)
+    .execute();
+```
+
+```php
+<?php
+require 'php-asana/vendor/autoload.php';
+
+$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+$result = $client->goalrelationships->getGoalRelationships(array('param' => 'value', 'param' => 'value'), array('opt_pretty' => 'true'))
+```
+
+> 200 Response
+
+```json
+{
+  "data": [
+    {
+      "gid": "12345",
+      "resource_type": "goal_relationship",
+      "contribution_weight": 1,
+      "resource_subtype": "subgoal",
+      "supporting_resource": {
+        "gid": "12345",
+        "resource_type": "project",
+        "name": "Stuff to buy"
+      }
+    }
+  ]
+}
+```
+
+> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
+
+<p>
+<code> <span class="get-verb">GET</span> /goal_relationships</code>
+</p>
+
+<span class="description">
+Returns compact goal relationship records.
+</span>
+
+<h3 id="get-goal-relationships-parameters">Parameters</h3>
+
+|Name|Description|
+|---|---|
+|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
+|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
+|?supported_goal<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the supported goal in the goal relationship.|
+|?resource_subtype<span class="param-type"> string</span>|If provided, filter to goal relationships with a given resource_subtype.|
+
+<h3 id="get-goal-relationships-responses">Responses</h3>
+
+|Status|Description|
+|---|---|
+|200<span class="param-type"> [GoalRelationshipCompact](#schemagoalrelationshipcompact)</span>|Successfully retrieved the requested goal relationships.|
+|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
+|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
+|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
+|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
+|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
+
+</section><hr class="half-line">
+<section>
+## Add a supporting goal relationship
+
+<a id="opIdaddSupportingRelationship"></a>
+
+> Code samples
+
+```shell
+curl -X POST https://app.asana.com/api/1.0/goals/{goal_gid}/addSupportingRelationship \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}' \
+  -d '{"data": {"field":"value","field":"value"} }'
+
+```
+
+```javascript--nodejs
+const asana = require('asana');
+
+const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+client.goalrelationships.addSupportingRelationship(goalGid, {field: "value", field: "value", pretty: true})
+    .then((result) => {
+        console.log(result);
+    });
+```
+
+```python
+import asana
+
+client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+result = client.goal_relationships.add_supporting_relationship(goal_gid, {'field': 'value', 'field': 'value'}, opt_pretty=True)
+```
+
+```ruby
+require 'asana'
+
+client = Asana::Client.new do |c|
+    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+end
+
+result = client.goal_relationships.add_supporting_relationship(goal_gid: 'goal_gid', field: "value", field: "value", options: {pretty: true})
+```
+
+```java
+import com.asana.Client;
+
+Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+JsonElement result = client.goalrelationships.addSupportingRelationship(goalGid)
+    .data("field", "value")
+    .data("field", "value")
+    .option("pretty", true)
+    .execute();
+```
+
+```php
+<?php
+require 'php-asana/vendor/autoload.php';
+
+$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+$result = $client->goalrelationships->addSupportingRelationship($goal_gid, array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
+```
+
+> Body parameter
+
+```json
+{
+  "data": {
+    "contribution_weight": 1,
+    "insert_after": "1331",
+    "insert_before": "1331",
+    "supporting_resource": "12345"
+  }
+}
+```
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "gid": "12345",
+    "resource_type": "goal_relationship",
+    "contribution_weight": 1,
+    "resource_subtype": "subgoal",
+    "supported_goal": {
+      "gid": "12345",
+      "resource_type": "goal",
+      "name": "Grow web traffic by 30%",
+      "owner": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    },
+    "supporting_resource": {
+      "gid": "12345",
+      "resource_type": "project",
+      "name": "Stuff to buy"
+    }
+  }
+}
+```
+
+> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
+
+<p>
+<code> <span class="post-verb">POST</span> /goals/{goal_gid}/addSupportingRelationship</code>
+</p>
+
+<span class="description">
+Creates a goal relationship by adding a supporting resource to a given goal.
+
+Returns the newly created goal relationship record.
+</span>
+
+<h3 id="add-a-supporting-goal-relationship-parameters">Parameters</h3>
+
+|Name|Description|
+|---|---|
+|body<span class="param-type"> object</span><div class="param-required">required</div>|The supporting resource to be added to the goal|
+|» data<span class="param-type"> object</span>|none|
+|»» contribution_weight<span class="param-type"> number</span>|The weight that the supporting resource's progress will contribute to the supported goal's progress. This can only be 0 or 1.|
+|»» insert_after<span class="param-type"> string</span>|An id of a subgoal of this parent goal. The new subgoal will be added after the one specified here. `insert_before` and `insert_after` parameters cannot both be specified. Currently only supported when adding a subgoal.|
+|»» insert_before<span class="param-type"> string</span>|An id of a subgoal of this parent goal. The new subgoal will be added before the one specified here. `insert_before` and `insert_after` parameters cannot both be specified. Currently only supported when adding a subgoal.|
+|»» supporting_resource<span class="param-type"> string</span><div class="param-required">required</div>|The gid of the supporting resource to add to the parent goal. Must be the gid of a goal, project, or portfolio.|
+|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
+|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
+|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
+
+<h3 id="add-a-supporting-goal-relationship-responses">Responses</h3>
+
+|Status|Description|
+|---|---|
+|200<span class="param-type"> [GoalRelationship](#schemagoalrelationship)</span>|Successfully created the goal relationship.|
+|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
+|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
+|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
+|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
+|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
+
+</section><hr class="half-line">
+<section>
+## Removes a supporting goal relationship
+
+<a id="opIdremoveSupportingRelationship"></a>
+
+> Code samples
+
+```shell
+curl -X POST https://app.asana.com/api/1.0/goals/{goal_gid}/removeSupportingRelationship \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}' \
+  -d '{"data": {"field":"value","field":"value"} }'
+
+```
+
+```javascript--nodejs
+const asana = require('asana');
+
+const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+client.goalrelationships.removeSupportingRelationship(goalGid, {field: "value", field: "value", pretty: true})
+    .then((result) => {
+        console.log(result);
+    });
+```
+
+```python
+import asana
+
+client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+result = client.goal_relationships.remove_supporting_relationship(goal_gid, {'field': 'value', 'field': 'value'}, opt_pretty=True)
+```
+
+```ruby
+require 'asana'
+
+client = Asana::Client.new do |c|
+    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+end
+
+result = client.goal_relationships.remove_supporting_relationship(goal_gid: 'goal_gid', field: "value", field: "value", options: {pretty: true})
+```
+
+```java
+import com.asana.Client;
+
+Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+JsonElement result = client.goalrelationships.removeSupportingRelationship(goalGid)
+    .data("field", "value")
+    .data("field", "value")
+    .option("pretty", true)
+    .execute();
+```
+
+```php
+<?php
+require 'php-asana/vendor/autoload.php';
+
+$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+$result = $client->goalrelationships->removeSupportingRelationship($goal_gid, array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
+```
+
+> Body parameter
+
+```json
+{
+  "data": {
+    "supporting_resource": "12345"
+  }
+}
+```
+
+> 200 Response
+
+```json
+{
+  "data": {}
+}
+```
+
+> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
+
+<p>
+<code> <span class="post-verb">POST</span> /goals/{goal_gid}/removeSupportingRelationship</code>
+</p>
+
+<span class="description">
+Removes a goal relationship for a given parent goal.
+</span>
+
+<h3 id="removes-a-supporting-goal-relationship-parameters">Parameters</h3>
+
+|Name|Description|
+|---|---|
+|body<span class="param-type"> object</span><div class="param-required">required</div>|The supporting resource to be removed from the goal|
+|» data<span class="param-type"> object</span>|none|
+|»» supporting_resource<span class="param-type"> string</span><div class="param-required">required</div>|The gid of the supporting resource to remove from the parent goal. Must be the gid of a goal, project, or portfolio.|
+|/goal_gid<span class="param-type"> string</span><div class="param-required">required</div>|Globally unique identifier for the goal.|
+|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
+|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
+
+<h3 id="removes-a-supporting-goal-relationship-responses">Responses</h3>
+
+|Status|Description|
+|---|---|
+|200<span class="param-type"> Inline</span>|Successfully removed the goal relationship.|
+|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
+|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
+|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
+|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
+|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
+
+<h3 id="removes-a-supporting-goal-relationship-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Description|
+|---|---|
+| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
+
+</section><hr class="full-line">
+<section class="full-section">
 <a id="asana-jobs"></a>
 <h1 id="jobs">Jobs</h1>
 
@@ -5399,7 +5341,7 @@ Returns a compact representation of all of the parent goals of a goal.
 </pre>
 
 <span class="description">
-Jobs represent processes that handle asynchronous work. A Job created when an endpoint requests an action that will be handled asynchronously, such as project or task duplication. 
+Jobs represent processes that handle asynchronous work. A Job created when an endpoint requests an action that will be handled asynchronously, such as project or task duplication.
 
 Only the creator of the duplication process can access the duplication status of the new object.
 
@@ -5490,7 +5432,8 @@ $result = $client->jobs->getJob($job_gid, array('param' => 'value', 'param' => '
     "new_task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "resource_subtype": "duplicate_task",
     "status": "in_progress"
@@ -5804,7 +5747,7 @@ Returns details of a previously-requested Organization export.
 
 <span class="description">
 A `portfolio` gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [status update](/docs/asana-statuses).
-Portfolios have some restrictions on size. Each portfolio has a max of 250 items and, like projects, a max of 20 custom fields.
+Portfolios have some restrictions on size. Each portfolio has a max of 500 items and, like projects, a max of 20 custom fields.
 </span>
 
 </section>
@@ -7166,7 +7109,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.portfolios.addCustomFieldSettingForPortfolio(portfolioGid)
+CustomFieldSetting result = client.portfolios.addCustomFieldSettingForPortfolio(portfolioGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -7199,7 +7142,70 @@ $result = $client->portfolios->addCustomFieldSettingForPortfolio($portfolio_gid,
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "custom_field_setting",
+    "custom_field": {
+      "gid": "12345",
+      "resource_type": "custom_field",
+      "created_by": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "currency_code": "EUR",
+      "custom_label": "gold pieces",
+      "custom_label_position": "suffix",
+      "description": "Development team priority",
+      "display_value": "blue",
+      "enabled": true,
+      "enum_options": [
+        {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        }
+      ],
+      "enum_value": {
+        "gid": "12345",
+        "resource_type": "enum_option",
+        "color": "blue",
+        "enabled": true,
+        "name": "Low"
+      },
+      "format": "custom",
+      "has_notifications_enabled": true,
+      "is_global_to_workspace": true,
+      "multi_enum_values": [
+        {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        }
+      ],
+      "name": "Status",
+      "number_value": 5.2,
+      "precision": 2,
+      "resource_subtype": "text",
+      "text_value": "Some Value",
+      "type": "text"
+    },
+    "is_important": false,
+    "parent": {
+      "gid": "12345",
+      "resource_type": "project",
+      "name": "Stuff to buy"
+    },
+    "project": {
+      "gid": "12345",
+      "resource_type": "project",
+      "name": "Stuff to buy"
+    }
+  }
 }
 ```
 
@@ -7230,20 +7236,12 @@ Custom fields are associated with portfolios by way of custom field settings.  T
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully added the custom field to the portfolio.|
+|200<span class="param-type"> [CustomFieldSetting](#schemacustomfieldsetting)</span>|Successfully added the custom field to the portfolio.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="add-a-custom-field-to-a-portfolio-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -7420,7 +7418,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.portfolios.addMembersForPortfolio(portfolioGid)
+Portfolio result = client.portfolios.addMembersForPortfolio(portfolioGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -7450,7 +7448,111 @@ $result = $client->portfolios->addMembersForPortfolio($portfolio_gid, array('fie
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "portfolio",
+    "color": "light-green",
+    "name": "Bug Portfolio",
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "created_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "current_status_update": {
+      "gid": "12345",
+      "resource_type": "status_update",
+      "resource_subtype": "project_status_update",
+      "title": "Status Update - Jun 15"
+    },
+    "custom_field_settings": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field_setting",
+        "custom_field": {
+          "gid": "12345",
+          "resource_type": "custom_field",
+          "created_by": {
+            "gid": "12345",
+            "resource_type": "user",
+            "name": "Greg Sanchez"
+          },
+          "currency_code": "EUR",
+          "custom_label": "gold pieces",
+          "custom_label_position": "suffix",
+          "description": "Development team priority",
+          "display_value": "blue",
+          "enabled": true,
+          "enum_options": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "enum_value": {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          },
+          "format": "custom",
+          "has_notifications_enabled": true,
+          "is_global_to_workspace": true,
+          "multi_enum_values": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "name": "Status",
+          "number_value": 5.2,
+          "precision": 2,
+          "resource_subtype": "text",
+          "text_value": "Some Value",
+          "type": "text"
+        },
+        "is_important": false,
+        "parent": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        }
+      }
+    ],
+    "due_on": "2019-09-15",
+    "members": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "owner": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "public": false,
+    "start_on": "2019-09-14",
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    }
+  }
 }
 ```
 
@@ -7480,20 +7582,12 @@ Returns the updated portfolio record.
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully added members to the portfolio.|
+|200<span class="param-type"> [Portfolio](#schemaportfolio)</span>|Successfully added members to the portfolio.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="add-users-to-a-portfolio-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -7546,7 +7640,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.portfolios.removeMembersForPortfolio(portfolioGid)
+Portfolio result = client.portfolios.removeMembersForPortfolio(portfolioGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -7576,7 +7670,111 @@ $result = $client->portfolios->removeMembersForPortfolio($portfolio_gid, array('
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "portfolio",
+    "color": "light-green",
+    "name": "Bug Portfolio",
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "created_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "current_status_update": {
+      "gid": "12345",
+      "resource_type": "status_update",
+      "resource_subtype": "project_status_update",
+      "title": "Status Update - Jun 15"
+    },
+    "custom_field_settings": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field_setting",
+        "custom_field": {
+          "gid": "12345",
+          "resource_type": "custom_field",
+          "created_by": {
+            "gid": "12345",
+            "resource_type": "user",
+            "name": "Greg Sanchez"
+          },
+          "currency_code": "EUR",
+          "custom_label": "gold pieces",
+          "custom_label_position": "suffix",
+          "description": "Development team priority",
+          "display_value": "blue",
+          "enabled": true,
+          "enum_options": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "enum_value": {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          },
+          "format": "custom",
+          "has_notifications_enabled": true,
+          "is_global_to_workspace": true,
+          "multi_enum_values": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "name": "Status",
+          "number_value": 5.2,
+          "precision": 2,
+          "resource_subtype": "text",
+          "text_value": "Some Value",
+          "type": "text"
+        },
+        "is_important": false,
+        "parent": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        }
+      }
+    ],
+    "due_on": "2019-09-15",
+    "members": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "owner": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "public": false,
+    "start_on": "2019-09-14",
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    }
+  }
 }
 ```
 
@@ -7606,20 +7804,12 @@ Returns the updated portfolio record.
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully removed the members from the portfolio.|
+|200<span class="param-type"> [Portfolio](#schemaportfolio)</span>|Successfully removed the members from the portfolio.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="remove-users-from-a-portfolio-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="full-line">
 <section class="full-section">
@@ -8411,6 +8601,10 @@ $result = $client->projects->createProject(array('field' => 'value', 'field' => 
       "name": "Greg Sanchez"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
     "team": {
       "gid": "12345",
       "resource_type": "team",
@@ -8773,6 +8967,10 @@ $result = $client->projects->getProject($project_gid, array('param' => 'value', 
       "name": "Greg Sanchez"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
     "team": {
       "gid": "12345",
       "resource_type": "team",
@@ -9108,6 +9306,10 @@ $result = $client->projects->updateProject($project_gid, array('field' => 'value
       "name": "Greg Sanchez"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
     "team": {
       "gid": "12345",
       "resource_type": "team",
@@ -9436,7 +9638,8 @@ $result = $client->projects->duplicateProject($project_gid, array('field' => 'va
     "new_task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "resource_subtype": "duplicate_task",
     "status": "in_progress"
@@ -10013,6 +10216,10 @@ $result = $client->projects->createProjectForTeam($team_gid, array('field' => 'v
       "name": "Greg Sanchez"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
     "team": {
       "gid": "12345",
       "resource_type": "team",
@@ -10524,6 +10731,10 @@ $result = $client->projects->createProjectForWorkspace($workspace_gid, array('fi
       "name": "Greg Sanchez"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
     "team": {
       "gid": "12345",
       "resource_type": "team",
@@ -11104,7 +11315,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.projects.addMembersForProject(projectGid)
+Project result = client.projects.addMembersForProject(projectGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -11134,7 +11345,200 @@ $result = $client->projects->addMembersForProject($project_gid, array('field' =>
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "project",
+    "archived": false,
+    "color": "light-green",
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "current_status": {
+      "gid": "12345",
+      "resource_type": "project_status",
+      "author": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "color": "green",
+      "created_at": "2012-02-22T02:06:58.147Z",
+      "created_by": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "html_text": "<body>The project <strong>is</strong> moving forward according to plan...</body>",
+      "modified_at": "2012-02-22T02:06:58.147Z",
+      "text": "The project is moving forward according to plan...",
+      "title": "Status Update - Jun 15"
+    },
+    "current_status_update": {
+      "gid": "12345",
+      "resource_type": "status_update",
+      "resource_subtype": "project_status_update",
+      "title": "Status Update - Jun 15"
+    },
+    "custom_field_settings": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field_setting",
+        "custom_field": {
+          "gid": "12345",
+          "resource_type": "custom_field",
+          "created_by": {
+            "gid": "12345",
+            "resource_type": "user",
+            "name": "Greg Sanchez"
+          },
+          "currency_code": "EUR",
+          "custom_label": "gold pieces",
+          "custom_label_position": "suffix",
+          "description": "Development team priority",
+          "display_value": "blue",
+          "enabled": true,
+          "enum_options": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "enum_value": {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          },
+          "format": "custom",
+          "has_notifications_enabled": true,
+          "is_global_to_workspace": true,
+          "multi_enum_values": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "name": "Status",
+          "number_value": 5.2,
+          "precision": 2,
+          "resource_subtype": "text",
+          "text_value": "Some Value",
+          "type": "text"
+        },
+        "is_important": false,
+        "parent": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        }
+      }
+    ],
+    "default_view": "calendar",
+    "due_date": "2019-09-15",
+    "due_on": "2019-09-15",
+    "html_notes": "<body>These are things we need to purchase.</body>",
+    "is_template": false,
+    "members": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "modified_at": "2012-02-22T02:06:58.147Z",
+    "name": "Stuff to buy",
+    "notes": "These are things we need to purchase.",
+    "public": false,
+    "start_on": "2019-09-14",
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    },
+    "completed": false,
+    "completed_at": "2012-02-22T02:06:58.147Z",
+    "completed_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "created_from_template": {
+      "gid": "12345",
+      "resource_type": "project_template",
+      "name": "Packing list"
+    },
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
+    "followers": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "icon": "chat_bubbles",
+    "owner": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
+    "team": {
+      "gid": "12345",
+      "resource_type": "team",
+      "name": "Marketing"
+    }
+  }
 }
 ```
 
@@ -11164,20 +11568,12 @@ Returns the updated project record.
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully added members to the project.|
+|200<span class="param-type"> [Project](#schemaproject)</span>|Successfully added members to the project.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="add-users-to-a-project-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -11230,7 +11626,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.projects.removeMembersForProject(projectGid)
+Project result = client.projects.removeMembersForProject(projectGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -11260,7 +11656,200 @@ $result = $client->projects->removeMembersForProject($project_gid, array('field'
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "project",
+    "archived": false,
+    "color": "light-green",
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "current_status": {
+      "gid": "12345",
+      "resource_type": "project_status",
+      "author": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "color": "green",
+      "created_at": "2012-02-22T02:06:58.147Z",
+      "created_by": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "html_text": "<body>The project <strong>is</strong> moving forward according to plan...</body>",
+      "modified_at": "2012-02-22T02:06:58.147Z",
+      "text": "The project is moving forward according to plan...",
+      "title": "Status Update - Jun 15"
+    },
+    "current_status_update": {
+      "gid": "12345",
+      "resource_type": "status_update",
+      "resource_subtype": "project_status_update",
+      "title": "Status Update - Jun 15"
+    },
+    "custom_field_settings": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field_setting",
+        "custom_field": {
+          "gid": "12345",
+          "resource_type": "custom_field",
+          "created_by": {
+            "gid": "12345",
+            "resource_type": "user",
+            "name": "Greg Sanchez"
+          },
+          "currency_code": "EUR",
+          "custom_label": "gold pieces",
+          "custom_label_position": "suffix",
+          "description": "Development team priority",
+          "display_value": "blue",
+          "enabled": true,
+          "enum_options": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "enum_value": {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          },
+          "format": "custom",
+          "has_notifications_enabled": true,
+          "is_global_to_workspace": true,
+          "multi_enum_values": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "name": "Status",
+          "number_value": 5.2,
+          "precision": 2,
+          "resource_subtype": "text",
+          "text_value": "Some Value",
+          "type": "text"
+        },
+        "is_important": false,
+        "parent": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        }
+      }
+    ],
+    "default_view": "calendar",
+    "due_date": "2019-09-15",
+    "due_on": "2019-09-15",
+    "html_notes": "<body>These are things we need to purchase.</body>",
+    "is_template": false,
+    "members": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "modified_at": "2012-02-22T02:06:58.147Z",
+    "name": "Stuff to buy",
+    "notes": "These are things we need to purchase.",
+    "public": false,
+    "start_on": "2019-09-14",
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    },
+    "completed": false,
+    "completed_at": "2012-02-22T02:06:58.147Z",
+    "completed_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "created_from_template": {
+      "gid": "12345",
+      "resource_type": "project_template",
+      "name": "Packing list"
+    },
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
+    "followers": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "icon": "chat_bubbles",
+    "owner": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
+    "team": {
+      "gid": "12345",
+      "resource_type": "team",
+      "name": "Marketing"
+    }
+  }
 }
 ```
 
@@ -11290,20 +11879,12 @@ Returns the updated project record.
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully removed the members from the project.|
+|200<span class="param-type"> [Project](#schemaproject)</span>|Successfully removed the members from the project.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="remove-users-from-a-project-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -11356,7 +11937,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.projects.addFollowersForProject(projectGid)
+Project result = client.projects.addFollowersForProject(projectGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -11386,7 +11967,200 @@ $result = $client->projects->addFollowersForProject($project_gid, array('field' 
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "project",
+    "archived": false,
+    "color": "light-green",
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "current_status": {
+      "gid": "12345",
+      "resource_type": "project_status",
+      "author": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "color": "green",
+      "created_at": "2012-02-22T02:06:58.147Z",
+      "created_by": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "html_text": "<body>The project <strong>is</strong> moving forward according to plan...</body>",
+      "modified_at": "2012-02-22T02:06:58.147Z",
+      "text": "The project is moving forward according to plan...",
+      "title": "Status Update - Jun 15"
+    },
+    "current_status_update": {
+      "gid": "12345",
+      "resource_type": "status_update",
+      "resource_subtype": "project_status_update",
+      "title": "Status Update - Jun 15"
+    },
+    "custom_field_settings": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field_setting",
+        "custom_field": {
+          "gid": "12345",
+          "resource_type": "custom_field",
+          "created_by": {
+            "gid": "12345",
+            "resource_type": "user",
+            "name": "Greg Sanchez"
+          },
+          "currency_code": "EUR",
+          "custom_label": "gold pieces",
+          "custom_label_position": "suffix",
+          "description": "Development team priority",
+          "display_value": "blue",
+          "enabled": true,
+          "enum_options": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "enum_value": {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          },
+          "format": "custom",
+          "has_notifications_enabled": true,
+          "is_global_to_workspace": true,
+          "multi_enum_values": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "name": "Status",
+          "number_value": 5.2,
+          "precision": 2,
+          "resource_subtype": "text",
+          "text_value": "Some Value",
+          "type": "text"
+        },
+        "is_important": false,
+        "parent": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        }
+      }
+    ],
+    "default_view": "calendar",
+    "due_date": "2019-09-15",
+    "due_on": "2019-09-15",
+    "html_notes": "<body>These are things we need to purchase.</body>",
+    "is_template": false,
+    "members": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "modified_at": "2012-02-22T02:06:58.147Z",
+    "name": "Stuff to buy",
+    "notes": "These are things we need to purchase.",
+    "public": false,
+    "start_on": "2019-09-14",
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    },
+    "completed": false,
+    "completed_at": "2012-02-22T02:06:58.147Z",
+    "completed_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "created_from_template": {
+      "gid": "12345",
+      "resource_type": "project_template",
+      "name": "Packing list"
+    },
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
+    "followers": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "icon": "chat_bubbles",
+    "owner": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
+    "team": {
+      "gid": "12345",
+      "resource_type": "team",
+      "name": "Marketing"
+    }
+  }
 }
 ```
 
@@ -11416,20 +12190,12 @@ Returns the updated project record.
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully added followers to the project.|
+|200<span class="param-type"> [Project](#schemaproject)</span>|Successfully added followers to the project.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="add-followers-to-a-project-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -11482,7 +12248,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.projects.removeFollowersForProject(projectGid)
+Project result = client.projects.removeFollowersForProject(projectGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -11512,7 +12278,200 @@ $result = $client->projects->removeFollowersForProject($project_gid, array('fiel
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "project",
+    "archived": false,
+    "color": "light-green",
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "current_status": {
+      "gid": "12345",
+      "resource_type": "project_status",
+      "author": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "color": "green",
+      "created_at": "2012-02-22T02:06:58.147Z",
+      "created_by": {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      },
+      "html_text": "<body>The project <strong>is</strong> moving forward according to plan...</body>",
+      "modified_at": "2012-02-22T02:06:58.147Z",
+      "text": "The project is moving forward according to plan...",
+      "title": "Status Update - Jun 15"
+    },
+    "current_status_update": {
+      "gid": "12345",
+      "resource_type": "status_update",
+      "resource_subtype": "project_status_update",
+      "title": "Status Update - Jun 15"
+    },
+    "custom_field_settings": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field_setting",
+        "custom_field": {
+          "gid": "12345",
+          "resource_type": "custom_field",
+          "created_by": {
+            "gid": "12345",
+            "resource_type": "user",
+            "name": "Greg Sanchez"
+          },
+          "currency_code": "EUR",
+          "custom_label": "gold pieces",
+          "custom_label_position": "suffix",
+          "description": "Development team priority",
+          "display_value": "blue",
+          "enabled": true,
+          "enum_options": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "enum_value": {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          },
+          "format": "custom",
+          "has_notifications_enabled": true,
+          "is_global_to_workspace": true,
+          "multi_enum_values": [
+            {
+              "gid": "12345",
+              "resource_type": "enum_option",
+              "color": "blue",
+              "enabled": true,
+              "name": "Low"
+            }
+          ],
+          "name": "Status",
+          "number_value": 5.2,
+          "precision": 2,
+          "resource_subtype": "text",
+          "text_value": "Some Value",
+          "type": "text"
+        },
+        "is_important": false,
+        "parent": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        }
+      }
+    ],
+    "default_view": "calendar",
+    "due_date": "2019-09-15",
+    "due_on": "2019-09-15",
+    "html_notes": "<body>These are things we need to purchase.</body>",
+    "is_template": false,
+    "members": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "modified_at": "2012-02-22T02:06:58.147Z",
+    "name": "Stuff to buy",
+    "notes": "These are things we need to purchase.",
+    "public": false,
+    "start_on": "2019-09-14",
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    },
+    "completed": false,
+    "completed_at": "2012-02-22T02:06:58.147Z",
+    "completed_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "created_from_template": {
+      "gid": "12345",
+      "resource_type": "project_template",
+      "name": "Packing list"
+    },
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
+    "followers": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "icon": "chat_bubbles",
+    "owner": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "project_brief": {
+      "gid": "12345",
+      "resource_type": "project_brief"
+    },
+    "team": {
+      "gid": "12345",
+      "resource_type": "team",
+      "name": "Marketing"
+    }
+  }
 }
 ```
 
@@ -11542,20 +12501,12 @@ Returns the updated project record.
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully removed followers from the project.|
+|200<span class="param-type"> [Project](#schemaproject)</span>|Successfully removed followers from the project.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="remove-followers-from-a-project-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -11657,7 +12608,8 @@ $result = $client->projects->projectSaveAsTemplate($project_gid, array('field' =
     "new_task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "resource_subtype": "duplicate_task",
     "status": "in_progress"
@@ -11834,7 +12786,7 @@ Get the full record for a project brief.
 |424<span class="param-type"> [Error](#schemaerror)</span>|You have exceeded one of the enforced rate limits in the API. See the [documentation on rate limiting](https://developers.asana.com/docs/#rate-limits) for more information.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
 |501<span class="param-type"> [Error](#schemaerror)</span>|There is an issue between the load balancers and Asana's API.|
-|503<span class="param-type"> [Error](#schemaerror)</span>|Either the upstream service is unavailable to the API, or he API has been intentionally shut off.|
+|503<span class="param-type"> [Error](#schemaerror)</span>|Either the upstream service is unavailable to the API, or the API has been intentionally shut off.|
 |504<span class="param-type"> [Error](#schemaerror)</span>|This request took too long to complete.|
 
 </section><hr class="half-line">
@@ -13457,7 +14409,8 @@ $result = $client->projecttemplates->instantiateProject($project_template_gid, a
     "new_task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "resource_subtype": "duplicate_task",
     "status": "in_progress"
@@ -15140,17 +16093,20 @@ $result = $client->stories->getStory($story_gid, array('param' => 'value', 'para
     "dependency": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "duplicate_of": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "duplicated_from": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "follower": {
       "gid": "12345",
@@ -15168,6 +16124,7 @@ $result = $client->stories->getStory($story_gid, array('param' => 'value', 'para
         }
       }
     ],
+    "is_editable": false,
     "is_edited": false,
     "liked": false,
     "likes": [
@@ -15280,14 +16237,18 @@ $result = $client->stories->getStory($story_gid, array('param' => 'value', 'para
       "name": "Stuff to buy"
     },
     "target": {
-      "gid": "1234",
-      "name": "Bug Task"
+      "gid": "12345",
+      "resource_type": "task",
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
-    }
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
+    },
+    "type": "comment"
   }
 }
 ```
@@ -15465,17 +16426,20 @@ $result = $client->stories->updateStory($story_gid, array('field' => 'value', 'f
     "dependency": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "duplicate_of": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "duplicated_from": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "follower": {
       "gid": "12345",
@@ -15493,6 +16457,7 @@ $result = $client->stories->updateStory($story_gid, array('field' => 'value', 'f
         }
       }
     ],
+    "is_editable": false,
     "is_edited": false,
     "liked": false,
     "likes": [
@@ -15605,14 +16570,18 @@ $result = $client->stories->updateStory($story_gid, array('field' => 'value', 'f
       "name": "Stuff to buy"
     },
     "target": {
-      "gid": "1234",
-      "name": "Bug Task"
+      "gid": "12345",
+      "resource_type": "task",
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
-    }
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
+    },
+    "type": "comment"
   }
 }
 ```
@@ -16036,17 +17005,20 @@ $result = $client->stories->createStoryForTask($task_gid, array('field' => 'valu
     "dependency": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "duplicate_of": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "duplicated_from": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "follower": {
       "gid": "12345",
@@ -16064,6 +17036,7 @@ $result = $client->stories->createStoryForTask($task_gid, array('field' => 'valu
         }
       }
     ],
+    "is_editable": false,
     "is_edited": false,
     "liked": false,
     "likes": [
@@ -16176,14 +17149,18 @@ $result = $client->stories->createStoryForTask($task_gid, array('field' => 'valu
       "name": "Stuff to buy"
     },
     "target": {
-      "gid": "1234",
-      "name": "Bug Task"
+      "gid": "12345",
+      "resource_type": "task",
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
-    }
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
+    },
+    "type": "comment"
   }
 }
 ```
@@ -17393,7 +18370,8 @@ $result = $client->tasks->getTasks(array('param' => 'value', 'param' => 'value')
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -17722,7 +18700,8 @@ $result = $client->tasks->createTask(array('field' => 'value', 'field' => 'value
     "parent": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
     "projects": [
@@ -18059,7 +19038,8 @@ $result = $client->tasks->getTask($task_gid, array('param' => 'value', 'param' =
     "parent": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
     "projects": [
@@ -18378,7 +19358,8 @@ $result = $client->tasks->updateTask($task_gid, array('field' => 'value', 'field
     "parent": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
     "projects": [
@@ -18716,7 +19697,8 @@ $result = $client->tasks->duplicateTask($task_gid, array('field' => 'value', 'fi
     "new_task": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "resource_subtype": "duplicate_task",
     "status": "in_progress"
@@ -18843,7 +19825,8 @@ $result = $client->tasks->getTasksForProject($project_gid, array('param' => 'val
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -18956,7 +19939,8 @@ $result = $client->tasks->getTasksForSection($section_gid, array('param' => 'val
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -19064,7 +20048,8 @@ $result = $client->tasks->getTasksForTag($tag_gid, array('param' => 'value', 'pa
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -19172,7 +20157,8 @@ $result = $client->tasks->getTasksForUserTaskList($user_task_list_gid, array('pa
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -19287,7 +20273,8 @@ $result = $client->tasks->getSubtasksForTask($task_gid, array('param' => 'value'
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -19589,7 +20576,8 @@ $result = $client->tasks->createSubtaskForTask($task_gid, array('field' => 'valu
     "parent": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
     "projects": [
@@ -19937,7 +20925,8 @@ $result = $client->tasks->setParentForTask($task_gid, array('field' => 'value', 
     "parent": {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     },
     "permalink_url": "https://app.asana.com/0/resource/123456789/list",
     "projects": [
@@ -20067,7 +21056,8 @@ $result = $client->tasks->getDependenciesForTask($task_gid, array('param' => 'va
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -20285,7 +21275,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-List<JsonElement> result = client.tasks.removeDependenciesForTask(taskGid)
+JsonElement result = client.tasks.removeDependenciesForTask(taskGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -20318,9 +21308,7 @@ $result = $client->tasks->removeDependenciesForTask($task_gid, array('field' => 
 
 ```json
 {
-  "data": [
-    {}
-  ]
+  "data": {}
 }
 ```
 
@@ -20363,7 +21351,7 @@ Status Code **200**
 
 |Name|Description|
 |---|---|
-| data<span class="param-type"> [[](#schemaemptyresponse)]</span>|[An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.]|
+| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -20436,7 +21424,8 @@ $result = $client->tasks->getDependentsForTask($task_gid, array('param' => 'valu
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -20525,7 +21514,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-List<Task> result = client.tasks.addDependentsForTask(taskGid)
+JsonElement result = client.tasks.addDependentsForTask(taskGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -20558,13 +21547,7 @@ $result = $client->tasks->addDependentsForTask($task_gid, array('field' => 'valu
 
 ```json
 {
-  "data": [
-    {
-      "gid": "12345",
-      "resource_type": "task",
-      "name": "Bug Task"
-    }
-  ]
+  "data": {}
 }
 ```
 
@@ -20593,13 +21576,21 @@ Marks a set of tasks as dependents of this task, if they are not already depende
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> [TaskCompact](#schemataskcompact)</span>|Successfully set the specified dependents on the given task.|
+|200<span class="param-type"> Inline</span>|Successfully set the specified dependents on the given task.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |402<span class="param-type"> [Error](#schemaerror)</span>|The request was valid, but the queried object or object mutation specified in the request is above your current premium level.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
+
+<h3 id="set-dependents-for-a-task-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Description|
+|---|---|
+| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -20652,7 +21643,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-List<JsonElement> result = client.tasks.removeDependentsForTask(taskGid)
+JsonElement result = client.tasks.removeDependentsForTask(taskGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -20685,9 +21676,7 @@ $result = $client->tasks->removeDependentsForTask($task_gid, array('field' => 'v
 
 ```json
 {
-  "data": [
-    {}
-  ]
+  "data": {}
 }
 ```
 
@@ -20730,7 +21719,7 @@ Status Code **200**
 
 |Name|Description|
 |---|---|
-| data<span class="param-type"> [[](#schemaemptyresponse)]</span>|[An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.]|
+| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -21305,7 +22294,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.tasks.addFollowersForTask(taskGid)
+Task result = client.tasks.addFollowersForTask(taskGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -21338,7 +22327,178 @@ $result = $client->tasks->addFollowersForTask($task_gid, array('field' => 'value
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "task",
+    "approval_status": "pending",
+    "assignee_status": "upcoming",
+    "completed": false,
+    "completed_at": "2012-02-22T02:06:58.147Z",
+    "completed_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "dependencies": [
+      {
+        "gid": "12345",
+        "resource_type": "task"
+      }
+    ],
+    "dependents": [
+      {
+        "gid": "12345",
+        "resource_type": "task"
+      }
+    ],
+    "due_at": "2019-09-15T02:06:58.147Z",
+    "due_on": "2019-09-15",
+    "external": {
+      "data": "A blob of information",
+      "gid": "my_gid"
+    },
+    "hearted": true,
+    "hearts": [
+      {
+        "gid": "12345",
+        "user": {
+          "gid": "12345",
+          "resource_type": "user",
+          "name": "Greg Sanchez"
+        }
+      }
+    ],
+    "html_notes": "<body>Mittens <em>really</em> likes the stuff from Humboldt.</body>",
+    "is_rendered_as_separator": false,
+    "liked": true,
+    "likes": [
+      {
+        "gid": "12345",
+        "user": {
+          "gid": "12345",
+          "resource_type": "user",
+          "name": "Greg Sanchez"
+        }
+      }
+    ],
+    "memberships": [
+      {
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "section": {
+          "gid": "12345",
+          "resource_type": "section",
+          "name": "Next Actions"
+        }
+      }
+    ],
+    "modified_at": "2012-02-22T02:06:58.147Z",
+    "name": "Buy catnip",
+    "notes": "Mittens really likes the stuff from Humboldt.",
+    "num_hearts": 5,
+    "num_likes": 5,
+    "num_subtasks": 3,
+    "resource_subtype": "default_task",
+    "start_at": "2019-09-14T02:06:58.147Z",
+    "start_on": "2019-09-14",
+    "assignee": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "assignee_section": {
+      "gid": "12345",
+      "resource_type": "section",
+      "name": "Next Actions"
+    },
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "created_by": {
+          "gid": "12345",
+          "resource_type": "user",
+          "name": "Greg Sanchez"
+        },
+        "currency_code": "EUR",
+        "custom_label": "gold pieces",
+        "custom_label_position": "suffix",
+        "description": "Development team priority",
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "format": "custom",
+        "has_notifications_enabled": true,
+        "is_global_to_workspace": true,
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "precision": 2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
+    "followers": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "parent": {
+      "gid": "12345",
+      "resource_type": "task",
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "projects": [
+      {
+        "gid": "12345",
+        "resource_type": "project",
+        "name": "Stuff to buy"
+      }
+    ],
+    "tags": [
+      {
+        "gid": "59746",
+        "name": "Grade A"
+      }
+    ],
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    }
+  }
 }
 ```
 
@@ -21369,20 +22529,12 @@ Requests to add/remove followers, if successful, will return the complete update
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully added the specified followers to the task.|
+|200<span class="param-type"> [Task](#schematask)</span>|Successfully added the specified followers to the task.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="add-followers-to-a-task-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -21435,7 +22587,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-JsonElement result = client.tasks.removeFollowerForTask(taskGid)
+Task result = client.tasks.removeFollowerForTask(taskGid)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -21468,7 +22620,178 @@ $result = $client->tasks->removeFollowerForTask($task_gid, array('field' => 'val
 
 ```json
 {
-  "data": {}
+  "data": {
+    "gid": "12345",
+    "resource_type": "task",
+    "approval_status": "pending",
+    "assignee_status": "upcoming",
+    "completed": false,
+    "completed_at": "2012-02-22T02:06:58.147Z",
+    "completed_by": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "created_at": "2012-02-22T02:06:58.147Z",
+    "dependencies": [
+      {
+        "gid": "12345",
+        "resource_type": "task"
+      }
+    ],
+    "dependents": [
+      {
+        "gid": "12345",
+        "resource_type": "task"
+      }
+    ],
+    "due_at": "2019-09-15T02:06:58.147Z",
+    "due_on": "2019-09-15",
+    "external": {
+      "data": "A blob of information",
+      "gid": "my_gid"
+    },
+    "hearted": true,
+    "hearts": [
+      {
+        "gid": "12345",
+        "user": {
+          "gid": "12345",
+          "resource_type": "user",
+          "name": "Greg Sanchez"
+        }
+      }
+    ],
+    "html_notes": "<body>Mittens <em>really</em> likes the stuff from Humboldt.</body>",
+    "is_rendered_as_separator": false,
+    "liked": true,
+    "likes": [
+      {
+        "gid": "12345",
+        "user": {
+          "gid": "12345",
+          "resource_type": "user",
+          "name": "Greg Sanchez"
+        }
+      }
+    ],
+    "memberships": [
+      {
+        "project": {
+          "gid": "12345",
+          "resource_type": "project",
+          "name": "Stuff to buy"
+        },
+        "section": {
+          "gid": "12345",
+          "resource_type": "section",
+          "name": "Next Actions"
+        }
+      }
+    ],
+    "modified_at": "2012-02-22T02:06:58.147Z",
+    "name": "Buy catnip",
+    "notes": "Mittens really likes the stuff from Humboldt.",
+    "num_hearts": 5,
+    "num_likes": 5,
+    "num_subtasks": 3,
+    "resource_subtype": "default_task",
+    "start_at": "2019-09-14T02:06:58.147Z",
+    "start_on": "2019-09-14",
+    "assignee": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    },
+    "assignee_section": {
+      "gid": "12345",
+      "resource_type": "section",
+      "name": "Next Actions"
+    },
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "created_by": {
+          "gid": "12345",
+          "resource_type": "user",
+          "name": "Greg Sanchez"
+        },
+        "currency_code": "EUR",
+        "custom_label": "gold pieces",
+        "custom_label_position": "suffix",
+        "description": "Development team priority",
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "format": "custom",
+        "has_notifications_enabled": true,
+        "is_global_to_workspace": true,
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "precision": 2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
+    "followers": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
+    "parent": {
+      "gid": "12345",
+      "resource_type": "task",
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "projects": [
+      {
+        "gid": "12345",
+        "resource_type": "project",
+        "name": "Stuff to buy"
+      }
+    ],
+    "tags": [
+      {
+        "gid": "59746",
+        "name": "Grade A"
+      }
+    ],
+    "workspace": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    }
+  }
 }
 ```
 
@@ -21497,20 +22820,12 @@ Removes each of the specified followers from the task if they are following. Ret
 
 |Status|Description|
 |---|---|
-|200<span class="param-type"> Inline</span>|Successfully removed the specified followers from the task.|
+|200<span class="param-type"> [Task](#schematask)</span>|Successfully removed the specified followers from the task.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
 |404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
 |500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
-
-<h3 id="remove-followers-from-a-task-responseschema">Response Schema</h3>
-
-Status Code **200**
-
-|Name|Description|
-|---|---|
-| data<span class="param-type"> [](#schemaemptyresponse)</span>|An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object.|
 
 </section><hr class="half-line">
 <section>
@@ -21583,7 +22898,8 @@ $result = $client->tasks->searchTasksForWorkspace($workspace_gid, array('param' 
     {
       "gid": "12345",
       "resource_type": "task",
-      "name": "Bug Task"
+      "name": "Bug Task",
+      "resource_subtype": "default_task"
     }
   ]
 }
@@ -21801,7 +23117,8 @@ $result = $client->teams->createTeam(array('field' => 'value', 'field' => 'value
     "description": "All developers should be members of this team.",
     "html_description": "<body><em>All</em> developers should be members of this team.</body>",
     "name": "Marketing",
-    "organization": "123456789"
+    "organization": "123456789",
+    "visibility": "secret"
   }
 }
 ```
@@ -21847,10 +23164,19 @@ Creates a team within the current workspace.
 |»» html_description<span class="param-type"> string</span>|The description of the team with formatting as HTML.|
 |»» name<span class="param-type"> string</span>|The name of the team.|
 |»» organization<span class="param-type"> string</span>|The organization/workspace the team belongs to.|
+|»» visibility<span class="param-type"> string</span>|The visibility of the team to users in the same organization|
 |?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
 |?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
 |?limit<span class="param-type"> integer</span>|Results per page.|
 |?offset<span class="param-type"> string</span>|Offset token.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+| visibility|secret|
+| visibility|request_to_join|
+| visibility|public|
 
 <h3 id="create-a-team-responses">Responses</h3>
 
@@ -26108,6 +27434,15 @@ An *attachment* object represents any file attached to a task in Asana, whether 
 |size<span class="param-type"> integer</span>|The size of the attachment in bytes. Only present when the `resource_subtype` is `asana`.|
 |view_url<span class="param-type"> string(uri)¦null</span>|The URL where the attachment can be viewed, which may be friendlier to users in a browser than just directing them to a raw file. May be null if no view URL exists for the service.|
 
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
+
 </section><hr>
 <section>
 <a id="schemaauditlogevent"></a>
@@ -26910,6 +28245,122 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Goal), b
 
 </section><hr>
 <section>
+<a id="schemagoalrelationshipcompact"></a>
+<a id="schema_GoalRelationshipCompact"></a>
+<a id="tocSgoalrelationshipcompact"></a>
+<a id="tocsgoalrelationshipcompact"></a>
+<a id="tocS_GoalRelationshipCompact"></a>
+<h2 id="goal-relationship-compact">GoalRelationshipCompact</h2>
+
+```json
+{
+  "gid": "12345",
+  "resource_type": "goal_relationship",
+  "contribution_weight": 1,
+  "resource_subtype": "subgoal",
+  "supporting_resource": {
+    "gid": "12345",
+    "resource_type": "project",
+    "name": "Stuff to buy"
+  }
+}
+
+```
+
+<span class="description">
+A `Compact` object is the same as the [full response object](/docs/tocS_GoalRelationship), but with less fields included by default. See
+[Input/Output Options](/docs/input-output-options) to include more fields.
+</span>
+
+### Properties
+
+|Name|Description|
+|---|---|
+|gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|contribution_weight<span class="param-type"> number</span>|The weight that the supporting resource's progress contributes to the supported goal's progress. This can only be 0 or 1.|
+|resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.|
+|supporting_resource<span class="param-type"> object</span>|The supporting resource that supports the goal. This can be either a project, portfolio, or goal.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|Name of the project. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer.|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|resource_subtype|subgoal|
+|resource_subtype|supporting_work|
+
+</section><hr>
+<section>
+<a id="schemagoalrelationship"></a>
+<a id="schema_GoalRelationship"></a>
+<a id="tocSgoalrelationship"></a>
+<a id="tocsgoalrelationship"></a>
+<a id="tocS_GoalRelationship"></a>
+<h2 id="goal-relationship">GoalRelationship</h2>
+
+```json
+{
+  "gid": "12345",
+  "resource_type": "goal_relationship",
+  "contribution_weight": 1,
+  "resource_subtype": "subgoal",
+  "supported_goal": {
+    "gid": "12345",
+    "resource_type": "goal",
+    "name": "Grow web traffic by 30%",
+    "owner": {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    }
+  },
+  "supporting_resource": {
+    "gid": "12345",
+    "resource_type": "project",
+    "name": "Stuff to buy"
+  }
+}
+
+```
+
+<span class="description">
+A *goal relationship* is an object representing the relationship between a goal and another goal, a project, or a portfolio.
+
+</span>
+
+### Properties
+
+|Name|Description|
+|---|---|
+|gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|contribution_weight<span class="param-type"> number</span>|The weight that the supporting resource's progress contributes to the supported goal's progress. This can only be 0 or 1.|
+|resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.|
+|supported_goal<span class="param-type"> object</span>|The goal that the supporting resource supports.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|The name of the goal.|
+|» owner<span class="param-type"> object¦null</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
+|»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|»» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
+|supporting_resource<span class="param-type"> object</span>|The supporting resource that supports the goal. This can be either a project, portfolio, or goal.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|Name of the project. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer.|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|resource_subtype|subgoal|
+|resource_subtype|supporting_work|
+
+</section><hr>
+<section>
 <a id="schemagoal"></a>
 <a id="schema_Goal"></a>
 <a id="tocSgoal"></a>
@@ -26960,6 +28411,7 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Goal), b
     "current_number_value": 8.12,
     "initial_number_value": 5.2,
     "precision": 2,
+    "progress_source": "manual",
     "resource_subtype": "number",
     "target_number_value": 10.2,
     "unit": "none"
@@ -27034,6 +28486,7 @@ A generic Asana Resource, containing a globally unique identifier.
 |» current_number_value<span class="param-type"> number</span>|This number is the current value of a goal metric of type number.|
 |» initial_number_value<span class="param-type"> number</span>|This number is the start value of a goal metric of type number.|
 |» precision<span class="param-type"> integer</span>|*Conditional*. Only relevant for goal metrics of type ‘Number’. This field dictates the number of places after the decimal to round to, i.e. 0 is integer values, 1 rounds to the nearest tenth, and so on. Must be between 0 and 6, inclusive.<br>For percentage format, this may be unintuitive, as a value of 0.25 has a precision of 0, while a value of 0.251 has a precision of 1. This is due to 0.25 being displayed as 25%.|
+|» progress_source<span class="param-type"> string</span>|This field defines how the progress value of a goal metric is being calculated. A goal's progress can be provided manually by the user, or calculated automatically from contributing subgoals or projects.|
 |» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.|
 |» target_number_value<span class="param-type"> number</span>|This number is the end value of a goal metric of type number. This number cannot equal `initial_number_value`.|
 |» unit<span class="param-type"> string</span>|A supported unit of measure for the goal metric, or none.|
@@ -27065,6 +28518,10 @@ A generic Asana Resource, containing a globally unique identifier.
 |resource_subtype|project_status_update|
 |resource_subtype|portfolio_status_update|
 |resource_subtype|goal_status_update|
+|progress_source|manual|
+|progress_source|subgoal_progress|
+|progress_source|project_task_completion|
+|progress_source|project_milestone_completion|
 |resource_subtype|number|
 |unit|none|
 |unit|currency|
@@ -27103,7 +28560,8 @@ A generic Asana Resource, containing a globally unique identifier.
   "new_task": {
     "gid": "12345",
     "resource_type": "task",
-    "name": "Bug Task"
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
   },
   "resource_subtype": "duplicate_task",
   "status": "in_progress"
@@ -27134,6 +28592,7 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Job), bu
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
 |resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.|
 |status<span class="param-type"> string</span>|The current status of this job. The value is one of: `not_started`, `in_progress`, `succeeded`, or `failed`.|
 
@@ -27141,6 +28600,10 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Job), bu
 
 |Property|Value|
 |---|---|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
 |status|not_started|
 |status|in_progress|
 |status|succeeded|
@@ -27172,7 +28635,8 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Job), bu
   "new_task": {
     "gid": "12345",
     "resource_type": "task",
-    "name": "Bug Task"
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
   },
   "resource_subtype": "duplicate_task",
   "status": "in_progress"
@@ -27203,6 +28667,7 @@ A *job* is an object representing a process that handles asynchronous work.
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
 |resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.|
 |status<span class="param-type"> string</span>|The current status of this job. The value is one of: `not_started`, `in_progress`, `succeeded`, or `failed`.|
 
@@ -27210,6 +28675,10 @@ A *job* is an object representing a process that handles asynchronous work.
 
 |Property|Value|
 |---|---|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
 |status|not_started|
 |status|in_progress|
 |status|succeeded|
@@ -27390,7 +28859,7 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Portfoli
 |---|---|
 |gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
-|portfolio<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.<br>Portfolios have some restrictions on size. Each portfolio has a max of 250 items and, like projects, a max of 20 custom fields.|
+|portfolio<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.<br>Portfolios have some restrictions on size. Each portfolio has a max of 500 items and, like projects, a max of 20 custom fields.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the portfolio.|
@@ -27437,7 +28906,7 @@ This object determines if a user is a member of a portfolio.
 |---|---|
 |gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
-|portfolio<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.<br>Portfolios have some restrictions on size. Each portfolio has a max of 250 items and, like projects, a max of 20 custom fields.|
+|portfolio<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.<br>Portfolios have some restrictions on size. Each portfolio has a max of 500 items and, like projects, a max of 20 custom fields.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the portfolio.|
@@ -27566,7 +29035,7 @@ This object determines if a user is a member of a portfolio.
 
 <span class="description">
 A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.
-Portfolios have some restrictions on size. Each portfolio has a max of 250 items and, like projects, a max of 20 custom fields.
+Portfolios have some restrictions on size. Each portfolio has a max of 500 items and, like projects, a max of 20 custom fields.
 
 </span>
 
@@ -28092,6 +29561,10 @@ With the introduction of “comment-only” projects in Asana, a user’s member
     "name": "Greg Sanchez"
   },
   "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+  "project_brief": {
+    "gid": "12345",
+    "resource_type": "project_brief"
+  },
   "team": {
     "gid": "12345",
     "resource_type": "team",
@@ -28255,6 +29728,9 @@ A *project* represents a prioritized list of tasks in Asana or a board with colu
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
 |permalink_url<span class="param-type"> string</span>|A url that points directly to the object within Asana.|
+|project_brief<span class="param-type"> object¦null</span>|[Opt In](/docs/input-output-options). The project brief associated with this project.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |team<span class="param-type"> object</span>|The team that this project is shared with.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
@@ -28935,17 +30411,20 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Story), 
   "dependency": {
     "gid": "12345",
     "resource_type": "task",
-    "name": "Bug Task"
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
   },
   "duplicate_of": {
     "gid": "12345",
     "resource_type": "task",
-    "name": "Bug Task"
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
   },
   "duplicated_from": {
     "gid": "12345",
     "resource_type": "task",
-    "name": "Bug Task"
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
   },
   "follower": {
     "gid": "12345",
@@ -28963,6 +30442,7 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Story), 
       }
     }
   ],
+  "is_editable": false,
   "is_edited": false,
   "liked": false,
   "likes": [
@@ -29075,14 +30555,18 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Story), 
     "name": "Stuff to buy"
   },
   "target": {
-    "gid": "1234",
-    "name": "Bug Task"
+    "gid": "12345",
+    "resource_type": "task",
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
   },
   "task": {
     "gid": "12345",
     "resource_type": "task",
-    "name": "Bug Task"
-  }
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
+  },
+  "type": "comment"
 }
 
 ```
@@ -29144,14 +30628,17 @@ A story represents an activity associated with an object in the Asana system.
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
 |duplicate_of<span class="param-type"> object</span>|The *task* is the basic object around which many operations in Asana are centered.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
 |duplicated_from<span class="param-type"> object</span>|The *task* is the basic object around which many operations in Asana are centered.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
 |follower<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
@@ -29163,6 +30650,7 @@ A story represents an activity associated with an object in the Asana system.
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |»» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
+|is_editable<span class="param-type"> boolean</span>|*Conditional*. Whether the text of the story can be edited after creation.|
 |is_edited<span class="param-type"> boolean</span>|*Conditional*. Whether the text of the story has been edited after creation.|
 |liked<span class="param-type"> boolean</span>|*Conditional*. True if the story is liked by the authorized user, false if not.|
 |likes<span class="param-type"> [object]</span>|*Conditional*. Array of likes for users who have liked this story.|
@@ -29252,12 +30740,16 @@ A story represents an activity associated with an object in the Asana system.
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|Name of the tag. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer.|
 |target<span class="param-type"> object</span>|The object this story is associated with. Currently may only be a task.|
-|» gid<span class="param-type"> string</span>|none|
-|» name<span class="param-type"> string</span>|none|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
 |task<span class="param-type"> object</span>|The *task* is the basic object around which many operations in Asana are centered.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
+|type<span class="param-type"> string</span>|none|
 
 #### Enumerated Values
 
@@ -29283,11 +30775,33 @@ A story represents an activity associated with an object in the Asana system.
 |type|enum|
 |type|multi_enum|
 |type|number|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
 |source|web|
 |source|email|
 |source|mobile|
 |source|api|
 |source|unknown|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
+|type|comment|
+|type|system|
 
 </section><hr>
 <section>
@@ -29415,7 +30929,8 @@ A *tag* is a label that can be attached to any task in Asana. It exists in a sin
 {
   "gid": "12345",
   "resource_type": "task",
-  "name": "Bug Task"
+  "name": "Bug Task",
+  "resource_subtype": "default_task"
 }
 
 ```
@@ -29432,6 +30947,16 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Task), b
 |gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |name<span class="param-type"> string</span>|The name of the task.|
+|resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
 
 </section><hr>
 <section>
@@ -29629,7 +31154,8 @@ A response object returned from the task count endpoint.
   "parent": {
     "gid": "12345",
     "resource_type": "task",
-    "name": "Bug Task"
+    "name": "Bug Task",
+    "resource_subtype": "default_task"
   },
   "permalink_url": "https://app.asana.com/0/resource/123456789/list",
   "projects": [
@@ -29775,6 +31301,7 @@ The *task* is the basic object around which many operations in Asana are centere
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|The name of the task.|
+|» resource_subtype<span class="param-type"> string</span>|The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning.<br>The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date.|
 |permalink_url<span class="param-type"> string</span>|A url that points directly to the object within Asana.|
 |projects<span class="param-type"> [object]</span>|*Create-only.* Array of projects this task is associated with. At task creation time, this array can be used to add the task to many projects at once. After task creation, these associations can be modified using the addProject and removeProject endpoints.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
@@ -29821,6 +31348,10 @@ The *task* is the basic object around which many operations in Asana are centere
 |type|enum|
 |type|multi_enum|
 |type|number|
+|resource_subtype|default_task|
+|resource_subtype|milestone|
+|resource_subtype|section|
+|resource_subtype|approval|
 
 </section><hr>
 <section>
