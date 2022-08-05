@@ -12182,6 +12182,43 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update a team
+      description: |-
+        Updates a team within the current workspace.
+      tags:
+        - Teams
+      operationId: updateTeam
+      requestBody:
+        description: The team to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TeamRequest'
+      responses:
+        200:
+          description: Successfully updated the team.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /teams/{team_gid}:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'

@@ -23034,7 +23034,7 @@ Searching for multiple exact matches of a custom field is not supported.
 <h1 id="teams">Teams</h1>
 
 <pre class="highlight http tab-http">
-<code><a href="/docs/create-a-team"><span class="post-verb">POST</span> <span class=""nn>/teams</span></a><br><a href="/docs/get-a-team"><span class="get-verb">GET</span> <span class=""nn>/teams/{team_gid}</span></a><br><a href="/docs/get-teams-in-a-workspace"><span class="get-verb">GET</span> <span class=""nn>/workspaces/{workspace_gid}/teams</span></a><br><a href="/docs/get-teams-for-a-user"><span class="get-verb">GET</span> <span class=""nn>/users/{user_gid}/teams</span></a><br><a href="/docs/add-a-user-to-a-team"><span class="post-verb">POST</span> <span class=""nn>/teams/{team_gid}/addUser</span></a><br><a href="/docs/remove-a-user-from-a-team"><span class="post-verb">POST</span> <span class=""nn>/teams/{team_gid}/removeUser</span></a></code>
+<code><a href="/docs/create-a-team"><span class="post-verb">POST</span> <span class=""nn>/teams</span></a><br><a href="/docs/update-a-team"><span class="put-verb">PUT</span> <span class=""nn>/teams</span></a><br><a href="/docs/get-a-team"><span class="get-verb">GET</span> <span class=""nn>/teams/{team_gid}</span></a><br><a href="/docs/get-teams-in-a-workspace"><span class="get-verb">GET</span> <span class=""nn>/workspaces/{workspace_gid}/teams</span></a><br><a href="/docs/get-teams-for-a-user"><span class="get-verb">GET</span> <span class=""nn>/users/{user_gid}/teams</span></a><br><a href="/docs/add-a-user-to-a-team"><span class="post-verb">POST</span> <span class=""nn>/teams/{team_gid}/addUser</span></a><br><a href="/docs/remove-a-user-from-a-team"><span class="post-verb">POST</span> <span class=""nn>/teams/{team_gid}/removeUser</span></a></code>
 </pre>
 
 <span class="description">
@@ -23183,6 +23183,153 @@ Creates a team within the current workspace.
 |Status|Description|
 |---|---|
 |201<span class="param-type"> [Team](#schemateam)</span>|Successfully created a new team.|
+|400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
+|401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
+|403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
+|404<span class="param-type"> [Error](#schemaerror)</span>|Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.|
+|500<span class="param-type"> [Error](#schemaerror)</span>|There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.|
+
+</section><hr class="half-line">
+<section>
+## Update a team
+
+<a id="opIdupdateTeam"></a>
+
+> Code samples
+
+```shell
+curl -X PUT https://app.asana.com/api/1.0/teams \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}' \
+  -d '{"data": {"field":"value","field":"value"} }'
+
+```
+
+```javascript--nodejs
+const asana = require('asana');
+
+const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+client.teams.updateTeam({field: "value", field: "value", pretty: true})
+    .then((result) => {
+        console.log(result);
+    });
+```
+
+```python
+import asana
+
+client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+result = client.teams.update_team({'field': 'value', 'field': 'value'}, opt_pretty=True)
+```
+
+```ruby
+require 'asana'
+
+client = Asana::Client.new do |c|
+    c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+end
+
+result = client.teams.update_team(field: "value", field: "value", options: {pretty: true})
+```
+
+```java
+import com.asana.Client;
+
+Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+Team result = client.teams.updateTeam()
+    .data("field", "value")
+    .data("field", "value")
+    .option("pretty", true)
+    .execute();
+```
+
+```php
+<?php
+require 'php-asana/vendor/autoload.php';
+
+$client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+$result = $client->teams->updateTeam(array('field' => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
+```
+
+> Body parameter
+
+```json
+{
+  "data": {
+    "description": "All developers should be members of this team.",
+    "html_description": "<body><em>All</em> developers should be members of this team.</body>",
+    "name": "Marketing",
+    "organization": "123456789",
+    "visibility": "secret"
+  }
+}
+```
+
+> 200 Response
+
+```json
+{
+  "data": {
+    "gid": "12345",
+    "resource_type": "team",
+    "name": "Marketing",
+    "description": "All developers should be members of this team.",
+    "html_description": "<body><em>All</em> developers should be members of this team.</body>",
+    "organization": {
+      "gid": "12345",
+      "resource_type": "workspace",
+      "name": "My Company Workspace"
+    },
+    "permalink_url": "https://app.asana.com/0/resource/123456789/list",
+    "visibility": "secret"
+  }
+}
+```
+
+> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
+
+<p>
+<code> <span class="put-verb">PUT</span> /teams</code>
+</p>
+
+<span class="description">
+Updates a team within the current workspace.
+</span>
+
+<h3 id="update-a-team-parameters">Parameters</h3>
+
+|Name|Description|
+|---|---|
+|body<span class="param-type"> object</span><div class="param-required">required</div>|The team to update.|
+|» data<span class="param-type"> object</span>|A *team* is used to group related projects and people together within an organization. Each project in an organization is associated with a team.|
+|»» description<span class="param-type"> string</span>|The description of the team.|
+|»» html_description<span class="param-type"> string</span>|The description of the team with formatting as HTML.|
+|»» name<span class="param-type"> string</span>|The name of the team.|
+|»» organization<span class="param-type"> string</span>|The organization/workspace the team belongs to.|
+|»» visibility<span class="param-type"> string</span>|The visibility of the team to users in the same organization|
+|?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
+|?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
+|?limit<span class="param-type"> integer</span>|Results per page.|
+|?offset<span class="param-type"> string</span>|Offset token.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+| visibility|secret|
+| visibility|request_to_join|
+| visibility|public|
+
+<h3 id="update-a-team-responses">Responses</h3>
+
+|Status|Description|
+|---|---|
+|200<span class="param-type"> [Team](#schemateam)</span>|Successfully updated the team.|
 |400<span class="param-type"> [Error](#schemaerror)</span>|This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.|
 |401<span class="param-type"> [Error](#schemaerror)</span>|A valid authentication token was not provided with the request, so the API could not associate a user with the request.|
 |403<span class="param-type"> [Error](#schemaerror)</span>|The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.|
