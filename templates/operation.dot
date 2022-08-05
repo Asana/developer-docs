@@ -24,9 +24,12 @@
 {{ data.utils.getParameters(data); }}
 
 {{? data.options.codeSamples || data.operation["x-code-samples"] }}
+{{? data.options.platform_ui}}
+{{??}}
 > Code samples
 
 {{= data.utils.getCodeSamples(data) }}
+{{?}}
 {{?}}
 
 {{? data.operation.requestBody}}
