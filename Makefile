@@ -6,7 +6,7 @@ DIR_BUILD_SWAGGER_CODEGEN := build-swagger_codegen/
 
 CMD_GIT_CLONE := git clone --quiet
 CMD_NPM_INSTALL := npm install --no-progress
-CMD_SWAGGER_CLI := build-swagger_codegen_cli.jar
+CMD_SWAGGER_CLI := swagger-codegen-cli.jar
 
 FILE_CODEZ_API_OAS := $(realpath $(OPENAPI_DIR)/dist/public_asana_oas.yaml)
 FILE_CODEZ_APP_COMPONENTS_OAS := $(realpath $(OPENAPI_DIR)/app_components_oas.yaml)
@@ -23,31 +23,20 @@ ALL_SAMPLES := $(subst client_libs,client_libs_with_samples,$(ALL_CLIENT_LIBS)) 
 .PHONY: clean clean_client_libs all;
 
 clean: clean_client_libs
-	-rm -rf build* vendor node_modules
+	-rm -rf build*
 
 clean_client_libs:
 	-rm -rf build-client_libs*
 
 all: \
-  $(FILE_SOURCE_API_REFERENCE) \
-  $(FILE_SOURCE_UI_HOOKS_REFERENCE) \
-  $(FILE_SOURCE_CHANGELOG) \
-  vendor \
-  node_modules \
-  ;
+	$(FILE_SOURCE_API_REFERENCE) \
+	$(FILE_SOURCE_UI_HOOKS_REFERENCE) \
+	$(FILE_SOURCE_CHANGELOG) \
+	;
 
 .DEFAULT_GOAL := all
 
-$(DIR_SWAGGER_CODEGEN):
-
-$(CMD_SWAGGER_CLI):
-	rm -rf '$(DIR_BUILD_SWAGGER_CODEGEN)'
-	mkdir -p '$(DIR_BUILD_SWAGGER_CODEGEN)'
-	$(CMD_GIT_CLONE) git@github.com:swagger-api/swagger-codegen.git '$(DIR_BUILD_SWAGGER_CODEGEN)'
-	git -C '$(DIR_BUILD_SWAGGER_CODEGEN)' checkout '$(VERSION_SWAGGER_CODEGEN)'
-	mvn -f '$(DIR_BUILD_SWAGGER_CODEGEN)/pom.xml' clean package
-	mv '$(DIR_BUILD_SWAGGER_CODEGEN)/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar' \
-		'$@'
+$(CMD_SWAGGER_CLI): ;
 
 build-widdershins/:
 	rm -rf '$@'

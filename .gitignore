@@ -38,3 +38,5 @@ node_modules/
 
 # build process
 build*
+.m2
+swagger-codegen-cli.jar
