@@ -8,10 +8,10 @@ const markdownFiles = [
 ];
 
 const clientLibraryInfo = [
-  {
-    lang: "ruby",
-    docs: "build-client_libs_with_samples/ruby/samples",
-  },
+  // {
+  //   lang: "ruby",
+  //   docs: "build-client_libs_with_samples/ruby/samples",
+  // },
   {
     lang: "javascript",
     docs: "build-client_libs_with_samples/javascript/samples",
