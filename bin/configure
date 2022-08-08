@@ -79,7 +79,10 @@ install_swagger_parser() (
   pushd "$dir"
   git checkout rossgrambo-2.0.17-with-data-wrapper
   mvn --quiet clean package \
-    "-Dmaven.repo.local=$mvn_repo"
+    "-Dmaven.repo.local=$mvn_repo" \
+    org.apache.maven.plugins:maven-install-plugin:2.5.2:install-file \
+    -Dfile=modules/swagger-parser-v3/target/swagger-parser-v3-2.0.17.jar \
+    -DpomFile=modules/swagger-parser-v3/pom.xml
 )
 
 install_swagger_codegen_generators() (
