@@ -69,8 +69,7 @@ build-client_libs_with_samples/%/: build-client_libs/%/ $(CMD_SWAGGER_CLI) | bui
 		java -jar '$(realpath $(CMD_SWAGGER_CLI))' \
 		generate \
 		--input-spec '$(realpath defs/asana_oas.yaml)' \
-		--template-dir 'swagger_templates' \
-		--lang 'asana-$(shell basename '$@')' \
+		--lang '$(shell basename '$@')' \
 		--config 'swagger_templates/$(shell basename '$@')-config.json' \
 		-Dapis
 
