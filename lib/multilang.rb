@@ -14,7 +14,7 @@ module Multilang
       super(code, rouge_lang_name).sub("highlight #{rouge_lang_name}") do |match|
         extra = ''
         tab_class_lang = tab_class + full_lang_name
-        if tab_class_lang == ' tab-javascript--nodejs' || tab_class_lang == ' tab-ruby' || tab_class_lang == ' tab-java' || tab_class_lang == ' tab-python' || tab_class_lang == ' tab-php'
+        if tab_class_lang == ' tab-javascript' || tab_class_lang == ' tab-ruby' || tab_class_lang == ' tab-java' || tab_class_lang == ' tab-python' || tab_class_lang == ' tab-php'
           extra = '" style="display:none'
         end
         match + tab_class_lang + extra

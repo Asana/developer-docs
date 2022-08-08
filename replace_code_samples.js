@@ -13,12 +13,8 @@ const clientLibraryInfo = [
     docs: "build-client_libs_with_samples/ruby/samples",
   },
   {
-    lang: "javascript--nodejs",
-    docs: "build-client_libs_with_samples/node/samples",
-  },
-  {
     lang: "javascript",
-    docs: "build-client_libs_with_samples/node/samples",
+    docs: "build-client_libs_with_samples/javascript/samples",
   },
   {
     lang: "php",

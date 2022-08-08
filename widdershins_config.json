@@ -1,9 +1,24 @@
 {
   "search": true,
-  "language_tabs":  [
-    { "shell": "Shell" }, { "javascript--nodejs": "Node.JS" },
-    { "python": "Python" }, { "ruby": "Ruby" }, { "java":  "Java" },
-    { "php": "PHP" }
+  "language_tabs": [
+    {
+      "shell": "Shell"
+    },
+    {
+      "javascript": "JavaScript"
+    },
+    {
+      "python": "Python"
+    },
+    {
+      "ruby": "Ruby"
+    },
+    {
+      "java": "Java"
+    },
+    {
+      "php": "PHP"
+    }
   ],
   "omitHeader": true,
   "includes": "markdown/*",

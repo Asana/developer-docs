@@ -2,7 +2,7 @@
 title: Asana
 language_tabs:
   - shell: ' curl'
-  - javascript--nodejs: ' node'
+  - javascript: ' javascript'
   - python: ' python'
   - java: ' java'
   - php: ' php'

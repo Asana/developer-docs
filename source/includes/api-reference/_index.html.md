@@ -47,7 +47,7 @@ curl -X GET https://app.asana.com/api/1.0/attachments/{attachment_gid} \
 
 ```
 
-```javascript--nodejs
+```javascript
 const asana = require('asana');
 
 const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
