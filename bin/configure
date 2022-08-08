@@ -1,5 +1,9 @@
 #! /bin/bash -e
 
+start_fresh() (
+  make clean
+)
+
 install_home_brew_deps() (
   homebrew_deps=(
     asdf
@@ -103,6 +107,7 @@ install_swagger_codegen_cli() (
 )
 
 to_run=(
+  start_fresh
   install_home_brew_deps
   install_asdf_plugins
   update_asdf_ruby_gems
@@ -111,6 +116,7 @@ to_run=(
   install_swagger_parser
   install_swagger_codegen_generators
   install_swagger_codegen_cli
+  make
 )
 
 if [[ "$#" -gt 0 ]]; then
@@ -118,7 +124,12 @@ if [[ "$#" -gt 0 ]]; then
 fi
 
 for arg in "${to_run[@]}"; do
+  echo
+  echo "***"
+  echo "*** Running '$arg'"
   $arg
+  echo "***"
+  echo
 done
 
 source "$(brew --prefix asdf)/libexec/asdf.sh"

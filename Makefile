@@ -113,11 +113,3 @@ $(FILE_SOURCE_API_REFERENCE): defs/asana_oas.yaml widdershins_config.json $(ALL_
 $(FILE_SOURCE_CHANGELOG): pull_forum_updates.js
 	$(CMD_NPM_INSTALL)
 	node pull_forum_updates.js
-
-define library_pr
-	cd ../client_libraries/$(1)-asana && git checkout master && git branch -D openapi-sync; git push origin --delete openapi-sync; git checkout -b openapi-sync && cd ../../developer-docs && $(MAKE) $(1)_gen && $(MAKE) $(1)_version_bump && cd ../client_libraries/$(1)-asana && git add . && git commit -m "Generated from OpenAPI"; git push --set-upstream origin openapi-sync && open https://github.com/Asana/$(1)-asana/compare/openapi-sync
-endef
-
-api_explorer_pr:
-	cd ../client_libraries/api-explorer && git checkout master && git branch -D openapi-sync; git push origin --delete openapi-sync; git checkout -b openapi-sync && cd ../../developer-docs && $(MAKE) api_explorer_gen && cd ../client_libraries/api-explorer && git add . && git commit -m "Generated from OpenAPI"; git push --set-upstream origin openapi-sync && open https://github.com/Asana/api-explorer/compare/openapi-sync
-
