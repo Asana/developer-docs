@@ -1,0 +1,12 @@
+#! /bin/bash -e
+
+make --jobs 8
+
+run_middleman() {
+  if ! bundle exec middleman serve --watcher-force-polling; then
+    echo "failed to run middleman" >&2
+    exit 1
+  fi
+}
+
+run_middleman
