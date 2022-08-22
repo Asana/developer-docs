@@ -39,7 +39,6 @@ install_asdf_plugins() (
 
   asdf_plugins=(
     ruby
-    python
     nodejs
   )
 
@@ -53,8 +52,10 @@ update_asdf_ruby_gems() (
 )
 
 install_codez_python_deps() (
+  # necessary because of https://github.com/pallets/markupsafe/issues/57#issuecomment-597105876
+  python3.9 -m pip install --upgrade pip setuptools wheel
   pushd "$OPENAPI_DIR"
-  python -m pip install -r requirements.txt
+  python3.9 -m pip install -r requirements.txt
 )
 
 mvn_repo="$(realpath .)/.m2"
