@@ -1,4 +1,12 @@
 
+# preamable as per https://tech.davis-hansson.com/p/make/, minus RECIPEPREFIX
+SHELL := bash
+#.ONESHELL:
+.SHELLFLAGS := -eu -o pipefail -c
+.DELETE_ON_ERROR:
+MAKEFLAGS += --warn-undefined-variables
+MAKEFLAGS += --no-builtin-rules
+
 VERSION_ROSSGRAMBO := 1.0.15
 VERSION_SWAGGER_CODEGEN := v3.0.15
 
