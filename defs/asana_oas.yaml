@@ -2998,6 +2998,7 @@ components:
         - type: object
           properties:
             members:
+              readOnly: true
               type: array
               description: >-
                 An array of strings identifying users. These can either be the

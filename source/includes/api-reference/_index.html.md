@@ -5974,10 +5974,6 @@ $result = $client->portfolios->createPortfolio(array('field' => 'value', 'field'
 {
   "data": {
     "color": "light-green",
-    "members": [
-      "52164",
-      "15363"
-    ],
     "name": "Bug Portfolio",
     "public": false,
     "workspace": "167589"
@@ -6124,7 +6120,6 @@ integrations to create their own starting state on a portfolio.
 |body<span class="param-type"> object</span><div class="param-required">required</div>|The portfolio to create.|
 |» data<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.|
 |»» color<span class="param-type"> string</span>|Color of the portfolio.|
-|»» members<span class="param-type"> [string]</span>|An array of strings identifying users. These can either be the string "me", an email, or the gid of a user.|
 |»» name<span class="param-type"> string</span>|The name of the portfolio.|
 |»» public<span class="param-type"> boolean</span>|True if the portfolio is public to its workspace members.|
 |»» workspace<span class="param-type"> string</span>|Gid of an object.|
@@ -6446,10 +6441,6 @@ $result = $client->portfolios->updatePortfolio($portfolio_gid, array('field' => 
 {
   "data": {
     "color": "light-green",
-    "members": [
-      "52164",
-      "15363"
-    ],
     "name": "Bug Portfolio",
     "public": false,
     "workspace": "167589"
@@ -6594,7 +6585,6 @@ Returns the complete updated portfolio record.
 |body<span class="param-type"> object</span><div class="param-required">required</div>|The updated fields for the portfolio.|
 |» data<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.|
 |»» color<span class="param-type"> string</span>|Color of the portfolio.|
-|»» members<span class="param-type"> [string]</span>|An array of strings identifying users. These can either be the string "me", an email, or the gid of a user.|
 |»» name<span class="param-type"> string</span>|The name of the portfolio.|
 |»» public<span class="param-type"> boolean</span>|True if the portfolio is public to its workspace members.|
 |»» workspace<span class="param-type"> string</span>|Gid of an object.|
