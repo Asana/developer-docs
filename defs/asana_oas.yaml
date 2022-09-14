@@ -2998,6 +2998,7 @@ components:
         - type: object
           properties:
             members:
+              readOnly: true
               type: array
               description: >-
                 An array of strings identifying users. These can either be the
@@ -3050,6 +3051,11 @@ components:
               format: date-time
               nullable: true
               example: '2019-09-15'
+            custom_fields:
+              description: Array of Custom Fields.
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldCompact'
             members:
               type: array
               readOnly: true
@@ -5368,7 +5374,8 @@ components:
             organization:
               type: string
               description: >
-                The organization/workspace the team belongs to.
+                The organization/workspace the team belongs to. This must be the same
+                organization you are in and cannot be changed once set.
               example: '123456789'
             visibility:
               description: >

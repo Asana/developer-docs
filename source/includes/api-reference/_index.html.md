@@ -5974,10 +5974,6 @@ $result = $client->portfolios->createPortfolio(array('field' => 'value', 'field'
 {
   "data": {
     "color": "light-green",
-    "members": [
-      "52164",
-      "15363"
-    ],
     "name": "Bug Portfolio",
     "public": false,
     "workspace": "167589"
@@ -6076,6 +6072,48 @@ $result = $client->portfolios->createPortfolio(array('field' => 'value', 'field'
         }
       }
     ],
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "date_value": {
+          "date": "2024-08-23",
+          "date_time": "2024-08-23T22:00:00.000Z"
+        },
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
     "due_on": "2019-09-15",
     "members": [
       {
@@ -6124,7 +6162,6 @@ integrations to create their own starting state on a portfolio.
 |body<span class="param-type"> object</span><div class="param-required">required</div>|The portfolio to create.|
 |» data<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.|
 |»» color<span class="param-type"> string</span>|Color of the portfolio.|
-|»» members<span class="param-type"> [string]</span>|An array of strings identifying users. These can either be the string "me", an email, or the gid of a user.|
 |»» name<span class="param-type"> string</span>|The name of the portfolio.|
 |»» public<span class="param-type"> boolean</span>|True if the portfolio is public to its workspace members.|
 |»» workspace<span class="param-type"> string</span>|Gid of an object.|
@@ -6319,6 +6356,48 @@ $result = $client->portfolios->getPortfolio($portfolio_gid, array('param' => 'va
         }
       }
     ],
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "date_value": {
+          "date": "2024-08-23",
+          "date_time": "2024-08-23T22:00:00.000Z"
+        },
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
     "due_on": "2019-09-15",
     "members": [
       {
@@ -6446,10 +6525,6 @@ $result = $client->portfolios->updatePortfolio($portfolio_gid, array('field' => 
 {
   "data": {
     "color": "light-green",
-    "members": [
-      "52164",
-      "15363"
-    ],
     "name": "Bug Portfolio",
     "public": false,
     "workspace": "167589"
@@ -6548,6 +6623,48 @@ $result = $client->portfolios->updatePortfolio($portfolio_gid, array('field' => 
         }
       }
     ],
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "date_value": {
+          "date": "2024-08-23",
+          "date_time": "2024-08-23T22:00:00.000Z"
+        },
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
     "due_on": "2019-09-15",
     "members": [
       {
@@ -6594,7 +6711,6 @@ Returns the complete updated portfolio record.
 |body<span class="param-type"> object</span><div class="param-required">required</div>|The updated fields for the portfolio.|
 |» data<span class="param-type"> object</span>|A *portfolio* gives a high-level overview of the status of multiple initiatives in Asana. Portfolios provide a dashboard overview of the state of multiple projects, including a progress report and the most recent [project status](/docs/asana-project-statuses) update.|
 |»» color<span class="param-type"> string</span>|Color of the portfolio.|
-|»» members<span class="param-type"> [string]</span>|An array of strings identifying users. These can either be the string "me", an email, or the gid of a user.|
 |»» name<span class="param-type"> string</span>|The name of the portfolio.|
 |»» public<span class="param-type"> boolean</span>|True if the portfolio is public to its workspace members.|
 |»» workspace<span class="param-type"> string</span>|Gid of an object.|
@@ -7592,6 +7708,48 @@ $result = $client->portfolios->addMembersForPortfolio($portfolio_gid, array('fie
         }
       }
     ],
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "date_value": {
+          "date": "2024-08-23",
+          "date_time": "2024-08-23T22:00:00.000Z"
+        },
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
+      }
+    ],
     "due_on": "2019-09-15",
     "members": [
       {
@@ -7816,6 +7974,48 @@ $result = $client->portfolios->removeMembersForPortfolio($portfolio_gid, array('
           "resource_type": "project",
           "name": "Stuff to buy"
         }
+      }
+    ],
+    "custom_fields": [
+      {
+        "gid": "12345",
+        "resource_type": "custom_field",
+        "date_value": {
+          "date": "2024-08-23",
+          "date_time": "2024-08-23T22:00:00.000Z"
+        },
+        "display_value": "blue",
+        "enabled": true,
+        "enum_options": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "enum_value": {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        },
+        "multi_enum_values": [
+          {
+            "gid": "12345",
+            "resource_type": "enum_option",
+            "color": "blue",
+            "enabled": true,
+            "name": "Low"
+          }
+        ],
+        "name": "Status",
+        "number_value": 5.2,
+        "resource_subtype": "text",
+        "text_value": "Some Value",
+        "type": "text"
       }
     ],
     "due_on": "2019-09-15",
@@ -23344,7 +23544,7 @@ Creates a team within the current workspace.
 |»» description<span class="param-type"> string</span>|The description of the team.|
 |»» html_description<span class="param-type"> string</span>|The description of the team with formatting as HTML.|
 |»» name<span class="param-type"> string</span>|The name of the team.|
-|»» organization<span class="param-type"> string</span>|The organization/workspace the team belongs to.|
+|»» organization<span class="param-type"> string</span>|The organization/workspace the team belongs to. This must be the same organization you are in and cannot be changed once set.|
 |»» visibility<span class="param-type"> string</span>|The visibility of the team to users in the same organization|
 |?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
 |?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
@@ -23491,7 +23691,7 @@ Updates a team within the current workspace.
 |»» description<span class="param-type"> string</span>|The description of the team.|
 |»» html_description<span class="param-type"> string</span>|The description of the team with formatting as HTML.|
 |»» name<span class="param-type"> string</span>|The name of the team.|
-|»» organization<span class="param-type"> string</span>|The organization/workspace the team belongs to.|
+|»» organization<span class="param-type"> string</span>|The organization/workspace the team belongs to. This must be the same organization you are in and cannot be changed once set.|
 |»» visibility<span class="param-type"> string</span>|The visibility of the team to users in the same organization|
 |?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
 |?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
@@ -29364,6 +29564,48 @@ This object determines if a user is a member of a portfolio.
       }
     }
   ],
+  "custom_fields": [
+    {
+      "gid": "12345",
+      "resource_type": "custom_field",
+      "date_value": {
+        "date": "2024-08-23",
+        "date_time": "2024-08-23T22:00:00.000Z"
+      },
+      "display_value": "blue",
+      "enabled": true,
+      "enum_options": [
+        {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        }
+      ],
+      "enum_value": {
+        "gid": "12345",
+        "resource_type": "enum_option",
+        "color": "blue",
+        "enabled": true,
+        "name": "Low"
+      },
+      "multi_enum_values": [
+        {
+          "gid": "12345",
+          "resource_type": "enum_option",
+          "color": "blue",
+          "enabled": true,
+          "name": "Low"
+        }
+      ],
+      "name": "Status",
+      "number_value": 5.2,
+      "resource_subtype": "text",
+      "text_value": "Some Value",
+      "type": "text"
+    }
+  ],
   "due_on": "2019-09-15",
   "members": [
     {
@@ -29468,6 +29710,37 @@ Portfolios have some restrictions on size. Each portfolio has a max of 500 items
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |»» name<span class="param-type"> string</span>|Name of the project. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer.|
+|custom_fields<span class="param-type"> [object]</span>|Array of Custom Fields.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» date_value<span class="param-type"> object</span>|*Conditional*. Only relevant for custom fields of type `date`. This object reflects the chosen date (and optionally, time) value of a date custom field. If no date is selected, the value of `date_value` will be `null`.|
+|»» date<span class="param-type"> string</span>|A string representing the date in YYYY-MM-DD format.|
+|»» date_time<span class="param-type"> string</span>|A string representing the date in ISO 8601 format. If no time value is selected, the value of `date-time` will be `null`.|
+|» display_value<span class="param-type"> string</span>|A string representation for the value of the custom field. Integrations that don't require the underlying type should use this field to read values. Using this field will future-proof an app against new custom field types.|
+|» enabled<span class="param-type"> boolean</span>|*Conditional*. Determines if the custom field is enabled or not.|
+|» enum_options<span class="param-type"> [object]</span>|*Conditional*. Only relevant for custom fields of type `enum`. This array specifies the possible values which an `enum` custom field can adopt. To modify the enum options, refer to [working with enum options](/docs/create-an-enum-option).|
+|»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|»» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
+|»» enabled<span class="param-type"> boolean</span>|Whether or not the enum option is a selectable value for the custom field.|
+|»» name<span class="param-type"> string</span>|The name of the enum option.|
+|» enum_value<span class="param-type"> object</span>|*Conditional*. Only relevant for custom fields of type `enum`. This object is the chosen value of an enum custom field.|
+|»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|»» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
+|»» enabled<span class="param-type"> boolean</span>|Whether or not the enum option is a selectable value for the custom field.|
+|»» name<span class="param-type"> string</span>|The name of the enum option.|
+|» multi_enum_values<span class="param-type"> [object]</span>|*Conditional*. Only relevant for custom fields of type `multi_enum`. This object is the chosen values of a multi_enum custom field.|
+|»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|»» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
+|»» enabled<span class="param-type"> boolean</span>|Whether or not the enum option is a selectable value for the custom field.|
+|»» name<span class="param-type"> string</span>|The name of the enum option.|
+|» name<span class="param-type"> string</span>|The name of the custom field.|
+|» number_value<span class="param-type"> number</span>|*Conditional*. This number is the value of a number custom field.|
+|» resource_subtype<span class="param-type"> string</span>|The type of the custom field. Must be one of the given values.|
+|» text_value<span class="param-type"> string</span>|*Conditional*. This string is the value of a text custom field.|
+|» type<span class="param-type"> string</span>|*Deprecated: new integrations should prefer the resource_subtype field.* The type of the custom field. Must be one of the given values.|
 |due_on<span class="param-type"> string(date-time)¦null</span>|The localized day on which this portfolio is due. This takes a date with format YYYY-MM-DD.|
 |members<span class="param-type"> [object]</span>|none|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
@@ -29517,6 +29790,15 @@ Portfolios have some restrictions on size. Each portfolio has a max of 500 items
 |format|percentage|
 |format|custom|
 |format|none|
+|resource_subtype|text|
+|resource_subtype|enum|
+|resource_subtype|multi_enum|
+|resource_subtype|number|
+|resource_subtype|date|
+|type|text|
+|type|enum|
+|type|multi_enum|
+|type|number|
 |resource_subtype|text|
 |resource_subtype|enum|
 |resource_subtype|multi_enum|
