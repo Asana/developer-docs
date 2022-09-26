@@ -1,0 +1,961 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Documentation</title>
+    <link href="https://assets.asana.biz/m/7a38ea1bc15b234a/original/asana-ico.ico" rel="icon" type="image/ico">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-58LRF8N');</script>
+    <!-- End Google Tag Manager -->
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .cm {
+  color: #9CA6AF;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #9CA6AF;
+  font-weight: bold;
+}
+.highlight .c1 {
+  color: #9CA6AF;
+  font-style: italic;
+}
+.highlight .cs {
+  color: #9CA6AF;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #9CA6AF;
+  font-style: italic;
+}
+.highlight .err {
+  color: #000000;
+}
+.highlight .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+.highlight .ge {
+  color: #000000;
+  font-style: italic;
+}
+.highlight .gr {
+  color: #6F7782;
+}
+.highlight .gh {
+  color: #b7bfc6;
+}
+.highlight .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+.highlight .go {
+  color: #9ca6af;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .gt {
+  color: #aa0000;
+}
+.highlight .kc {
+  color: #6F7782;
+  font-weight: bold;
+}
+.highlight .kd {
+  color: #6F7782;
+  font-weight: bold;
+}
+.highlight .kn {
+  color: #6F7782;
+  font-weight: bold;
+}
+.highlight .kp {
+  color: #6F7782;
+  font-weight: bold;
+}
+.highlight .kr {
+  color: #6F7782;
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #6F7782;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kv {
+  color: #6F7782;
+  font-weight: bold;
+}
+.highlight .mf {
+  color: #00bf9c;
+}
+.highlight .mh {
+  color: #00bf9c;
+}
+.highlight .il {
+  color: #00bf9c;
+}
+.highlight .mi {
+  color: #00bf9c;
+}
+.highlight .mo {
+  color: #00bf9c;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #00bf9c;
+}
+.highlight .sb {
+  color: #FF5263;
+}
+.highlight .sc {
+  color: #FF5263;
+}
+.highlight .sd {
+  color: #FF5263;
+}
+.highlight .s2 {
+  color: #FF5263;
+}
+.highlight .se {
+  color: #FF5263;
+}
+.highlight .sh {
+  color: #FF5263;
+}
+.highlight .si {
+  color: #FF5263;
+}
+.highlight .sx {
+  color: #FF5263;
+}
+.highlight .sr {
+  color: #FF5263;
+}
+.highlight .s1 {
+  color: #FF5263;
+}
+.highlight .ss {
+  color: #FF5263;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #FF5263;
+}
+.highlight .na {
+  color: #008ce3;
+}
+.highlight .bp {
+  color: #b7bfc6;
+}
+.highlight .nb {
+  color: #0086B3;
+}
+.highlight .nc {
+  color: #445588;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #008ce3;
+}
+.highlight .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+.highlight .ni {
+  color: #800080;
+}
+.highlight .ne {
+  color: #ff5263;
+  font-weight: bold;
+}
+.highlight .nf, .highlight .fm {
+  color: #ff5263;
+  font-weight: bold;
+}
+.highlight .nl {
+  color: #ff5263;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #555555;
+}
+.highlight .nt {
+  color: #000080;
+}
+.highlight .vc {
+  color: #008ce3;
+}
+.highlight .vg {
+  color: #008ce3;
+}
+.highlight .vi {
+  color: #008ce3;
+}
+.highlight .nv, .highlight .vm {
+  color: #008ce3;
+}
+.highlight .ow {
+  color: #000000;
+  font-weight: bold;
+}
+.highlight .o {
+  color: #000000;
+  font-weight: bold;
+}
+.highlight .w {
+  color: #d5dce0;
+}
+.highlight {
+  background-color: #f6f8f9;
+}
+    </style>
+    <link href="../../stylesheets/screen-707dc99f.css" rel="stylesheet" media="screen" />
+    <link href="../../stylesheets/screen-707dc99f.css" rel="stylesheet" media="print" />
+      <script src="../../javascripts/all_nosearch-2e655f85.js"></script>
+  </head>
+
+  <body class="includes includes_helpers includes_helpers_app-components-wrapper-close" data-languages="[]">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-58LRF8N"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <a href="#" id="nav-button">
+      <span>
+        <svg id="icon--hamburger" role="img" fill="currentColor" preserveAspectRatio="xMinYMin" width="24px" height="24px" viewBox="0 0 34 34">
+          <title>hamburger icon</title>
+          <path d="M1.97 8.746h28.498c1.093 0 1.978-0.886 1.978-1.978s-0.886-1.978-1.978-1.978h-28.498c-1.093 0-1.978 0.886-1.978 1.978s0.886 1.978 1.978 1.978v0z"></path><path d="M1.97 17.978h28.498c1.093 0 1.978-0.886 1.978-1.978s-0.886-1.978-1.978-1.978h-28.498c-1.093 0-1.978 0.886-1.978 1.978s0.886 1.978 1.978 1.978v0z"></path>"<path d="M1.97 27.211h28.498c1.093 0 1.978-0.886 1.978-1.978s-0.886-1.978-1.978-1.978h-28.498c-1.093 0-1.978 0.886-1.978 1.978s0.886 1.978 1.978 1.978v0z"></path>
+        </svg>
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <a href="/">
+        <img src="https://assets.asana.biz/m/33a0924d61aabd7b/original/Asana-developers-lockup-horizontal.svg" class="logo" alt="Logo" />
+      </a>
+      <div class="feedback-holder">
+        <a class="feedback-link" href="https://form.asana.com?hash=c439d6062b165442b3d40383ab2f95cac08176b5b8ced11cf47817743a704728&id=1137609721785458" target="_blank">Send Feedback</a>
+      </div>
+      <ul id="toc" class="toc-list-h1">
+      </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <p></section></p>
+
+      </div>
+      <div class="dark-box">
+      </div>
+
+      <footer class="siteFooter">
+        <div class="siteFooter__main__wrapper py-2 py-sm-5">
+          <div class="container -wide">
+            <div class="siteFooter__row">
+              <div class="siteFooter__logo mb-3 mb-md-0">
+                <a href="https://asana.com/?noredirect" class="siteFooter__logo-icon">
+                  <span class="sr-only">Asana Logo</span>
+                  <svg
+                    class="icon-svg icon-svg--dots icon--white"
+                    width="10"
+                    height="10"
+                    viewBox="0 0 32 32"
+                    preserveAspectRatio="xMinYMin"
+                  >
+                    <path
+                      d="M23.1,8.1c0,3.8-3.1,6.9-7,6.9s-7-3.1-7-6.9c0-3.8,3.1-6.9,7-6.9S23.1,4.3,23.1,8.1C23.1,8.1,23.1,8.1,23.1,8.1z M7.1,16.7c-3.8,0-7,3.1-7,6.9s3.1,6.9,7,6.9s7-3.1,7-6.9S10.9,16.7,7.1,16.7C7.1,16.7,7.1,16.7,7.1,16.7z M25.1,16.7c-3.8,0-7,3.1-7,6.9s3.1,6.9,7,6.9s7-3.1,7-6.9S29,16.7,25.1,16.7C25.1,16.7,25.1,16.7,25.1,16.7z"
+                    />
+                  </svg>
+                </a>
+              </div>
+              <ul class="siteFooter__list">
+                <li class="siteFooter__title">Asana</li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/?noredirect" class="-white">Home</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/product" class="-white">Product</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/pricing" class="-white">Pricing</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/premium" class="-white">Premium</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/business" class="-white">Business</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/enterprise" class="-white">Enterprise</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/customer-success" class="-white"
+                    >Customer Success</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/templates" class="-white"
+                    >Asana Templates</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/trust" class="-white"
+                    >Trust &amp; Security</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://status.asana.com"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Status</a
+                  >
+                </li>
+              </ul>
+              <ul class="siteFooter__list">
+                <li class="siteFooter__title">About Us</li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/company" class="-white">Company</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/leadership" class="-white">Leadership</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/customers" class="-white">Customers</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/diversity-and-inclusion" class="-white"
+                    >Diversity</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/jobs" class="-white">Careers</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/press" class="-white">Press</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://wavelength.asana.com/"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Wavelength</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://blog.asana.com"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Asana Blog</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://investors.asana.com/"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Investor Relations</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/site-map" class="-white">Sitemap</a>
+                </li>
+              </ul>
+              <ul class="siteFooter__list">
+                <li class="siteFooter__title">Workflow Solutions</li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/uses/project-management" class="-white"
+                    >Project Management</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/product/goals" class="-white"
+                    >Goal Management</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/uses/agile-management" class="-white"
+                    >Agile Management</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/uses/task-management" class="-white"
+                    >Task Management</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://asana.com/uses/increase-productivity"
+                    class="-white"
+                    >Increase Productivity</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/uses/work-management" class="-white"
+                    >Work Management</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/uses" class="-white">See All Uses</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/teams" class="-white">See All Teams</a>
+                </li>
+              </ul>
+              <ul class="siteFooter__list">
+                <li class="siteFooter__title">Resources</li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/guide" class="-white">Asana Guide</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://forum.asana.com"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Forum</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/support" class="-white">Support</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/apps" class="-white">App Directory</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://developers.asana.com/docs/"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Developers &amp; API</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/partners" class="-white">Partners</a>
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/community" class="-white"
+                    >Asana Community</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://certifiedpros.asana.com/"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Certified Pros</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://events.asana.com/"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Events</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://asana.com/nonprofit"
+                    class="-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Asana for Nonprofits</a
+                  >
+                </li>
+              </ul>
+              <ul class="siteFooter__list">
+                <li class="siteFooter__title">Learn</li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://asana.com/resources/leadership-styles"
+                    class="-white"
+                    >11 Leadership Styles</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://asana.com/resources/icebreaker-questions-team-building"
+                    class="-white"
+                    >110 Icebreaker Questions</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://asana.com/resources/executive-summary-examples"
+                    class="-white"
+                    >Executive Summary Tips</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://asana.com/resources/imposter-syndrome"
+                    class="-white"
+                    >Imposter Syndrome Tips</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/resources/what-is-burnout" class="-white"
+                    >Prevent Team Burnout</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/resources/swot-analysis" class="-white"
+                    >SWOT Analysis Tips</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/resources/okr-meaning" class="-white"
+                    >What are OKRs?</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/resources/smart-goals" class="-white"
+                    >What are SMART Goals?</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a
+                    href="https://asana.com/resources/what-is-scope-creep"
+                    class="-white"
+                    >What is Scope Creep?</a
+                  >
+                </li>
+                <li class="siteFooter__item">
+                  <a href="https://asana.com/resources" class="-white"
+                    >See all guides</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="siteFooter__secondary__wrapper">
+          <div class="container -wide">
+            <div class="siteFooter__row">
+              <div class="siteFooter__secondary__col-wrapper">
+                <div class="siteFooter__secondary__col">
+                  <span title="Copyright">
+                    &copy;
+                    <script>
+                      document.write(new Date().getFullYear());
+                    </script>
+                    Asana, Inc.
+                  </span>
+                </div>
+                <div
+                  class="siteFooter__secondary__col siteFooter__secondary__col--terms"
+                >
+                  <a
+                    href="https://asana.com/terms"
+                    title="Terms &amp; Privacy"
+                    class="-white"
+                  >
+                    Terms &amp; Privacy
+                  </a>
+                </div>
+                <div
+                  class="siteFooter__secondary__col siteFooter__secondary__col--social"
+                >
+                  <a
+                    href="https://twitter.com/intent/follow?screen_name=asana"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://luna1.co/twitter_icon-circle.svg"
+                      alt="twitter"
+                    />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/company/asana"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://luna1.co/linkedin_icon-circle.svg"
+                      alt="linkedin"
+                    />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/asana"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://luna1.co/instagram_icon-circle.svg"
+                      alt="instagram"
+                    />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/asana"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://luna1.co/facebook_icon-circle.svg"
+                      alt="facebook"
+                    />
+                  </a>
+                  <a
+                    href="https://www.youtube.com/channel/UC2BoogM0AqwOJyoSp1S4ClQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://luna1.co/youtube_icon-circle.svg"
+                      alt="youtube"
+                    />
+                  </a>
+                </div>
+                <div class="siteFooter__secondary__col">
+                  <a
+                    href="https://itunes.apple.com/us/app/asana-mobile/id489969512?mt=8"
+                    data-ois-button=""
+                    class="siteFooter-mobile-button"
+                  >
+                    <img
+                      src="https://luna1.co/Download_App_Store_Badge_US.svg"
+                      alt="Download App Button"
+                      title="Download App"
+                    />
+                  </a>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.asana.app&amp;referrer=noredirect"
+                    data-android-button=""
+                    class="siteFooter-mobile-button"
+                  >
+                    <img
+                      src="https://luna1.co/Google_Play_EN.svg"
+                      alt="Download App Button"
+                      title="Download App"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <style>
+        .siteFooter a {
+          cursor: auto;
+        }
+        .siteFooter ::-moz-selection {
+          background-color: #95e0ff;
+          color: #222b37;
+          text-shadow: none;
+        }
+        .siteFooter ::selection {
+          background-color: #95e0ff;
+          color: #222b37;
+          text-shadow: none;
+        }
+        .siteFooter a {
+          background-color: transparent;
+          color: #796eff;
+          cursor: pointer;
+          font-weight: 500;
+          text-decoration: none;
+          -webkit-transition: color 0.3s;
+          transition: color 0.3s;
+        }
+        .siteFooter a:hover {
+          border-bottom: 2px solid #635ac7;
+          color: #635ac7;
+          text-decoration: none;
+        }
+        .siteFooter a.-white {
+          border-bottom: 2px solid #edf1f2;
+          color: #fff;
+        }
+        .siteFooter a.-white:hover {
+          border-bottom-color: #fff;
+        }
+        .siteFooter .container {
+          -webkit-box-sizing: border-box;
+                  box-sizing: border-box;
+          margin-left: auto;
+          margin-right: auto;
+          -webkit-transition: width 0.15s;
+          transition: width 0.15s;
+          width: calc(100% - 64px);
+        }
+        .siteFooter .container.-wide {
+          max-width: 1312px;
+          width: calc(100% - 128px);
+        }
+        @media (max-width: 48em) {
+          .siteFooter .container.-wide {
+            width: calc(100% - 96px);
+          }
+        }
+        @media (max-width: 30em) {
+          .siteFooter .container.-wide {
+            width: calc(100% - 32px);
+          }
+        }
+        .siteFooter ul {
+          -webkit-box-sizing: border-box;
+                  box-sizing: border-box;
+          list-style-type: disc;
+          margin: 0;
+          margin-bottom: 32px;
+          padding-left: 32px;
+        }
+        .siteFooter ul li {
+          margin-bottom: 8px;
+          position: relative;
+        }
+        .siteFooter :last-child {
+          margin-bottom: 0 !important;
+        }
+        .siteFooter .icon--white {
+          color: #fff;
+        }
+        .siteFooter li {
+          list-style-type: none;
+        }
+        .siteFooter a,
+        .siteFooter span {
+          font-size: 14px;
+        }
+        .siteFooter a.-white {
+          color: #fff;
+          border-bottom: none;
+          font-weight: 400;
+        }
+        .siteFooter a.-white:hover {
+          border-bottom: 1px solid #fff;
+        }
+        .siteFooter .siteFooter__row {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+        .siteFooter .siteFooter__logo {
+          -webkit-box-sizing: border-box;
+                  box-sizing: border-box;
+          flex-basis: 100%;
+          padding: 0 15px;
+        }
+        @media (min-width: 60em) {
+          .siteFooter .siteFooter__logo {
+            flex-basis: 8.33333%;
+          }
+        }
+        .siteFooter .siteFooter__logo-icon {
+          display: inline-block;
+          position: relative;
+          height: 25px;
+          width: 25px;
+        }
+        .siteFooter .siteFooter__logo-icon:before {
+          content: "";
+          display: block;
+          width: 35px;
+          height: 35px;
+          position: absolute;
+          background: #222b37;
+          border-radius: 3px;
+          top: 50%;
+          left: 50%;
+          -webkit-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%);
+          opacity: 0;
+          z-index: 0;
+          border: 3px solid transparent;
+          -webkit-transition: opacity 0.2s ease-in-out, outline-color 0.2s ease-in-out;
+          transition: opacity 0.2s ease-in-out, outline-color 0.2s ease-in-out;
+        }
+        .siteFooter .siteFooter__logo-icon:hover {
+          border: none;
+        }
+        .siteFooter .siteFooter__logo-icon:hover:before {
+          opacity: 1;
+        }
+        .siteFooter .siteFooter__logo-icon:focus {
+          outline: none;
+        }
+        .siteFooter .siteFooter__logo-icon:focus:before {
+          opacity: 1;
+          border-color: #fff;
+        }
+        .siteFooter .siteFooter__logo-icon svg {
+          height: 24px;
+          width: 24px;
+          position: relative;
+          z-index: 1;
+        }
+        .siteFooter .siteFooter__list {
+          flex-basis: 50%;
+          padding: 0 15px;
+          margin-bottom: 64px;
+        }
+        @media (min-width: 48em) {
+          .siteFooter .siteFooter__list {
+            flex-basis: 33.33333%;
+          }
+        }
+        @media (min-width: 60em) {
+          .siteFooter .siteFooter__list {
+            flex-basis: 25%;
+          }
+          .siteFooter .siteFooter__list:nth-of-type(4) {
+            margin-left: 8.33333%;
+          }
+        }
+        @media (min-width: 70em) {
+          .siteFooter .siteFooter__list {
+            flex-basis: 16.66667%;
+            margin-bottom: 0;
+          }
+          .siteFooter .siteFooter__list:nth-of-type(4) {
+            margin-left: 0;
+          }
+        }
+        .siteFooter .siteFooter__title {
+          color: #9ca6af;
+          font-weight: 500;
+          margin-bottom: 32px;
+          font-size: 14px;
+        }
+        .siteFooter .siteFooter__item {
+          -ms-hyphens: auto;
+              hyphens: auto;
+          -webkit-hyphens: auto;
+          -moz-hyphens: auto;
+          word-wrap: break-word;
+          margin-bottom: 14px;
+        }
+        .siteFooter .siteFooter__item:last-child {
+          margin-bottom: 0;
+        }
+        @media (max-width: 59.9375em) {
+          .siteFooter .siteFooter__item {
+            margin-bottom: 12px;
+          }
+          .siteFooter .siteFooter__item a {
+            font-size: 12px;
+          }
+        }
+        .siteFooter .siteFooter__main__wrapper {
+          background-color: #151b26;
+        }
+        @media (min-width: 960px) {
+          .siteFooter .mb-md-0 {
+            margin-bottom: 0 !important;
+          }
+        }
+        .siteFooter .py-2 {
+          padding-top: 32px !important;
+          padding-bottom: 32px !important;
+        }
+        .siteFooter .mb-3 {
+          margin-bottom: 48px !important;
+        }
+        @media (min-width: 768px) {
+          .siteFooter .py-sm-5 {
+            padding-top: 80px !important;
+            padding-bottom: 80px !important;
+          }
+        }
+        .siteFooter .siteFooter__secondary__wrapper {
+          background-color: #222b37;
+          color: #fff;
+          padding-bottom: 32px;
+          padding-top: 32px;
+        }
+        .siteFooter .siteFooter__secondary__col-wrapper {
+          flex-basis: 100%;
+          margin: 0 8.33333%;
+          padding: 0 15px;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .siteFooter .siteFooter__secondary__col {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 32px;
+          flex-basis: 100%;
+        }
+        @media (min-width: 60em) {
+          .siteFooter .siteFooter__secondary__col {
+            margin-bottom: 0;
+            flex-basis: auto;
+          }
+        }
+        .siteFooter .siteFooter__secondary__col--terms {
+          align-items: center;
+        }
+        .siteFooter .siteFooter__secondary__col--social a {
+          font-size: 1.375rem;
+          border-bottom: none;
+          width: 32px;
+          margin: 0 1.5px;
+        }
+        .siteFooter .siteFooter__secondary__col--social a:hover {
+          border-bottom: none !important;
+          -webkit-filter: invert(1) contrast(2);
+                  filter: invert(1) contrast(2);
+        }
+        .siteFooter .siteFooter-mobile-button {
+          display: block;
+          margin-right: 5px;
+        }
+        .siteFooter .siteFooter-mobile-button:hover {
+          border-bottom: none;
+        }
+        .siteFooter .siteFooter-mobile-button img {
+          height: 40px;
+          opacity: 0.6;
+          -webkit-transition: opacity 225ms;
+          transition: opacity 225ms;
+        }
+        .siteFooter .siteFooter-mobile-button img:hover {
+          opacity: 1;
+        }
+        .siteFooter .icon--white path {
+          fill: #fff;
+        }
+        .sr-only {
+          position: absolute !important;
+          /* Outside the DOM flow */
+          height: 1px;
+          width: 1px;
+          overflow: hidden;
+          clip: rect(1px 1px 1px 1px);
+          /* IE 7+ only support clip without commas */
+          clip: rect(1px, 1px, 1px, 1px);
+          /* All other browsers */
+        }
+      </style>
+    </div>
+  </body>
+</html>
