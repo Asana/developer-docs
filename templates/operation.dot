@@ -50,7 +50,7 @@
 
 {{? data.responseSchemas }}
 {{= data.utils.getResponseExamples(data).replaceAll('"...": "..."', '...').replaceAll('"..."', '...') }}
-> See [Input/Output Options](/docs/input-output-options) to include more fields in your response.
+> See [input/output options](/docs/input-output-options) to include more fields in your response.
 {{?}}
 
 <p>
