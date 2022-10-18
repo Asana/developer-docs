@@ -23,12 +23,13 @@ FILE_SOURCE_API_REFERENCE := source/includes/api-reference/_index.html.md
 FILE_SOURCE_CHANGELOG := source/includes/markdown/_12_1-news-and-changelog.html.md
 
 ALL_CLIENT_LANGS := ruby java node php python
-ALL_CLIENT_LIBS := $(addsuffix /,$(addprefix build-client_libs/,$(ALL_CLIENT_LANGS)))
+ALL_CLIENT_LIBS := $(addprefix build-client_libs/,$(ALL_CLIENT_LANGS))
+ALL_CLIENT_LIB_SIGILS := $(addprefix build-client_libs/lang_sigils/,$(ALL_CLIENT_LANGS))
 ALL_CLIENT_SWAGGER_CONFIGS := $(addprefix build-client_libs/,$(ALL_CLIENT_LIBS))
 ALL_OAS_YAML := defs/asana_oas.yaml defs/app_components_oas.yaml
-ALL_SAMPLES := $(subst client_libs,client_libs_with_samples,$(ALL_CLIENT_LIBS)) build-api_explorer/src/resources/gen/
+ALL_SAMPLES := $(subst client_libs,client_libs_with_samples,$(ALL_CLIENT_LIBS)) build-api_explorer/src/resources/gen
 
-.PHONY: clean clean_client_libs all;
+.PHONY: clean clean_client_libs all ruby java node php python;
 
 clean: clean_client_libs
 	-rm -rf build*
@@ -46,31 +47,35 @@ all: \
 
 $(CMD_SWAGGER_CLI): ;
 
-build-widdershins/:
+build-widdershins:
 	rm -rf '$@'
 	# $(CMD_GIT_CLONE) git@github.com:Mermade/widdershins.git '$@'
 	$(CMD_GIT_CLONE) git@github.com:Asana/widdershins.git '$@'
 	cd '$@' && asdf exec $(CMD_NPM_INSTALL)
 
-build-client_libs/:
-	mkdir build-client_libs
+build-client_libs:
+	mkdir -p build-client_libs/lang_sigils
 
-$(ALL_CLIENT_LIBS): | build-client_libs/
-	rm -rf 'build-client_libs/$(notdir $@)'
-	$(CMD_GIT_CLONE) 'git@github.com:Asana/$(notdir $@)-asana.git' 'build-client_libs/$(notdir $@)'
+$(ALL_CLIENT_LIB_SIGILS): | build-client_libs
+	touch '$@'
+
+build-client_libs/%: build-client_libs/lang_sigils/%
+	@echo '$@'
+	rm -rf '$@'
+	$(CMD_GIT_CLONE) 'git@github.com:Asana/$(@F)-asana.git' '$@'
 
 ALL_YAML_DEPS := $(shell find '$(OPENAPI_DIR)')
 
 $(ALL_OAS_YAML): $(ALL_YAML_DEPS)
 	cd '$(OPENAPI_DIR)' && \
-		bash -l -c 'python build.py'
+		bash -l -c 'python3.9 build.py'
 	cp '$(FILE_CODEZ_API_OAS)' defs/asana_oas.yaml
 	cp '$(FILE_CODEZ_APP_COMPONENTS_OAS)' defs/app_components_oas.yaml
 
-build-client_libs_with_samples/:
+build-client_libs_with_samples:
 	mkdir build-client_libs_with_samples
 
-build-client_libs_with_samples/%/: build-client_libs/%/ $(CMD_SWAGGER_CLI) | build-client_libs_with_samples/
+build-client_libs_with_samples/%: build-client_libs/% $(CMD_SWAGGER_CLI) | build-client_libs_with_samples
 	rm -rf '$@'
 	cp -r '$<' '$@'
 	cd '$@' && \
