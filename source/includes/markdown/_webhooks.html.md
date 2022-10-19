@@ -145,22 +145,23 @@ The following is a list of actions that we support:
 Below is a list of resources and actions that can trigger an event for those resources.
 This is not an exhaustive list, but should cover the most common use cases.
 
-- Attachment - `deleted`, `undeleted`
-- Portfolio - `added`, `deleted`, `removed`
-- Project - `added`, `changed`, `deleted`, `removed`, `undeleted`
-- Project Membership - `added`, `removed`
-- Project Template Configuration - `added`, `deleted`, `removed`
-- Project Template Configuration Membership - `added`, `removed`
-- Section - `added`, `changed`, `deleted`, `undeleted`
-- Story - `added`, `removed`, `undeleted`
-- Tag - `added`, `changed`, `deleted`, `undeleted`
-- Task - `added`, `changed`, `deleted`, `removed`, `undeleted`
-- Team - `added`, `changed`, `deleted`
-- Team Membership - `added`, `removed`
-- Workspace - `added`, `removed`, `changed`
-- Workspace Memberships - `added`, `removed`
+- Attachment - deleted, undeleted
+- Portfolio - added, deleted, removed
+- Project - added, changed, deleted, removed, undeleted
+- Project Membership - added, removed
+- Project Template Configuration - added, deleted, removed
+- Project Template Configuration Membership - added, removed
+- Section - added, changed, deleted, undeleted
+- Story: `type: <all other types>` added, removed, undeleted
+- Story: `type: comment` added, changed, removed, undeleted
+- Tag - added, changed, deleted, undeleted
+- Task - added, changed, deleted, removed, undeleted
+- Team - added, changed, deleted
+- Team Membership - added, removed
+- Workspace - added, removed, changed
+- Workspace Memberships - added, removed
 
-For example, let's say you [establish a webhook](/docs/establish-a-webhook) for an attachment by
+For example, let's say you [establish a webhook](/docs/establish-a-webhook) for an attachement by
 providing the GID of an attacment in your `resource` parameter. This means that based on the
 resource and action definition for attachment above, a `deleted` or an `undeleted` action will trigger
 your attachement webhook.
