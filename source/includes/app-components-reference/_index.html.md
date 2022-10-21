@@ -30,7 +30,7 @@ Additional resources:
 <span class="beta-indicator">BETA</span> - For access, please see the [overview of app components](/docs/overview-of-app-components)
 
 <pre class="highlight http tab-http">
-<code><a href="/docs/get-form-metadata"><span class="get-verb">GET</span> <span class=""nn>/{form_metadata_url}</span></a><br><a href="/docs/get-modal-form-typeahead-results"><span class="get-verb">GET</span> <span class=""nn>/{modal_form_typeahead_url}</span></a><br><a href="/docs/on-change-callback"><span class="post-verb">POST</span> <span class=""nn>/{on_change_callback}</span></a><br><a href="/docs/on-submit-callback"><span class="post-verb">POST</span> <span class=""nn>/{on_submit_callback}</span></a></code>
+<code><a href="/docs/get-form-metadata"><span class="get-verb">GET</span> <span class=""nn>/form_metadata_url_path_placeholder</span></a><br><a href="/docs/get-modal-form-typeahead-results"><span class="get-verb">GET</span> <span class=""nn>/modal_form_typeahead_url_path_placeholder</span></a><br><a href="/docs/on-change-callback"><span class="post-verb">POST</span> <span class=""nn>/on_change_callback_path_placeholder</span></a><br><a href="/docs/on-submit-callback"><span class="post-verb">POST</span> <span class=""nn>/on_submit_callback_path_placeholder</span></a></code>
 </pre>
 
 <span class="description">
@@ -64,10 +64,11 @@ The modal form is displayed when the user starts the flow to create a resource. 
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="get-verb">GET</span> /{form_metadata_url}</code>
+<code> <span class="get-verb">GET</span> /form_metadata_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 Get the metadata from the app server to render a form. <br> <br> <a href="../images/ac-form-metadata.png">
   <img src="../images/ac-form-metadata.png" alt="App components form metadata request flow"/>
 </a>
@@ -132,10 +133,11 @@ Get the metadata from the app server to render a form. <br> <br> <a href="../ima
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="get-verb">GET</span> /{modal_form_typeahead_url}</code>
+<code> <span class="get-verb">GET</span> /modal_form_typeahead_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 If a modal form field is of type `typehead`, this operation gets typeahead results to render as a dropdown list.
 
 When the user types into a modal form form field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/docs/typeahead-item)s in the response will then be rendered in a dropdown list. <br> <br> <a href="../images/ac-form-typeahead.png">
@@ -203,10 +205,11 @@ When the user types into a modal form form field, Asana will send a request cont
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="post-verb">POST</span> /{on_change_callback}</code>
+<code> <span class="post-verb">POST</span> /on_change_callback_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 The callback request made to an app server when a watched field's value changes within a form. <br> <br> <a href="../images/ac-form-on-change.png">
   <img src="../images/ac-form-on-change.png" alt="App components form on change request flow"/>
 </a>
@@ -276,10 +279,11 @@ The callback request made to an app server when a watched field's value changes 
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="post-verb">POST</span> /{on_submit_callback}</code>
+<code> <span class="post-verb">POST</span> /on_submit_callback_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 The callback request made to an app server when a form is submitted. <br> <br> <a href="../images/ac-form-on-submit.png">
   <img src="../images/ac-form-on-submit.png" alt="App components form on submit request flow"/>
 </a>
@@ -323,7 +327,7 @@ Valid object schemas: [FormField-Checkbox](/docs/form-field-checkbox), [FormFiel
 <span class="beta-indicator">BETA</span> - For access, please see the [overview of app components](/docs/overview-of-app-components)
 
 <pre class="highlight http tab-http">
-<code><a href="/docs/get-rule-action-typeahead-results"><span class="get-verb">GET</span> <span class=""nn>/{rule_action_typeahead_url}</span></a><br><a href="/docs/run-action"><span class="post-verb">POST</span> <span class=""nn>/{run_action_url}</span></a><br><a href="/docs/get-action-metadata"><span class="get-verb">GET</span> <span class=""nn>/{action.metadata_url}</span></a><br><a href="/docs/on-action-change-callback"><span class="post-verb">POST</span> <span class=""nn>/{action.on_change_callback}</span></a><br><a href="/docs/on-action-submit-callback"><span class="post-verb">POST</span> <span class=""nn>/{action.on_submit_callback}</span></a></code>
+<code><a href="/docs/get-rule-action-typeahead-results"><span class="get-verb">GET</span> <span class=""nn>/rule_action_typeahead_url_path_placeholder</span></a><br><a href="/docs/run-action"><span class="post-verb">POST</span> <span class=""nn>/run_action_url_path_placeholder</span></a><br><a href="/docs/get-action-metadata"><span class="get-verb">GET</span> <span class=""nn>/action.metadata_url_path_placeholder</span></a><br><a href="/docs/on-action-change-callback"><span class="post-verb">POST</span> <span class=""nn>/action.on_change_callback_path_placeholder</span></a><br><a href="/docs/on-action-submit-callback"><span class="post-verb">POST</span> <span class=""nn>/action.on_submit_callback_path_placeholder</span></a></code>
 </pre>
 
 <span class="description">
@@ -370,10 +374,11 @@ When a rule containing a rule action is triggered, the [rules](https://asana.com
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="get-verb">GET</span> /{rule_action_typeahead_url}</code>
+<code> <span class="get-verb">GET</span> /rule_action_typeahead_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 In a rule action typeahead form field, this operation gets typeahead results to render as a dropdown list. Typeahead results are limited to 50 items.
 
 When the user types into a rule action form field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/docs/typeahead-item)s in the response will then be rendered in a dropdown list. <br> <br> <a href="../images/ac-rule-typeahead.png">
@@ -444,10 +449,11 @@ When the user types into a rule action form field, Asana will send a request con
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="post-verb">POST</span> /{run_action_url}</code>
+<code> <span class="post-verb">POST</span> /run_action_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 The request made when an action is triggered. <br> <br> <a href="../images/ac-rule-run-action.png">
   <img src="../images/ac-rule-run-action.png" alt="App components rule run action request flow"/>
 </a>
@@ -504,10 +510,11 @@ The request made when an action is triggered. <br> <br> <a href="../images/ac-ru
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="get-verb">GET</span> /{action.metadata_url}</code>
+<code> <span class="get-verb">GET</span> /action.metadata_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 When a user has navigated to the [custom rule builder](https://asana.com/guide/help/premium/rules#gl-create-rule) UI and selected a rule action (either through the sidebar or via a rule preset), Asana will make a request to the app to get the configuration form definition for the chosen rule action. This will initiate the flow to configure a new rule action or edit the configuration of an existing rule action. This is the endpoint and schema for updating rule actions; app triggers (V2) will be analogous. <br> <br> <a href="../images/ac-rule-metadata.png">
   <img src="../images/ac-rule-metadata.png" alt="App components rule metadata request flow"/>
 </a>
@@ -575,10 +582,11 @@ When a user has navigated to the [custom rule builder](https://asana.com/guide/h
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="post-verb">POST</span> /{action.on_change_callback}</code>
+<code> <span class="post-verb">POST</span> /action.on_change_callback_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 The callback request made to an app server when a watched field's value changes within an action form. <br> <br> <a href="../images/ac-rule-on-change.png">
   <img src="../images/ac-rule-on-change.png" alt="App components rule on change request flow"/>
 </a>
@@ -659,10 +667,11 @@ The callback request made to an app server when a watched field's value changes 
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="post-verb">POST</span> /{action.on_submit_callback}</code>
+<code> <span class="post-verb">POST</span> /action.on_submit_callback_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 The form is submitted when the user chooses to create their rule. Asana will create the rule action data model object and make a signed request to the `on_submit_callback` specified in the form metadata returned from the fetch/update rule action form endpoints. Information about the created rule action should be included in the response if it was successfully created. This is the endpoint and schema for updating rule actions; app triggers (V2) will be analogous. <br> <br> <a href="../images/ac-rule-on-submit.png">
   <img src="../images/ac-rule-on-submit.png" alt="App components rule on submit request flow"/>
 </a>
@@ -710,7 +719,7 @@ Valid object schemas: [FormField-Checkbox](/docs/form-field-checkbox), [FormFiel
 <span class="beta-indicator">BETA</span> - For access, please see the [overview of app components](/docs/overview-of-app-components)
 
 <pre class="highlight http tab-http">
-<code><a href="/docs/attach-resource"><span class="post-verb">POST</span> <span class=""nn>/{resource_attach_url}</span></a><br><a href="/docs/get-lookup-typeahead-results"><span class="get-verb">GET</span> <span class=""nn>/{resource_typeahead_url}</span></a></code>
+<code><a href="/docs/attach-resource"><span class="post-verb">POST</span> <span class=""nn>/resource_attach_url_path_placeholder</span></a><br><a href="/docs/get-lookup-typeahead-results"><span class="get-verb">GET</span> <span class=""nn>/resource_typeahead_url_path_placeholder</span></a></code>
 </pre>
 
 <span class="description">
@@ -752,10 +761,11 @@ If the app defined a resource attach URL, tasks without a widget offer the looku
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="post-verb">POST</span> /{resource_attach_url}</code>
+<code> <span class="post-verb">POST</span> /resource_attach_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 When the user attaches a resource URL to a task, Asana will make a signed request to the specified `resource_attach_url` in the app configuration. Information about the attached resource should be included in the response.
 </span>
 
@@ -821,10 +831,11 @@ When the user attaches a resource URL to a task, Asana will make a signed reques
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="get-verb">GET</span> /{resource_typeahead_url}</code>
+<code> <span class="get-verb">GET</span> /resource_typeahead_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 Gets typeahead results to render as a dropdown list in the resource lookup input field.
 
 When the user types into the lookup input field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/docs/typeahead-item)s in the response will then be rendered in a dropdown list. When the user selects an item from the list, Asana will send a [resource attach](/docs/resource-attach) request to the app server, then process the response and render the attached resource in the widget.
@@ -860,7 +871,7 @@ When the user types into the lookup input field, Asana will send a request conta
 <span class="beta-indicator">BETA</span> - For access, please see the [overview of app components](/docs/overview-of-app-components)
 
 <pre class="highlight http tab-http">
-<code><a href="/docs/get-widget-metadata"><span class="get-verb">GET</span> <span class=""nn>/{widget_metadata_url}</span></a></code>
+<code><a href="/docs/get-widget-metadata"><span class="get-verb">GET</span> <span class=""nn>/widget_metadata_url_path_placeholder</span></a></code>
 </pre>
 
 <span class="description">
@@ -896,10 +907,11 @@ The widget is displayed when the user views a task with an attachment with a res
 > See [input/output options](/docs/input-output-options) to include more fields in your response.
 
 <p>
-<code> <span class="get-verb">GET</span> /{widget_metadata_url}</code>
+<code> <span class="get-verb">GET</span> /widget_metadata_url_path_placeholder</code>
 </p>
 
 <span class="description">
+Note: The path is a placeholder. The actual path is determined by the configuration of the App Component.
 Get the metadata from the app server to render a widget. <br> <br> <a href="../images/ac-widget-metadata.png">
   <img src="../images/ac-widget-metadata.png" alt="App components widget metadata request flow"/>
 </a>
