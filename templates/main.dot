@@ -2,7 +2,7 @@
 
 <hr class="full-line">
 <section class="full-section">
-<h1 id="{{=data.title_prefix}}">{{ if (data.options.platform_ui) { }}App component reference{{ } else { }}API Reference{{ } }}</h1>
+<h1 id="{{=data.title_prefix}}">{{ if (data.options.platform_ui) { }}App component reference{{ } else { }}API reference{{ } }}</h1>
 
 {{? data.options.platform_ui}}
 <span class="beta-indicator">BETA</span> - For access, please see the [overview of app components](/docs/overview-of-app-components)
