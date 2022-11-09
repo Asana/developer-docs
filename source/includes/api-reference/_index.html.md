@@ -27766,6 +27766,10 @@ $result = $client->workspacememberships->getWorkspaceMembership($workspace_membe
         "resource_type": "workspace",
         "name": "My Company Workspace"
       }
+    },
+    "vacation_dates": {
+      "end_on": "2022-11-07",
+      "start_on": "2022-11-05"
     }
   }
 }
@@ -33077,6 +33081,10 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Workspac
       "resource_type": "workspace",
       "name": "My Company Workspace"
     }
+  },
+  "vacation_dates": {
+    "end_on": "2022-11-07",
+    "start_on": "2022-11-05"
   }
 }
 
@@ -33116,6 +33124,9 @@ This object determines if a user is a member of a workspace.
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |»» name<span class="param-type"> string</span>|The name of the workspace.|
+|vacation_dates<span class="param-type"> object¦null</span>|Contains keys `start_on` and `end_on` for the vacation dates for the user in this workspace. If `start_on` is null, the entire `vacation_dates` object will be null. If `end_on` is before today, the entire `vacation_dates` object will be null.|
+|» end_on<span class="param-type"> string¦null</span>|The day on which the user's vacation in this workspace ends, or null if there is no end date. This is a date with `YYYY-MM-DD` format.|
+|» start_on<span class="param-type"> string</span>|The day on which the user's vacation in this workspace starts. This is a date with `YYYY-MM-DD` format.|
 
 </section><hr>
 <section>

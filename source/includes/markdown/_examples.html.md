@@ -408,7 +408,7 @@ While you can run your bot from the command line, that seems like a lot of work 
 
 >One option is to use launchd to automatically execute your script (launchd is like cron but better). Here’s a [tutorial to get you started with launchd](https://medium.com/@chetcorcos/a-simple-launchd-tutorial-9fecfcf2dbb3).
 
->The next step would be to deploy to a hosted server. [Here’s a guide](https://api.slack.com/docs/hosting) exploring some of the popular hosting providers. Hosting your app makes it more resilient and allows you to create more sophisticated apps (e.g. use webhooks).   
+>The next step would be to deploy to a hosted server. [Here’s a guide](/docs/hosting) exploring some of the popular hosting providers. Hosting your app makes it more resilient and allows you to create more sophisticated apps (e.g. use webhooks).
 
 >### Use Asana as your config file 
 To take your bot’s accessibility to the next level, put your configuration in an Asana task(s) and then have your script read that task(s) for instructions. This allows you (or anyone else) to make config changes without touching any code. For example, if a designer is on vacation, you can easily remove them from the group that gets assigned requests. Similarly, if a designer joins or leaves the team, this change could be easily configured in a task instead of having to change the bot’s code.
