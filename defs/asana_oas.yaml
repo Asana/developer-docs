@@ -5882,6 +5882,30 @@ components:
               readOnly: true
               description: >-
                 Reflects if this user is a guest of the workspace.
+            vacation_dates:
+              type: object
+              readOnly: true
+              nullable: true
+              description: >-
+                Contains keys `start_on` and `end_on` for the vacation dates for the
+                user in this workspace.
+                If `start_on` is null, the entire `vacation_dates` object will be
+                null.
+                If `end_on` is before today, the entire `vacation_dates` object will
+                be null.
+              properties:
+                start_on:
+                  description: The day on which the user's vacation in this workspace
+                    starts. This is a date with `YYYY-MM-DD` format.
+                  type: string
+                  example: '2022-11-05'
+                end_on:
+                  description: The day on which the user's vacation in this workspace
+                    ends, or null if there is no end date. This is a date with `YYYY-MM-DD`
+                    format.
+                  nullable: true
+                  type: string
+                  example: '2022-11-07'
     WorkspaceRemoveUserRequest:
       type: object
       description: A user identification object for specification with the addUser/removeUser
