@@ -44,6 +44,10 @@ the **Submission type** dropdown:
 Upon submission, your app will follow the standard review process. If the edits are accepted,
 _the original (i.e., previous) app will reflect the new updates_, while the duplicate app can be used again for testing.
 
+### Transfering app ownership
+
+Domain administrators can request for Asana to transfer an OAuth application to another user in the domain. To begin the process, please [complete and submit this form](https://form-beta.asana.com/?k=sVVLasdoqvV2oYfllIhI0Q&d=15793206719).
+
 <div>
   <div class="docs-developer-satisfaction-content">
       <h4>Was this section helpful? <a class="positiveFeedback-DevSatisfaction" style="cursor:pointer;">Yes </a><a class="negativeFeedback-DevSatisfaction" style="cursor:pointer;">No</a></h4>
