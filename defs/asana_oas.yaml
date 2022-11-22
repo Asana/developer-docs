@@ -1468,6 +1468,13 @@ components:
             The name of the external resource being attached. Required for
             attachments of type `external`.
           type: string
+        connect_to_app:
+          description: >
+            *Optional*. Only relevant for external attachments with a parent task.  A
+            boolean indicating whether the current app should be connected with
+            the attachment for the purposes of showing an app components widget.
+            Requires the app to have been added to a project the parent task is in.
+          type: boolean
     AttachmentResponse:
       allOf:
         - $ref: '#/components/schemas/AttachmentBase'
@@ -1539,6 +1546,14 @@ components:
               readOnly: true
               nullable: true
               example: https://www.dropbox.com/s/123/Screenshot.png
+            connected_to_app:
+              description: >-
+                Whether the attachment is connected to the app making the request
+                for the purposes of
+                showing an app components widget. Only present when the `resource_subtype`
+                is  `external` or `gdrive`.
+              type: boolean
+              readOnly: true
     AuditLogEvent:
       description: >-
         An object representing a single event within an Asana domain.
@@ -2096,7 +2111,7 @@ components:
           description: >-
             Enum options are the possible values which an enum custom field can
             adopt. An enum custom field must contain at least 1 enum option but no
-            more than 100.
+            more than 500.
 
 
             You can add enum options to a custom field by using the `POST
@@ -6591,7 +6606,7 @@ paths:
       summary: Create an enum option
       description: >-
         Creates an enum option and adds it to this custom field’s list of enum
-        options. A custom field can have at most 100 enum options (including
+        options. A custom field can have at most 500 enum options (including
         disabled options). By default new enum options are inserted at the end of
         a custom field’s list.
 

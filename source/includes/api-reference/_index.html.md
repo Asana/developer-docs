@@ -104,6 +104,7 @@ $result = $client->attachments->getAttachment($attachment_gid, array('param' => 
     "resource_type": "attachment",
     "name": "Screenshot.png",
     "resource_subtype": "dropbox",
+    "connected_to_app": true,
     "created_at": "2012-02-22T02:06:58.147Z",
     "download_url": "https://s3.amazonaws.com/assets/123/Screenshot.png",
     "host": "dropbox",
@@ -445,6 +446,7 @@ $result = $client->attachments->createAttachmentForObject(array('field' => 'valu
 > Body parameter
 
 ```yaml
+connect_to_app: true
 file: string
 name: string
 parent: string
@@ -462,6 +464,7 @@ url: string
     "resource_type": "attachment",
     "name": "Screenshot.png",
     "resource_subtype": "dropbox",
+    "connected_to_app": true,
     "created_at": "2012-02-22T02:06:58.147Z",
     "download_url": "https://s3.amazonaws.com/assets/123/Screenshot.png",
     "host": "dropbox",
@@ -510,6 +513,7 @@ in order for the server to reliably and properly handle the request.
 |Name|Description|
 |---|---|
 |body<span class="param-type"> object</span><div class="param-required">required</div>|The file you want to upload.|
+|» connect_to_app<span class="param-type"> boolean</span>|*Optional*. Only relevant for external attachments with a parent task.  A boolean indicating whether the current app should be connected with the attachment for the purposes of showing an app components widget. Requires the app to have been added to a project the parent task is in.|
 |» file<span class="param-type"> string(binary)</span>|Required for `asana` attachments.|
 |» name<span class="param-type"> string</span>|The name of the external resource being attached. Required for attachments of type `external`.|
 |» parent<span class="param-type"> string</span>|Required identifier of the parent task, project, or project_brief, as a string.|
@@ -2147,7 +2151,7 @@ $result = $client->customfields->createEnumOptionForCustomField($custom_field_gi
 </p>
 
 <span class="description">
-Creates an enum option and adds it to this custom field’s list of enum options. A custom field can have at most 100 enum options (including disabled options). By default new enum options are inserted at the end of a custom field’s list.
+Creates an enum option and adds it to this custom field’s list of enum options. A custom field can have at most 500 enum options (including disabled options). By default new enum options are inserted at the end of a custom field’s list.
 Locked custom fields can only have enum options added by the user who locked the field.
 Returns the full record of the newly created enum option.
 </span>
@@ -2157,7 +2161,7 @@ Returns the full record of the newly created enum option.
 |Name|Description|
 |---|---|
 |body<span class="param-type"> object</span>|The enum option object to create.|
-|» data<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 100.|
+|» data<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 500.|
 |»» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
 |»» enabled<span class="param-type"> boolean</span>|Whether or not the enum option is a selectable value for the custom field.|
 |»» insert_after<span class="param-type"> string</span>|An existing enum option within this custom field after which the new enum option should be inserted. Cannot be provided together with before_enum_option.|
@@ -2420,7 +2424,7 @@ Returns the full record of the updated enum option.
 |Name|Description|
 |---|---|
 |body<span class="param-type"> object</span>|The enum option object to update|
-|» data<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 100.|
+|» data<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 500.|
 |»» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
 |»» enabled<span class="param-type"> boolean</span>|Whether or not the enum option is a selectable value for the custom field.|
 |»» insert_after<span class="param-type"> string</span>|An existing enum option within this custom field after which the new enum option should be inserted. Cannot be provided together with before_enum_option.|
@@ -28151,6 +28155,7 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Attachme
   "resource_type": "attachment",
   "name": "Screenshot.png",
   "resource_subtype": "dropbox",
+  "connected_to_app": true,
   "created_at": "2012-02-22T02:06:58.147Z",
   "download_url": "https://s3.amazonaws.com/assets/123/Screenshot.png",
   "host": "dropbox",
@@ -28180,6 +28185,7 @@ An *attachment* object represents any file attached to a task in Asana, whether 
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |name<span class="param-type"> string</span>|The name of the file.|
 |resource_subtype<span class="param-type"> string</span>|The service hosting the attachment. Valid values are `asana`, `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.|
+|connected_to_app<span class="param-type"> boolean</span>|Whether the attachment is connected to the app making the request for the purposes of showing an app components widget. Only present when the `resource_subtype` is  `external` or `gdrive`.|
 |created_at<span class="param-type"> string(date-time)</span>|The time at which this resource was created.|
 |download_url<span class="param-type"> string(uri)¦null</span>|The URL containing the content of the attachment.<br>*Note:* May be null if the attachment is hosted by [Box](https://www.box.com/) and will be null if the attachment is a Video Message hosted by [Vimeo](https://vimeo.com/). If present, this URL may only be valid for two minutes from the time of retrieval. You should avoid persisting this URL somewhere and just refresh it on demand to ensure you do not keep stale URLs.|
 |host<span class="param-type"> string</span>|The service hosting the attachment. Valid values are `asana`, `dropbox`, `gdrive`, `box`, and `vimeo`.|
@@ -28825,7 +28831,7 @@ Custom Fields Settings objects represent the many-to-many join of the Custom Fie
 ```
 
 <span class="description">
-Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 100.
+Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 500.
 
 You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options` endpoint.
 
@@ -31613,7 +31619,7 @@ A story represents an activity associated with an object in the Asana system.
 |» due_at<span class="param-type"> string(date-time)</span>|none|
 |» due_on<span class="param-type"> string(date)</span>|none|
 |» start_on<span class="param-type"> string(date)</span>|none|
-|new_enum_value<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 100.<br><br>You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options` endpoint.<br><br>**It is not possible to remove or delete an enum option**. Instead, enum options can be disabled by updating the `enabled` field to false with the `PUT /enum_options/enum_option_gid` endpoint. Other attributes can be updated similarly.<br><br>On creation of an enum option, `enabled` is always set to `true`, meaning the enum option is a selectable value for the custom field. Setting `enabled=false` is equivalent to “trashing” the enum option in the Asana web app within the “Edit Fields” dialog. The enum option will no longer be selectable but, if the enum option value was previously set within a task, the task will retain the value.<br><br>Enum options are an ordered list and by default new enum options are inserted at the end. Ordering in relation to existing enum options can be specified on creation by using `insert_before` or `insert_after` to reference an existing enum option. Only one of `insert_before` and `insert_after` can be provided when creating a new enum option.<br><br>An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert` endpoint.|
+|new_enum_value<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 500.<br><br>You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options` endpoint.<br><br>**It is not possible to remove or delete an enum option**. Instead, enum options can be disabled by updating the `enabled` field to false with the `PUT /enum_options/enum_option_gid` endpoint. Other attributes can be updated similarly.<br><br>On creation of an enum option, `enabled` is always set to `true`, meaning the enum option is a selectable value for the custom field. Setting `enabled=false` is equivalent to “trashing” the enum option in the Asana web app within the “Edit Fields” dialog. The enum option will no longer be selectable but, if the enum option value was previously set within a task, the task will retain the value.<br><br>Enum options are an ordered list and by default new enum options are inserted at the end. Ordering in relation to existing enum options can be specified on creation by using `insert_before` or `insert_after` to reference an existing enum option. Only one of `insert_before` and `insert_after` can be provided when creating a new enum option.<br><br>An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert` endpoint.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
@@ -31640,7 +31646,7 @@ A story represents an activity associated with an object in the Asana system.
 |» due_at<span class="param-type"> string(date-time)</span>|none|
 |» due_on<span class="param-type"> string(date)</span>|none|
 |» start_on<span class="param-type"> string(date)</span>|none|
-|old_enum_value<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 100.<br><br>You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options` endpoint.<br><br>**It is not possible to remove or delete an enum option**. Instead, enum options can be disabled by updating the `enabled` field to false with the `PUT /enum_options/enum_option_gid` endpoint. Other attributes can be updated similarly.<br><br>On creation of an enum option, `enabled` is always set to `true`, meaning the enum option is a selectable value for the custom field. Setting `enabled=false` is equivalent to “trashing” the enum option in the Asana web app within the “Edit Fields” dialog. The enum option will no longer be selectable but, if the enum option value was previously set within a task, the task will retain the value.<br><br>Enum options are an ordered list and by default new enum options are inserted at the end. Ordering in relation to existing enum options can be specified on creation by using `insert_before` or `insert_after` to reference an existing enum option. Only one of `insert_before` and `insert_after` can be provided when creating a new enum option.<br><br>An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert` endpoint.|
+|old_enum_value<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 500.<br><br>You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options` endpoint.<br><br>**It is not possible to remove or delete an enum option**. Instead, enum options can be disabled by updating the `enabled` field to false with the `PUT /enum_options/enum_option_gid` endpoint. Other attributes can be updated similarly.<br><br>On creation of an enum option, `enabled` is always set to `true`, meaning the enum option is a selectable value for the custom field. Setting `enabled=false` is equivalent to “trashing” the enum option in the Asana web app within the “Edit Fields” dialog. The enum option will no longer be selectable but, if the enum option value was previously set within a task, the task will retain the value.<br><br>Enum options are an ordered list and by default new enum options are inserted at the end. Ordering in relation to existing enum options can be specified on creation by using `insert_before` or `insert_after` to reference an existing enum option. Only one of `insert_before` and `insert_after` can be provided when creating a new enum option.<br><br>An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert` endpoint.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
