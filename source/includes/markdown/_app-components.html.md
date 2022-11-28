@@ -668,7 +668,7 @@ By building with app components, applications can display customized widgets, fo
 
 Use the UI builder to see how your:
 
-* [Modal form](/docs/modal-forms) renders as a result of [getting form metadata](/docs/get-form-metadata)
+* [Modal form](/docs/modal-form) renders as a result of [getting form metadata](/docs/get-form-metadata)
 * [Lookup](/docs/lookup) renders with different items and configurations
 * [Widget](/docs/widget) renders as a result of [getting widget metadata](/docs/get-widget-metadata)
 * [Rule action](/docs/rule-action) renders as a result of [getting action metadata](/docs/get-action-metadata)
