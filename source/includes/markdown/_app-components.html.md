@@ -885,7 +885,7 @@ When testing your application, you should:
 * Test and proof-read any custom error messages
 * Test the auth flow from both the web browser and [desktop app](https://asana.com/download)
   * You can enter the installation flow manually by navigating to `https://app.asana.com/-/install_platform_ui_app?app_id=<app_client_id>`
-* Test [rule actions](/docs/rule-actions) with a variety of trigger combinations
+* Test [rule actions](/docs/rule-action) with a variety of trigger combinations
 
 For additional details, an interactive checklist can be found on the **Submit for review** page when managing your app
 through the [developer console](https://app.asana.com/0/my-apps).
