@@ -427,7 +427,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name)
+Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name, connectToApp)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)

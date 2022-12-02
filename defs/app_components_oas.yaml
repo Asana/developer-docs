@@ -58,6 +58,9 @@ tags:
       When a rule containing a rule action is triggered, the [rules](https://asana.com/guide/help/premium/rules) engine will make a request to the app to
       inform the app to run the configured rule action. The resulting status code will indicate to the rules engine
       whether the action was successfully completed and, if not, specify a cause for the error.
+
+
+      _Note: An app server must be hosted in order for rule actions to function. For a brief list of popular hosting options, see [hosting](/docs/hosting)._
   - name: Lookups
     description: >-
       If the app defined a resource attach URL, tasks without a widget offer the lookup functionality. This appears as a text
@@ -203,14 +206,17 @@ components:
           type: string
           description: >-
             The time (in ISO 8601 date format) when the request should expire.
+          example: '2019-04-15T01:01:46.055Z'
         user:
           type: string
           description: >-
             The user GID this hook is coming from.
+          example: '54321'
         workspace:
           type: string
           description: >-
             The workspace GID this hook is coming from.
+          example: '12345'
     AttachResourceRequest:
       allOf:
         - $ref: '#/components/schemas/RootUIComponentRequest'
@@ -360,7 +366,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'create-resource-field-1'
+          example: 'static_text_field_1'
         name:
           description: >-
             The text (i.e., label) for the field. Limit 50 characters.
@@ -385,7 +391,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'create-resource-field-1'
+          example: 'single_line_text_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -444,7 +450,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'create-resource-field-1'
+          example: 'multi_line_text_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -495,7 +501,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'create-resource-field-1'
+          example: 'rich_text_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -547,7 +553,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'create-resource-field-1'
+          example: 'dropdown_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -608,7 +614,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'create-resource-field-1'
+          example: 'radio_button_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -661,7 +667,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'create-resource-field-1'
+          example: 'checkbox_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -716,7 +722,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'date-field-1'
+          example: 'date_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -745,7 +751,7 @@ components:
           example: '2022-02-01'
         value:
           description: >-
-            The value of the field. This takes a date with format YYYY-MM-DD.
+            The value of the field. This takes a date with format YYYY-MM-DD or ISO 8601 date string in UTC.
           type: string
           format: date
           example: '2022-02-01'
@@ -769,7 +775,7 @@ components:
           description: >-
             The ID of the field, which is used to reference the field. These should be unique across the entire form.
           type: string
-          example: 'datetime-field-1'
+          example: 'datetime_field_1'
         name:
           description: >-
             The text (i.e., label) to show in the title of the field. Limit 50 characters.
@@ -921,9 +927,39 @@ components:
                 The URL to `POST` the form to whenever watched field values are changed.
               type: string
               example: 'https://www.example.com/on_change'
+    FormOnChangeFormSubmissionRequest:
+      description: >-
+        Common properties between app component on change and on submit requests.
+      properties:
+        values:
+          type: object
+          description: >-
+            An object that maps each FormField’s GID to its value.
+
+            Refer to the `value` property on the FormField schema: [FormField-Checkbox](/docs/form-field-checkbox), [FormField-Date](/docs/form-field-date),
+            [FormField-Datetime](/docs/form-field-datetime), [FormField-Dropdown](/docs/form-field-dropdown),
+            [FormField-MultiLineText](/docs/form-field-multi-line-text), [FormField-RadioButton](/docs/form-field-radio-button),
+            [FormField-RichText](/docs/form-field-rich-text), [FormField-SingleLineText](/docs/form-field-single-line-text),
+            [FormField-StaticText](/docs/form-field-static-text), [FormField-Typeahead](/docs/form-field-typeahead)
+          example:
+            checkbox_field_1: ["opt-in"]
+            date_field_1: "2021-12-31T08:00:00.000Z"
+            datetime_field_1: "2023-01-01T00:00:00.000Z"
+            dropdown_field_1: "red"
+            multi_line_text_field_1: "Multiline Text"
+            radio_button_field_1: "blue"
+            rich_text_field_1: "<BODY>Rich Text</BODY>"
+            single_line_text_field_1: "Single Line Text"
+            static_text_field_1: "Static Text"
+            typeahead_field_1:
+              icon_url: "https://example.com/icon.png"
+              subtitle: "Subtitle"
+              title: "Title"
+              value: "Typeahead"
     FormSubmissionRequest:
       allOf:
         - $ref: '#/components/schemas/RootUIComponentRequest'
+        - $ref: '#/components/schemas/FormOnChangeFormSubmissionRequest'
         - type: object
           description: >-
             The body of a form submission.
@@ -932,26 +968,7 @@ components:
               type: string
               description: >-
                 The task GID this hook is coming from.
-            values:
-              type: object
-              description: >-
-                A FormValues object mapping each FormField’s name to its value.
-              additionalProperties:
-                type: object
-                properties:
-                  field_name:
-                    type: string
-                  field_object:
-                    description: >-
-                      A form field object.
-
-
-                      Valid object schemas: [FormField-Checkbox](/docs/form-field-checkbox), [FormField-Date](/docs/form-field-date),
-                      [FormField-Datetime](/docs/form-field-datetime), [FormField-Dropdown](/docs/form-field-dropdown),
-                      [FormField-MultiLineText](/docs/form-field-multi-line-text), [FormField-RadioButton](/docs/form-field-radio-button),
-                      [FormField-RichText](/docs/form-field-rich-text), [FormField-SingleLineText](/docs/form-field-single-line-text),
-                      [FormField-StaticText](/docs/form-field-static-text), [FormField-Typeahead](/docs/form-field-typeahead)
-                    type: object
+              example: '67890'
     ActionFormSubmissionRequest:
       allOf:
         - $ref: '#/components/schemas/FormSubmissionRequest'
@@ -963,18 +980,22 @@ components:
               type: string
               description: >-
                 The name of the rule being created
+              example: 'rule name'
             action:
               type: string
               description: >-
                 The ID of an existing rule action that is being edited
+              example: '12345'
             action_type:
               type: string
               description: >-
                 The ID of the configuration used to create the rule action.
+              example: '45678'
             project:
               type: string
               description: >-
                 The project GID this hook is coming from.
+              example: '12345'
     WidgetFooter-Created:
       description: >-
         A widget footer that displays the timestamp of the resource's creation time.
@@ -1024,6 +1045,7 @@ components:
     FormOnChangeBaseRequest:
       allOf:
         - $ref: '#/components/schemas/RootUIComponentRequest'
+        - $ref: '#/components/schemas/FormOnChangeFormSubmissionRequest'
         - type: object
           description: >-
             The body of an onchange event.
@@ -1032,6 +1054,7 @@ components:
               type: string
               description: >-
                 The name of the changed FormField.
+              example: 'checkbox_field_1'
     FormOnChangeRequest:
       allOf:
         - $ref: '#/components/schemas/FormOnChangeBaseRequest'
@@ -1043,6 +1066,7 @@ components:
               type: string
               description: >-
                 The task GID this hook is coming from.
+              example: '67890'
     ActionFormOnChangeRequest:
       allOf:
         - $ref: '#/components/schemas/FormOnChangeBaseRequest'
@@ -1054,14 +1078,17 @@ components:
               type: string
               description: >-
                 The ID of an existing rule action that is being edited.
+              example: '12345'
             action_type:
               type: string
               description: >-
                 The ID of the configuration used to create the rule action.
+              example: '45678'
             project:
               type: string
               description: >-
                 The project GID this hook is coming from.
+              example: '12345'
     NotFoundResponse:
       description: >-
         An error response object indicating a request that could not be found (i.e., a status code of `404`).
@@ -1143,12 +1170,12 @@ components:
           description: >-
             The ID of the option.
           type: string
-          example: 'blue'
+          example: 'radio_option_1'
         label:
           description: >-
             The label of the option. Limit 80 characters.
           type: string
-          example: 'Blue'
+          example: 'Radio Option 1'
         sub_label:
           description: >-
             *Optional*. The label to display as subtext for the `label`.
@@ -1802,6 +1829,9 @@ paths:
         The request made when an action is triggered. Rule actions in rules containing a "Task added to this project" trigger have a 2 minute
         delay for newly created tasks in that project. This is to provide time for the creating
         user to fill out task details (name, description, etc.) before the rule action is triggered.
+
+
+        An app server must be hosted in order for rule actions to function. For a brief list of popular hosting options, see [hosting](/docs/hosting).
         <br>
         <br>
         <a href="https://d3ki9tyy5l5ruj.cloudfront.net/obj/89ac88743dd7446b7ae94ba88937349cdc50f70f/ac-rule-run-action.png">
