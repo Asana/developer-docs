@@ -427,7 +427,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name)
+Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name, connectToApp)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -513,7 +513,7 @@ in order for the server to reliably and properly handle the request.
 |Name|Description|
 |---|---|
 |body<span class="param-type"> object</span><div class="param-required">required</div>|The file you want to upload.|
-|» connect_to_app<span class="param-type"> boolean</span>|*Optional*. Only relevant for external attachments with a parent task.  A boolean indicating whether the current app should be connected with the attachment for the purposes of showing an app components widget. Requires the app to have been added to a project the parent task is in.|
+|» connect_to_app<span class="param-type"> boolean</span>|*Optional*. Only relevant for external attachments with a parent task. A boolean indicating whether the current app should be connected with the attachment for the purposes of showing an app components widget. Requires the app to have been added to a project the parent task is in.|
 |» file<span class="param-type"> string(binary)</span>|Required for `asana` attachments.|
 |» name<span class="param-type"> string</span>|The name of the external resource being attached. Required for attachments of type `external`.|
 |» parent<span class="param-type"> string</span>|Required identifier of the parent task, project, or project_brief, as a string.|
@@ -16664,6 +16664,11 @@ $result = $client->stories->getStory($story_gid, array('param' => 'value', 'para
       }
     ],
     "new_approval_status": "approved",
+    "new_date_value": {
+      "due_at": "2019-09-15T02:06:58.158Z",
+      "due_on": "2019-09-15",
+      "start_on": "2019-09-14"
+    },
     "new_dates": {
       "due_at": "2019-09-15T02:06:58.158Z",
       "due_on": "2019-09-15",
@@ -16687,6 +16692,13 @@ $result = $client->stories->getStory($story_gid, array('param' => 'value', 'para
     ],
     "new_name": "This is the New Name",
     "new_number_value": 2,
+    "new_people_value": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
     "new_resource_subtype": "milestone",
     "new_section": {
       "gid": "12345",
@@ -16697,6 +16709,11 @@ $result = $client->stories->getStory($story_gid, array('param' => 'value', 'para
     "num_hearts": 5,
     "num_likes": 5,
     "old_approval_status": "pending",
+    "old_date_value": {
+      "due_at": "2019-09-15T02:06:58.158Z",
+      "due_on": "2019-09-15",
+      "start_on": "2019-09-14"
+    },
     "old_dates": {
       "due_at": "2019-09-15T02:06:58.158Z",
       "due_on": "2019-09-15",
@@ -16720,6 +16737,13 @@ $result = $client->stories->getStory($story_gid, array('param' => 'value', 'para
     ],
     "old_name": "This was the Old Name",
     "old_number_value": 1,
+    "old_people_value": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
     "old_resource_subtype": "default_task",
     "old_section": {
       "gid": "12345",
@@ -17001,6 +17025,11 @@ $result = $client->stories->updateStory($story_gid, array('field' => 'value', 'f
       }
     ],
     "new_approval_status": "approved",
+    "new_date_value": {
+      "due_at": "2019-09-15T02:06:58.158Z",
+      "due_on": "2019-09-15",
+      "start_on": "2019-09-14"
+    },
     "new_dates": {
       "due_at": "2019-09-15T02:06:58.158Z",
       "due_on": "2019-09-15",
@@ -17024,6 +17053,13 @@ $result = $client->stories->updateStory($story_gid, array('field' => 'value', 'f
     ],
     "new_name": "This is the New Name",
     "new_number_value": 2,
+    "new_people_value": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
     "new_resource_subtype": "milestone",
     "new_section": {
       "gid": "12345",
@@ -17034,6 +17070,11 @@ $result = $client->stories->updateStory($story_gid, array('field' => 'value', 'f
     "num_hearts": 5,
     "num_likes": 5,
     "old_approval_status": "pending",
+    "old_date_value": {
+      "due_at": "2019-09-15T02:06:58.158Z",
+      "due_on": "2019-09-15",
+      "start_on": "2019-09-14"
+    },
     "old_dates": {
       "due_at": "2019-09-15T02:06:58.158Z",
       "due_on": "2019-09-15",
@@ -17057,6 +17098,13 @@ $result = $client->stories->updateStory($story_gid, array('field' => 'value', 'f
     ],
     "old_name": "This was the Old Name",
     "old_number_value": 1,
+    "old_people_value": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
     "old_resource_subtype": "default_task",
     "old_section": {
       "gid": "12345",
@@ -17584,6 +17632,11 @@ $result = $client->stories->createStoryForTask($task_gid, array('field' => 'valu
       }
     ],
     "new_approval_status": "approved",
+    "new_date_value": {
+      "due_at": "2019-09-15T02:06:58.158Z",
+      "due_on": "2019-09-15",
+      "start_on": "2019-09-14"
+    },
     "new_dates": {
       "due_at": "2019-09-15T02:06:58.158Z",
       "due_on": "2019-09-15",
@@ -17607,6 +17660,13 @@ $result = $client->stories->createStoryForTask($task_gid, array('field' => 'valu
     ],
     "new_name": "This is the New Name",
     "new_number_value": 2,
+    "new_people_value": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
     "new_resource_subtype": "milestone",
     "new_section": {
       "gid": "12345",
@@ -17617,6 +17677,11 @@ $result = $client->stories->createStoryForTask($task_gid, array('field' => 'valu
     "num_hearts": 5,
     "num_likes": 5,
     "old_approval_status": "pending",
+    "old_date_value": {
+      "due_at": "2019-09-15T02:06:58.158Z",
+      "due_on": "2019-09-15",
+      "start_on": "2019-09-14"
+    },
     "old_dates": {
       "due_at": "2019-09-15T02:06:58.158Z",
       "due_on": "2019-09-15",
@@ -17640,6 +17705,13 @@ $result = $client->stories->createStoryForTask($task_gid, array('field' => 'valu
     ],
     "old_name": "This was the Old Name",
     "old_number_value": 1,
+    "old_people_value": [
+      {
+        "gid": "12345",
+        "resource_type": "user",
+        "name": "Greg Sanchez"
+      }
+    ],
     "old_resource_subtype": "default_task",
     "old_section": {
       "gid": "12345",
@@ -28185,7 +28257,7 @@ An *attachment* object represents any file attached to a task in Asana, whether 
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |name<span class="param-type"> string</span>|The name of the file.|
 |resource_subtype<span class="param-type"> string</span>|The service hosting the attachment. Valid values are `asana`, `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.|
-|connected_to_app<span class="param-type"> boolean</span>|Whether the attachment is connected to the app making the request for the purposes of showing an app components widget. Only present when the `resource_subtype` is  `external` or `gdrive`.|
+|connected_to_app<span class="param-type"> boolean</span>|Whether the attachment is connected to the app making the request for the purposes of showing an app components widget. Only present when the `resource_subtype` is `external` or `gdrive`.|
 |created_at<span class="param-type"> string(date-time)</span>|The time at which this resource was created.|
 |download_url<span class="param-type"> string(uri)¦null</span>|The URL containing the content of the attachment.<br>*Note:* May be null if the attachment is hosted by [Box](https://www.box.com/) and will be null if the attachment is a Video Message hosted by [Vimeo](https://vimeo.com/). If present, this URL may only be valid for two minutes from the time of retrieval. You should avoid persisting this URL somewhere and just refresh it on demand to ensure you do not keep stale URLs.|
 |host<span class="param-type"> string</span>|The service hosting the attachment. Valid values are `asana`, `dropbox`, `gdrive`, `box`, and `vimeo`.|
@@ -31408,6 +31480,11 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Story), 
     }
   ],
   "new_approval_status": "approved",
+  "new_date_value": {
+    "due_at": "2019-09-15T02:06:58.158Z",
+    "due_on": "2019-09-15",
+    "start_on": "2019-09-14"
+  },
   "new_dates": {
     "due_at": "2019-09-15T02:06:58.158Z",
     "due_on": "2019-09-15",
@@ -31431,6 +31508,13 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Story), 
   ],
   "new_name": "This is the New Name",
   "new_number_value": 2,
+  "new_people_value": [
+    {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    }
+  ],
   "new_resource_subtype": "milestone",
   "new_section": {
     "gid": "12345",
@@ -31441,6 +31525,11 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Story), 
   "num_hearts": 5,
   "num_likes": 5,
   "old_approval_status": "pending",
+  "old_date_value": {
+    "due_at": "2019-09-15T02:06:58.158Z",
+    "due_on": "2019-09-15",
+    "start_on": "2019-09-14"
+  },
   "old_dates": {
     "due_at": "2019-09-15T02:06:58.158Z",
     "due_on": "2019-09-15",
@@ -31464,6 +31553,13 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Story), 
   ],
   "old_name": "This was the Old Name",
   "old_number_value": 1,
+  "old_people_value": [
+    {
+      "gid": "12345",
+      "resource_type": "user",
+      "name": "Greg Sanchez"
+    }
+  ],
   "old_resource_subtype": "default_task",
   "old_section": {
     "gid": "12345",
@@ -31614,18 +31710,22 @@ A story represents an activity associated with an object in the Asana system.
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |»» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
-|new_approval_status<span class="param-type"> string</span>|*Conditional*|
+|new_approval_status<span class="param-type"> string</span>|*Conditional*. The new value of approval status.|
+|new_date_value<span class="param-type"> object</span>|*Conditional* The new value of a date custom field story.|
+|» due_at<span class="param-type"> string(date-time)¦null</span>|The UTC date and time on which this task is due, or null if the task has no due time. This takes an ISO 8601 date string in UTC and should not be used together with `due_on`.|
+|» due_on<span class="param-type"> string(date)</span>|The localized day on which this goal is due. This takes a date with format `YYYY-MM-DD`.|
+|» start_on<span class="param-type"> string(date)¦null</span>|The day on which work for this goal begins, or null if the goal has no start date. This takes a date with `YYYY-MM-DD` format, and cannot be set unless there is an accompanying due date.|
 |new_dates<span class="param-type"> object</span>|*Conditional*|
-|» due_at<span class="param-type"> string(date-time)</span>|none|
-|» due_on<span class="param-type"> string(date)</span>|none|
-|» start_on<span class="param-type"> string(date)</span>|none|
+|» due_at<span class="param-type"> string(date-time)¦null</span>|The UTC date and time on which this task is due, or null if the task has no due time. This takes an ISO 8601 date string in UTC and should not be used together with `due_on`.|
+|» due_on<span class="param-type"> string(date)</span>|The localized day on which this goal is due. This takes a date with format `YYYY-MM-DD`.|
+|» start_on<span class="param-type"> string(date)¦null</span>|The day on which work for this goal begins, or null if the goal has no start date. This takes a date with `YYYY-MM-DD` format, and cannot be set unless there is an accompanying due date.|
 |new_enum_value<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 500.<br><br>You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options` endpoint.<br><br>**It is not possible to remove or delete an enum option**. Instead, enum options can be disabled by updating the `enabled` field to false with the `PUT /enum_options/enum_option_gid` endpoint. Other attributes can be updated similarly.<br><br>On creation of an enum option, `enabled` is always set to `true`, meaning the enum option is a selectable value for the custom field. Setting `enabled=false` is equivalent to “trashing” the enum option in the Asana web app within the “Edit Fields” dialog. The enum option will no longer be selectable but, if the enum option value was previously set within a task, the task will retain the value.<br><br>Enum options are an ordered list and by default new enum options are inserted at the end. Ordering in relation to existing enum options can be specified on creation by using `insert_before` or `insert_after` to reference an existing enum option. Only one of `insert_before` and `insert_after` can be provided when creating a new enum option.<br><br>An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert` endpoint.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
 |» enabled<span class="param-type"> boolean</span>|Whether or not the enum option is a selectable value for the custom field.|
 |» name<span class="param-type"> string</span>|The name of the enum option.|
-|new_multi_enum_values<span class="param-type"> [object]</span>|*Conditional*|
+|new_multi_enum_values<span class="param-type"> [object]</span>|*Conditional*. The new value of a multi-enum custom field story.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
@@ -31633,6 +31733,10 @@ A story represents an activity associated with an object in the Asana system.
 |» name<span class="param-type"> string</span>|The name of the enum option.|
 |new_name<span class="param-type"> string</span>|*Conditional*|
 |new_number_value<span class="param-type"> integer</span>|*Conditional*|
+|new_people_value<span class="param-type"> [object]</span>|*Conditional*. The new value of a people custom field story.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
 |new_resource_subtype<span class="param-type"> string</span>|*Conditional*|
 |new_section<span class="param-type"> object</span>|A *section* is a subdivision of a project that groups tasks together. It can either be a header above a list of tasks in a list view or a column in a board view of a project.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
@@ -31641,18 +31745,22 @@ A story represents an activity associated with an object in the Asana system.
 |new_text_value<span class="param-type"> string</span>|*Conditional*|
 |num_hearts<span class="param-type"> integer</span>|*Deprecated - please use likes instead*<br><br>*Conditional*. The number of users who have hearted this story.|
 |num_likes<span class="param-type"> integer</span>|*Conditional*. The number of users who have liked this story.|
-|old_approval_status<span class="param-type"> string</span>|*Conditional*|
+|old_approval_status<span class="param-type"> string</span>|*Conditional*. The old value of approval status.|
+|old_date_value<span class="param-type"> object</span>|*Conditional*. The old value of a date custom field story.|
+|» due_at<span class="param-type"> string(date-time)¦null</span>|The UTC date and time on which this task is due, or null if the task has no due time. This takes an ISO 8601 date string in UTC and should not be used together with `due_on`.|
+|» due_on<span class="param-type"> string(date)</span>|The localized day on which this goal is due. This takes a date with format `YYYY-MM-DD`.|
+|» start_on<span class="param-type"> string(date)¦null</span>|The day on which work for this goal begins, or null if the goal has no start date. This takes a date with `YYYY-MM-DD` format, and cannot be set unless there is an accompanying due date.|
 |old_dates<span class="param-type"> object</span>|*Conditional*|
-|» due_at<span class="param-type"> string(date-time)</span>|none|
-|» due_on<span class="param-type"> string(date)</span>|none|
-|» start_on<span class="param-type"> string(date)</span>|none|
+|» due_at<span class="param-type"> string(date-time)¦null</span>|The UTC date and time on which this task is due, or null if the task has no due time. This takes an ISO 8601 date string in UTC and should not be used together with `due_on`.|
+|» due_on<span class="param-type"> string(date)</span>|The localized day on which this goal is due. This takes a date with format `YYYY-MM-DD`.|
+|» start_on<span class="param-type"> string(date)¦null</span>|The day on which work for this goal begins, or null if the goal has no start date. This takes a date with `YYYY-MM-DD` format, and cannot be set unless there is an accompanying due date.|
 |old_enum_value<span class="param-type"> object</span>|Enum options are the possible values which an enum custom field can adopt. An enum custom field must contain at least 1 enum option but no more than 500.<br><br>You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options` endpoint.<br><br>**It is not possible to remove or delete an enum option**. Instead, enum options can be disabled by updating the `enabled` field to false with the `PUT /enum_options/enum_option_gid` endpoint. Other attributes can be updated similarly.<br><br>On creation of an enum option, `enabled` is always set to `true`, meaning the enum option is a selectable value for the custom field. Setting `enabled=false` is equivalent to “trashing” the enum option in the Asana web app within the “Edit Fields” dialog. The enum option will no longer be selectable but, if the enum option value was previously set within a task, the task will retain the value.<br><br>Enum options are an ordered list and by default new enum options are inserted at the end. Ordering in relation to existing enum options can be specified on creation by using `insert_before` or `insert_after` to reference an existing enum option. Only one of `insert_before` and `insert_after` can be provided when creating a new enum option.<br><br>An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert` endpoint.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
 |» enabled<span class="param-type"> boolean</span>|Whether or not the enum option is a selectable value for the custom field.|
 |» name<span class="param-type"> string</span>|The name of the enum option.|
-|old_multi_enum_values<span class="param-type"> [object]</span>|*Conditional*|
+|old_multi_enum_values<span class="param-type"> [object]</span>|*Conditional*. The old value of a multi-enum custom field story.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» color<span class="param-type"> string</span>|The color of the enum option. Defaults to ‘none’.|
@@ -31660,6 +31768,10 @@ A story represents an activity associated with an object in the Asana system.
 |» name<span class="param-type"> string</span>|The name of the enum option.|
 |old_name<span class="param-type"> string</span>|*Conditional*'|
 |old_number_value<span class="param-type"> integer</span>|*Conditional*|
+|old_people_value<span class="param-type"> [object]</span>|*Conditional*. The old value of a people custom field story.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
 |old_resource_subtype<span class="param-type"> string</span>|*Conditional*|
 |old_section<span class="param-type"> object</span>|A *section* is a subdivision of a project that groups tasks together. It can either be a header above a list of tasks in a list view or a column in a board view of a project.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
