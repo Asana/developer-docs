@@ -1470,8 +1470,8 @@ components:
           type: string
         connect_to_app:
           description: >
-            *Optional*. Only relevant for external attachments with a parent task.  A
-            boolean indicating whether the current app should be connected with
+            *Optional*. Only relevant for external attachments with a parent task.
+            A boolean indicating whether the current app should be connected with
             the attachment for the purposes of showing an app components widget.
             Requires the app to have been added to a project the parent task is in.
           type: boolean
@@ -1551,7 +1551,8 @@ components:
                 Whether the attachment is connected to the app making the request
                 for the purposes of
                 showing an app components widget. Only present when the `resource_subtype`
-                is  `external` or `gdrive`.
+                is
+                `external` or `gdrive`.
               type: boolean
               readOnly: true
     AuditLogEvent:
@@ -4557,29 +4558,55 @@ components:
                 *Conditional*
               $ref: '#/components/schemas/EnumOption'
               readOnly: true
+            old_date_value:
+              allOf:
+                - $ref: '#/components/schemas/StoryResponseDates'
+                - description: >-
+                    *Conditional*. The old value of a date custom field story.
+              readOnly: true
+            new_date_value:
+              allOf:
+                - $ref: '#/components/schemas/StoryResponseDates'
+                - description: >-
+                    *Conditional* The new value of a date custom field story.
+              readOnly: true
+            old_people_value:
+              description: >-
+                *Conditional*. The old value of a people custom field story.
+              type: array
+              items:
+                $ref: '#/components/schemas/UserCompact'
+              readOnly: true
+            new_people_value:
+              description: >-
+                *Conditional*. The new value of a people custom field story.
+              type: array
+              items:
+                $ref: '#/components/schemas/UserCompact'
+              readOnly: true
             old_multi_enum_values:
               description: >-
-                *Conditional*
+                *Conditional*. The old value of a multi-enum custom field story.
               type: array
               items:
                 $ref: '#/components/schemas/EnumOption'
               readOnly: true
             new_multi_enum_values:
               description: >-
-                *Conditional*
+                *Conditional*. The new value of a multi-enum custom field story.
               type: array
               items:
                 $ref: '#/components/schemas/EnumOption'
               readOnly: true
             new_approval_status:
               description: >-
-                *Conditional*
+                *Conditional*. The new value of approval status.
               type: string
               readOnly: true
               example: approved
             old_approval_status:
               description: >-
-                *Conditional*
+                *Conditional*. The old value of approval status.
               type: string
               readOnly: true
               example: pending
@@ -4627,14 +4654,27 @@ components:
       readOnly: true
       properties:
         start_on:
+          description: >-
+            The day on which work for this goal begins, or null if the
+            goal has no start date. This takes a date with `YYYY-MM-DD`
+            format, and cannot be set unless there is an accompanying due date.
           type: string
           format: date
           example: '2019-09-14'
+          nullable: true
         due_at:
+          description: >-
+            The UTC date and time on which this task is due, or null if the
+            task has no due time. This takes an ISO 8601 date string in UTC
+            and should not be used together with `due_on`.
           type: string
           format: date-time
           example: '2019-09-15T02:06:58.158Z'
+          nullable: true
         due_on:
+          description: >-
+            The localized day on which this goal is due. This takes a
+            date with format `YYYY-MM-DD`.
           type: string
           format: date
           example: '2019-09-15'
