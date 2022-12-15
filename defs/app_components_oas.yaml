@@ -44,6 +44,8 @@ info:
     - ForbiddenResponse
     - NotFoundResponse
     - InternalServerErrorResponse
+x-readme:
+  explorer-enabled: false
 servers:
   - url: "{siteUrl}"
     description: Main endpoint.
@@ -1110,6 +1112,8 @@ components:
         - type: object
           description: >-
             The body of an action request.
+          required:
+          - idempotency_key
           properties:
             target_object:
               type: string
@@ -1124,7 +1128,6 @@ components:
               description: >-
                 The ID from the configuration used to create the rule action.
             idempotency_key:
-              required: true
               type: string
               description: >-
                 A unique key associated with the "run action" request. App servers should use
@@ -1437,7 +1440,6 @@ components:
               description: >-
                 The text to show in the title of the widget. Max length of 200 characters.
               type: string
-              required: true
               example: 'Status'
             fields:
               description: >-
@@ -1446,7 +1448,6 @@ components:
 
                 Valid object schemas: [WidgetField-DatetimeWithIcon](/docs/widget-field-datetime-with-icon), [WidgetField-Pill](/docs/widget-field-pill), [WidgetField-TextWithIcon](/docs/widget-field-text-with-icon).
               type: array
-              required: true
             subtitle:
               description: >-
                 The text to show under the title of the widget, next to "Open in {App Name}". If not provided, the
