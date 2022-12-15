@@ -6091,7 +6091,7 @@ components:
                 Describes if the user is editor in goal.
               example: false
     GoalMembershipResponse:
-      - $ref: '#/components/schemas/GoalMembershipBase'
+      $ref: '#/components/schemas/GoalMembershipBase'
     MembershipResponse:
       anyOf:
         - $ref: '#/components/schemas/ProjectMembershipResponse'
@@ -7770,7 +7770,7 @@ paths:
         Returns an empty data record.
       tags:
         - Status updates
-      operationId: deleteStatus
+      operationId: deleteStatusMessage
       responses:
         200:
           description: Successfully deleted the specified status.
