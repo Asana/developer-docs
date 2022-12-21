@@ -48,6 +48,16 @@ This will install the following:
 -   [maven: java package manager for swagger](https://maven.apache.org/)
     -   [swagger](https://github.com/swagger-api/swagger-codegen)
 
+## Troubleshooting ./bin/configure
+
+If you are unable to run `./bin/configure` without running into a realpath error or an error like the following: 
+
+`"ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requirements.txt'"`
+
+run the following command: `brew install coreutils`
+
+This resolves the error of realpath not being available and `./bin/configure` should work.
+
 ## Local Development
 
 To build once:
