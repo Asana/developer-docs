@@ -5678,6 +5678,16 @@
           "504": {
             "$ref": "#/components/responses/GatewayTimeout"
           }
+        },
+        "x-readme": {
+          "code-samples": [
+            {
+              "name": "Custom python snippet for getting an attachment",
+              "language": "python",
+              "install": "pip install asana",
+              "code": "import asana client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN') result = client.attachments.get_attachment(attachment_gid, {'param': 'value', 'param': 'value'}, opt_pretty=True)"
+            }
+          ]
         }
       },
       "delete": {
@@ -5716,6 +5726,16 @@
           "500": {
             "$ref": "#/components/responses/InternalServerError"
           }
+        },
+        "x-readme": {
+          "code-samples": [
+            {
+              "name": "Custom python snippet for deleting an attachment",
+              "language": "python",
+              "install": "pip install asana",
+              "code": "import asana \n\n client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')\n\n result = client.attachments.delete_attachment(attachment_gid, opt_pretty=True)"
+            }
+          ]
         }
       }
     },
