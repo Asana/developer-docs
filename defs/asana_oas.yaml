@@ -1468,7 +1468,7 @@ components:
       properties:
         resource_subtype:
           description: >
-            The type of the attachment. Must be one of the [given values](/docs/attachment).
+            The type of the attachment. Must be one of the given values.
             If not specified, a file attachment of type `asana`
             will be assumed. Note that if the value of `resource_subtype` is `external`,
             a
@@ -2906,47 +2906,6 @@ components:
           example: '12345'
         user:
           $ref: '#/components/schemas/UserCompact'
-    MessageBase:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          properties:
-            resource_subtype:
-              description: >-
-                The subtype of this resource. Different subtypes retain many of the
-                same fields and behavior, but may render differently in Asana or
-                represent resources with different semantic meaning.
-              type: string
-              readOnly: true
-              example: default_message
-            created_at:
-              description: The time at which this resource was created.
-              type: string
-              format: date-time
-              readOnly: true
-              example: '2012-02-22T02:06:58.147Z'
-            modified_at:
-              description: >-
-                The time at which this message was last modified.
-            title:
-              description: The title of the message.
-              type: string
-              example: How are things?
-            text:
-              description: The text content of the message.
-              type: string
-              example: Everything is moving forward according to plan...
-            num_likes:
-              description: The number of users who have liked this message.
-              type: integer
-              example: 5
-              readOnly: true
-            likes:
-              description: Array of likes for users who have liked this message.
-              type: array
-              items:
-                $ref: '#/components/schemas/Like'
-              readOnly: true
     ModifyDependenciesRequest:
       type: object
       properties:
@@ -6092,13 +6051,6 @@ components:
               example: false
     GoalMembershipResponse:
       $ref: '#/components/schemas/GoalMembershipBase'
-    MembershipResponse:
-      anyOf:
-        - $ref: '#/components/schemas/ProjectMembershipResponse'
-        - $ref: '#/components/schemas/PortfolioMembershipResponse'
-        - $ref: '#/components/schemas/TeamMembershipResponse'
-        - $ref: '#/components/schemas/GoalMembershipResponse'
-        - $ref: '#/components/schemas/WorkspaceMembershipResponse'
   securitySchemes:
     personalAccessToken:
       type: http
@@ -6273,13 +6225,11 @@ paths:
 
         The 100MB size limit on attachments in Asana is enforced on this endpoint.
 
-        This endpoint expects a multipart/form-data encoded request containing
-        the full contents of the file to be uploaded.
+        This endpoint expects a multipart/form-data encoded request containing the full contents of the file to be uploaded.
 
         Requests made should follow the HTTP/1.1 specification that line
         terminators are of the form `CRLF` or `\r\n` outlined
-        [here](http://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#Basic-Rules)
-        in order for the server to reliably and properly handle the request.
+        [here](http://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#Basic-Rules) in order for the server to reliably and properly handle the request.
       tags:
         - Attachments
       operationId: createAttachmentForObject
@@ -7649,138 +7599,6 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/JobResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /memberships:
-    parameters:
-      - $ref: '#/components/parameters/parent'
-      - $ref: '#/components/parameters/member'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    get:
-      summary: Get a [project/porfolio/team/goal/workspace] membership
-      description: >-
-        Returns the record for memberships under a parent. Can optionally filter based
-        on member.
-      tags:
-        - Memberships
-      operationId: getMemberships
-      responses:
-        200:
-          description: >-
-            Successfully retrieved the requested membership.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/MembershipResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-    post:
-      summary: Create a [project/porfolio/team/goal] membership
-      description: >-
-        Returns the record for memberships under a parent. Can optionally filter based
-        on member.
-      tags:
-        - Memberships
-      operationId: postMemberships
-      responses:
-        200:
-          description: >-
-            Successfully created the requested membership.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/MembershipResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /messages/{message_gid}:
-    parameters:
-      - $ref: '#/components/parameters/message_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    get:
-      summary: Get a message
-      description: >-
-        Returns the complete record for a single message.
-      tags:
-        - Message
-      operationId: getMessage
-      responses:
-        200:
-          description: Successfully retrieved the specified object's message.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/MessageBase'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /status_updates/{message_gid}:
-    parameters:
-      - $ref: '#/components/parameters/message_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/fields'
-    delete:
-      summary: Delete a status update
-      description: |-
-        Deletes a specific, existing status update.
-
-        Returns an empty data record.
-      tags:
-        - Status updates
-      operationId: deleteStatusMessage
-      responses:
-        200:
-          description: Successfully deleted the specified status.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/EmptyResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:

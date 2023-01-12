@@ -427,7 +427,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name, connectToApp)
+Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -499,13 +499,11 @@ files from third party services such as Dropbox, Box, Vimeo & Google Drive via t
 
 The 100MB size limit on attachments in Asana is enforced on this endpoint.
 
-This endpoint expects a multipart/form-data encoded request containing
-the full contents of the file to be uploaded.
+This endpoint expects a multipart/form-data encoded request containing the full contents of the file to be uploaded.
 
 Requests made should follow the HTTP/1.1 specification that line
 terminators are of the form `CRLF` or `\r\n` outlined
-[here](http://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#Basic-Rules)
-in order for the server to reliably and properly handle the request.
+[here](http://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#Basic-Rules) in order for the server to reliably and properly handle the request.
 </span>
 
 <h3 id="upload-an-attachment-parameters">Parameters</h3>
@@ -517,7 +515,7 @@ in order for the server to reliably and properly handle the request.
 |» file<span class="param-type"> string(binary)</span>|Required for `asana` attachments.|
 |» name<span class="param-type"> string</span>|The name of the external resource being attached. Required for attachments of type `external`.|
 |» parent<span class="param-type"> string</span>|Required identifier of the parent task, project, or project_brief, as a string.|
-|» resource_subtype<span class="param-type"> string</span>|The type of the attachment. Must be one of the [given values](/docs/attachment). If not specified, a file attachment of type `asana` will be assumed. Note that if the value of `resource_subtype` is `external`, a `parent`, `name`, and `url` must also be provided.|
+|» resource_subtype<span class="param-type"> string</span>|The type of the attachment. Must be one of the given values. If not specified, a file attachment of type `asana` will be assumed. Note that if the value of `resource_subtype` is `external`, a `parent`, `name`, and `url` must also be provided.|
 |» url<span class="param-type"> string</span>|The URL of the external resource being attached. Required for attachments of type `external`.|
 |?opt_pretty<span class="param-type"> boolean</span>|Provides “pretty” output.|
 |?opt_fields<span class="param-type"> array[string]</span>|Defines fields to return.|
@@ -539,7 +537,12 @@ appending the content type to the file path: `--form
 
 |Parameter|Value|
 |---|---|
-| resource_subtype|asana_file_attachments|
+| resource_subtype|asana|
+| resource_subtype|dropbox|
+| resource_subtype|gdrive|
+| resource_subtype|onedrive|
+| resource_subtype|box|
+| resource_subtype|vimeo|
 | resource_subtype|external|
 
 <h3 id="upload-an-attachment-responses">Responses</h3>
@@ -29124,6 +29127,132 @@ A `Compact` object is the same as the [full response object](/docs/tocS_Goal), b
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |name<span class="param-type"> string</span>|The name of the goal.|
 |owner<span class="param-type"> object¦null</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
+
+</section><hr>
+<section>
+<a id="schemagoalmembershipbase"></a>
+<a id="schema_GoalMembershipBase"></a>
+<a id="tocSgoalmembershipbase"></a>
+<a id="tocsgoalmembershipbase"></a>
+<a id="tocS_GoalMembershipBase"></a>
+<h2 id="goal-membership-base">GoalMembershipBase</h2>
+
+```json
+{
+  "gid": "12345",
+  "resource_type": "goal_membership",
+  "is_commenter": false,
+  "is_editor": false,
+  "member": {
+    "gid": "12345",
+    "resource_type": "user",
+    "name": "Greg Sanchez"
+  }
+}
+
+```
+
+<span class="description">
+This object represents a user's connection to a goal.
+
+</span>
+
+### Properties
+
+|Name|Description|
+|---|---|
+|gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|is_commenter<span class="param-type"> boolean</span>|Describes if the user is comment only in goal.|
+|is_editor<span class="param-type"> boolean</span>|Describes if the user is editor in goal.|
+|member<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
+
+</section><hr>
+<section>
+<a id="schemagoalmembershipcompact"></a>
+<a id="schema_GoalMembershipCompact"></a>
+<a id="tocSgoalmembershipcompact"></a>
+<a id="tocsgoalmembershipcompact"></a>
+<a id="tocS_GoalMembershipCompact"></a>
+<h2 id="goal-membership-compact">GoalMembershipCompact</h2>
+
+```json
+{
+  "gid": "12345",
+  "resource_type": "goal_membership",
+  "is_commenter": false,
+  "is_editor": false,
+  "member": {
+    "gid": "12345",
+    "resource_type": "user",
+    "name": "Greg Sanchez"
+  }
+}
+
+```
+
+<span class="description">
+A `Compact` object is the same as the [full response object](/docs/tocS_GoalMembership), but with less fields included by default. See
+[input/output options](/docs/input-output-options) to include more fields.
+</span>
+
+### Properties
+
+|Name|Description|
+|---|---|
+|gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|is_commenter<span class="param-type"> boolean</span>|Describes if the user is comment only in goal.|
+|is_editor<span class="param-type"> boolean</span>|Describes if the user is editor in goal.|
+|member<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
+|» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
+
+</section><hr>
+<section>
+<a id="schemagoalmembership"></a>
+<a id="schema_GoalMembership"></a>
+<a id="tocSgoalmembership"></a>
+<a id="tocsgoalmembership"></a>
+<a id="tocS_GoalMembership"></a>
+<h2 id="goal-membership">GoalMembership</h2>
+
+```json
+{
+  "gid": "12345",
+  "resource_type": "goal_membership",
+  "is_commenter": false,
+  "is_editor": false,
+  "member": {
+    "gid": "12345",
+    "resource_type": "user",
+    "name": "Greg Sanchez"
+  }
+}
+
+```
+
+<span class="description">
+This object represents a user's connection to a goal.
+
+</span>
+
+### Properties
+
+|Name|Description|
+|---|---|
+|gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
+|resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|is_commenter<span class="param-type"> boolean</span>|Describes if the user is comment only in goal.|
+|is_editor<span class="param-type"> boolean</span>|Describes if the user is editor in goal.|
+|member<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
 |» name<span class="param-type"> string</span>|*Read-only except when same user as requester*. The user’s name.|
