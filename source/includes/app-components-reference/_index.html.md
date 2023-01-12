@@ -490,7 +490,7 @@ An app server must be hosted in order for rule actions to function. For a brief 
 |» action<span class="param-type"> string</span>|The action ID generated from rule creation.|
 |» action_type<span class="param-type"> string</span>|The ID from the configuration used to create the rule action.|
 |» expires_at<span class="param-type"> string</span>|The time (in ISO 8601 date format) when the request should expire.|
-|» idempotency_key<span class="param-type"> string</span>|A unique key associated with the "run action" request. App servers should use this key to implement idempotency.|
+|» idempotency_key<span class="param-type"> string</span><div class="param-required">required</div>|A unique key associated with the "run action" request. App servers should use this key to implement idempotency.|
 |» target_object<span class="param-type"> string</span>|The ID of the target object that the rule action is acting on. Currently, this value is always a task GID.|
 |» user<span class="param-type"> string</span>|The user GID this hook is coming from.|
 |» workspace<span class="param-type"> string</span>|The workspace GID this hook is coming from.|
