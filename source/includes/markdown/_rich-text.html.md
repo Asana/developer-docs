@@ -19,37 +19,14 @@ The web product offers a number of rich formatting features when writing task no
 
 The rich text field name for an object is equivalent to its plain text field name prefixed with `html_`. The following object types in Asana support rich text:
 
-| Object                 | Plain text field | Rich text field    | Supports blocks |
-|------------------------|------------------|--------------------|-----------------|
-| Tasks                  | `notes`          | `html_notes`       | Yes             |
-| Projects               | `notes`          | `html_notes`       | No              |
-| Stories                | `text`           | `html_text`        | No              |
-| Project status updates | `text`           | `html_text`        | No              |
-| Project briefs         | `text`           | `html_text`        | Yes             |
-| Teams                  | `description`    | `html_description` | No              |
-
-<hr>
-
-<a id="blocks"></a>
-## Blocks and whitespace
-
-Several object types support block-based editing, as denoted by the "Supports blocks" column in the table above. On the Asana web app UI, the rich text for these object types will be displayed as independently-draggable “blocks”. The UI “blocks” are divided between:
-
-* Each header (`<h1>`/`<h2>` tag)
-* Each horizontal rule (`<hr>` tag)
-* Each list item (`<li>` tag)
-* Each inline image (`<img>` tag)
-* Each media embed (`<object>` tag)
-* Each sequence of content that includes none of these tags (implicitly a “paragraph block”)
-
-Multiple paragraph blocks can exist in sequence. When this happens, a double-newline `\n\n` will indicate a division between two blocks. This contrasts with a line break `\n`, which indicates a new line within the same block.
-
-When multiple sequential line breaks exist within the same block, the unicode zero-width-space (`\u200b`) will be used as an empty line’s content. This nuance is present to distinguish a double line break `\n\u200b\n` from a block division `\n\n`.
-
-Example:
-```html
-Line one\n\u200b\nLine three\n\nA separate block
-```
+| Object                 | Plain text field | Rich text field    |
+|------------------------|------------------|--------------------|
+| Tasks                  | `notes`          | `html_notes`       |
+| Projects               | `notes`          | `html_notes`       |
+| Stories                | `text`           | `html_text`        |
+| Project status updates | `text`           | `html_text`        |
+| Project briefs         | `text`           | `html_text`        |
+| Teams                  | `description`    | `html_description` |
 
 <hr>
 
