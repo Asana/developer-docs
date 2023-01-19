@@ -427,7 +427,7 @@ import com.asana.Client;
 
 Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
 
-Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name)
+Attachment result = client.attachments.createAttachmentForObject(file, parent, url, name, connectToApp)
     .data("field", "value")
     .data("field", "value")
     .option("pretty", true)
@@ -1188,6 +1188,7 @@ $result = $client->customfields->createCustomField(array('field' => 'value', 'fi
   "data": {
     "gid": "12345",
     "resource_type": "custom_field",
+    "asana_created_field": "priority",
     "created_by": {
       "gid": "12345",
       "resource_type": "user",
@@ -1412,6 +1413,7 @@ $result = $client->customfields->getCustomField($custom_field_gid, array('param'
   "data": {
     "gid": "12345",
     "resource_type": "custom_field",
+    "asana_created_field": "priority",
     "created_by": {
       "gid": "12345",
       "resource_type": "user",
@@ -1630,6 +1632,7 @@ $result = $client->customfields->updateCustomField($custom_field_gid, array('fie
   "data": {
     "gid": "12345",
     "resource_type": "custom_field",
+    "asana_created_field": "priority",
     "created_by": {
       "gid": "12345",
       "resource_type": "user",
@@ -1960,6 +1963,7 @@ $result = $client->customfields->getCustomFieldsForWorkspace($workspace_gid, arr
     {
       "gid": "12345",
       "resource_type": "custom_field",
+      "asana_created_field": "priority",
       "created_by": {
         "gid": "12345",
         "resource_type": "user",
@@ -2536,6 +2540,7 @@ $result = $client->customfieldsettings->getCustomFieldSettingsForProject($projec
       "custom_field": {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -2714,6 +2719,7 @@ $result = $client->customfieldsettings->getCustomFieldSettingsForPortfolio($port
       "custom_field": {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -6077,6 +6083,7 @@ $result = $client->portfolios->createPortfolio(array('field' => 'value', 'field'
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -6368,6 +6375,7 @@ $result = $client->portfolios->getPortfolio($portfolio_gid, array('param' => 'va
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -6642,6 +6650,7 @@ $result = $client->portfolios->updatePortfolio($portfolio_gid, array('field' => 
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -7406,6 +7415,7 @@ $result = $client->portfolios->addCustomFieldSettingForPortfolio($portfolio_gid,
     "custom_field": {
       "gid": "12345",
       "resource_type": "custom_field",
+      "asana_created_field": "priority",
       "created_by": {
         "gid": "12345",
         "resource_type": "user",
@@ -7741,6 +7751,7 @@ $result = $client->portfolios->addMembersForPortfolio($portfolio_gid, array('fie
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -8016,6 +8027,7 @@ $result = $client->portfolios->removeMembersForPortfolio($portfolio_gid, array('
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -8833,6 +8845,7 @@ $result = $client->projects->createProject(array('field' => 'value', 'field' => 
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -9214,6 +9227,7 @@ $result = $client->projects->getProject($project_gid, array('param' => 'value', 
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -9568,6 +9582,7 @@ $result = $client->projects->updateProject($project_gid, array('field' => 'value
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -10493,6 +10508,7 @@ $result = $client->projects->createProjectForTeam($team_gid, array('field' => 'v
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -11023,6 +11039,7 @@ $result = $client->projects->createProjectForWorkspace($workspace_gid, array('fi
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -11384,6 +11401,7 @@ $result = $client->projects->addCustomFieldSettingForProject($project_gid, array
     "custom_field": {
       "gid": "12345",
       "resource_type": "custom_field",
+      "asana_created_field": "priority",
       "created_by": {
         "gid": "12345",
         "resource_type": "user",
@@ -11847,6 +11865,7 @@ $result = $client->projects->addMembersForProject($project_gid, array('field' =>
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -12173,6 +12192,7 @@ $result = $client->projects->removeMembersForProject($project_gid, array('field'
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -12499,6 +12519,7 @@ $result = $client->projects->addFollowersForProject($project_gid, array('field' 
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -12825,6 +12846,7 @@ $result = $client->projects->removeFollowersForProject($project_gid, array('fiel
         "custom_field": {
           "gid": "12345",
           "resource_type": "custom_field",
+          "asana_created_field": "priority",
           "created_by": {
             "gid": "12345",
             "resource_type": "user",
@@ -19163,6 +19185,7 @@ $result = $client->tasks->createTask(array('field' => 'value', 'field' => 'value
   "data": {
     "gid": "12345",
     "resource_type": "task",
+    "actual_time_minutes": 200,
     "approval_status": "pending",
     "assignee_status": "upcoming",
     "completed": false,
@@ -19252,6 +19275,7 @@ $result = $client->tasks->createTask(array('field' => 'value', 'field' => 'value
       {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -19512,6 +19536,7 @@ $result = $client->tasks->getTask($task_gid, array('param' => 'value', 'param' =
   "data": {
     "gid": "12345",
     "resource_type": "task",
+    "actual_time_minutes": 200,
     "approval_status": "pending",
     "assignee_status": "upcoming",
     "completed": false,
@@ -19601,6 +19626,7 @@ $result = $client->tasks->getTask($task_gid, array('param' => 'value', 'param' =
       {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -19843,6 +19869,7 @@ $result = $client->tasks->updateTask($task_gid, array('field' => 'value', 'field
   "data": {
     "gid": "12345",
     "resource_type": "task",
+    "actual_time_minutes": 200,
     "approval_status": "pending",
     "assignee_status": "upcoming",
     "completed": false,
@@ -19932,6 +19959,7 @@ $result = $client->tasks->updateTask($task_gid, array('field' => 'value', 'field
       {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -21072,6 +21100,7 @@ $result = $client->tasks->createSubtaskForTask($task_gid, array('field' => 'valu
   "data": {
     "gid": "12345",
     "resource_type": "task",
+    "actual_time_minutes": 200,
     "approval_status": "pending",
     "assignee_status": "upcoming",
     "completed": false,
@@ -21161,6 +21190,7 @@ $result = $client->tasks->createSubtaskForTask($task_gid, array('field' => 'valu
       {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -21432,6 +21462,7 @@ $result = $client->tasks->setParentForTask($task_gid, array('field' => 'value', 
   "data": {
     "gid": "12345",
     "resource_type": "task",
+    "actual_time_minutes": 200,
     "approval_status": "pending",
     "assignee_status": "upcoming",
     "completed": false,
@@ -21521,6 +21552,7 @@ $result = $client->tasks->setParentForTask($task_gid, array('field' => 'value', 
       {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -22994,6 +23026,7 @@ $result = $client->tasks->addFollowersForTask($task_gid, array('field' => 'value
   "data": {
     "gid": "12345",
     "resource_type": "task",
+    "actual_time_minutes": 200,
     "approval_status": "pending",
     "assignee_status": "upcoming",
     "completed": false,
@@ -23083,6 +23116,7 @@ $result = $client->tasks->addFollowersForTask($task_gid, array('field' => 'value
       {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -23298,6 +23332,7 @@ $result = $client->tasks->removeFollowerForTask($task_gid, array('field' => 'val
   "data": {
     "gid": "12345",
     "resource_type": "task",
+    "actual_time_minutes": 200,
     "approval_status": "pending",
     "assignee_status": "upcoming",
     "completed": false,
@@ -23387,6 +23422,7 @@ $result = $client->tasks->removeFollowerForTask($task_gid, array('field' => 'val
       {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -28538,6 +28574,7 @@ A `Compact` object is the same as the [full response object](/docs/tocS_CustomFi
 {
   "gid": "12345",
   "resource_type": "custom_field",
+  "asana_created_field": "priority",
   "created_by": {
     "gid": "12345",
     "resource_type": "user",
@@ -28611,6 +28648,7 @@ Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/cus
 |---|---|
 |gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|asana_created_field<span class="param-type"> string¦null</span>|*Conditional*. A unique identifier to associate this field with the template source of truth.|
 |created_by<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
@@ -28660,6 +28698,142 @@ Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/cus
 
 |Property|Value|
 |---|---|
+|asana_created_field|a_v_requirements|
+|asana_created_field|account_name|
+|asana_created_field|actionable|
+|asana_created_field|align_shipping_link|
+|asana_created_field|align_status|
+|asana_created_field|allotted_time|
+|asana_created_field|appointment|
+|asana_created_field|approval_stage|
+|asana_created_field|approved|
+|asana_created_field|article_series|
+|asana_created_field|board_committee|
+|asana_created_field|browser|
+|asana_created_field|campaign_audience|
+|asana_created_field|campaign_project_status|
+|asana_created_field|campaign_regions|
+|asana_created_field|channel_primary|
+|asana_created_field|client_topic_type|
+|asana_created_field|complete_by|
+|asana_created_field|contact|
+|asana_created_field|contact_email_address|
+|asana_created_field|content_channels|
+|asana_created_field|content_channels_needed|
+|asana_created_field|content_stage|
+|asana_created_field|content_type|
+|asana_created_field|contract|
+|asana_created_field|contract_status|
+|asana_created_field|cost|
+|asana_created_field|creation_stage|
+|asana_created_field|creative_channel|
+|asana_created_field|creative_needed|
+|asana_created_field|creative_needs|
+|asana_created_field|data_sensitivity|
+|asana_created_field|deal_size|
+|asana_created_field|delivery_appt|
+|asana_created_field|delivery_appt_date|
+|asana_created_field|department|
+|asana_created_field|department_responsible|
+|asana_created_field|design_request_needed|
+|asana_created_field|design_request_type|
+|asana_created_field|discussion_category|
+|asana_created_field|do_this_task|
+|asana_created_field|editorial_content_status|
+|asana_created_field|editorial_content_tag|
+|asana_created_field|editorial_content_type|
+|asana_created_field|effort|
+|asana_created_field|effort_level|
+|asana_created_field|est_completion_date|
+|asana_created_field|estimated_time|
+|asana_created_field|estimated_value|
+|asana_created_field|expected_cost|
+|asana_created_field|external_steps_needed|
+|asana_created_field|favorite_idea|
+|asana_created_field|feedback_type|
+|asana_created_field|financial|
+|asana_created_field|funding_amount|
+|asana_created_field|grant_application_process|
+|asana_created_field|hiring_candidate_status|
+|asana_created_field|idea_status|
+|asana_created_field|ids_link|
+|asana_created_field|ids_patient_link|
+|asana_created_field|implementation_stage|
+|asana_created_field|insurance|
+|asana_created_field|interview_area|
+|asana_created_field|interview_question_score|
+|asana_created_field|itero_scan_link|
+|asana_created_field|job_s_applied_to|
+|asana_created_field|lab|
+|asana_created_field|launch_status|
+|asana_created_field|lead_status|
+|asana_created_field|localization_language|
+|asana_created_field|localization_market_team|
+|asana_created_field|localization_status|
+|asana_created_field|meeting_minutes|
+|asana_created_field|meeting_needed|
+|asana_created_field|minutes|
+|asana_created_field|mrr|
+|asana_created_field|must_localize|
+|asana_created_field|name_of_foundation|
+|asana_created_field|need_to_follow_up|
+|asana_created_field|next_appointment|
+|asana_created_field|next_steps_sales|
+|asana_created_field|num_people|
+|asana_created_field|number_of_user_reports|
+|asana_created_field|office_location|
+|asana_created_field|onboarding_activity|
+|asana_created_field|owner|
+|asana_created_field|participants_needed|
+|asana_created_field|patient_date_of_birth|
+|asana_created_field|patient_email|
+|asana_created_field|patient_phone|
+|asana_created_field|patient_status|
+|asana_created_field|phone_number|
+|asana_created_field|planning_category|
+|asana_created_field|point_of_contact|
+|asana_created_field|position|
+|asana_created_field|post_format|
+|asana_created_field|prescription|
+|asana_created_field|priority|
+|asana_created_field|priority_level|
+|asana_created_field|product|
+|asana_created_field|product_stage|
+|asana_created_field|progress|
+|asana_created_field|project_size|
+|asana_created_field|project_status|
+|asana_created_field|proposed_budget|
+|asana_created_field|publish_status|
+|asana_created_field|reason_for_scan|
+|asana_created_field|referral|
+|asana_created_field|request_type|
+|asana_created_field|research_status|
+|asana_created_field|responsible_department|
+|asana_created_field|responsible_team|
+|asana_created_field|risk_assessment_status|
+|asana_created_field|room_name|
+|asana_created_field|sales_counterpart|
+|asana_created_field|sentiment|
+|asana_created_field|shipping_link|
+|asana_created_field|social_channels|
+|asana_created_field|stage|
+|asana_created_field|status|
+|asana_created_field|status_design|
+|asana_created_field|status_of_initiative|
+|asana_created_field|system_setup|
+|asana_created_field|task_progress|
+|asana_created_field|team|
+|asana_created_field|team_marketing|
+|asana_created_field|team_responsible|
+|asana_created_field|time_it_takes_to_complete_tasks|
+|asana_created_field|timeframe|
+|asana_created_field|treatment_type|
+|asana_created_field|type_work_requests_it|
+|asana_created_field|use_agency|
+|asana_created_field|user_name|
+|asana_created_field|vendor_category|
+|asana_created_field|vendor_type|
+|asana_created_field|word_count|
 |custom_label_position|prefix|
 |custom_label_position|suffix|
 |format|currency|
@@ -28723,6 +28897,7 @@ A `Compact` object is the same as the [full response object](/docs/tocS_CustomFi
   "custom_field": {
     "gid": "12345",
     "resource_type": "custom_field",
+    "asana_created_field": "priority",
     "created_by": {
       "gid": "12345",
       "resource_type": "user",
@@ -28809,6 +28984,7 @@ Custom Fields Settings objects represent the many-to-many join of the Custom Fie
 |custom_field<span class="param-type"> object</span>|The custom field that is applied to the `parent`.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» asana_created_field<span class="param-type"> string¦null</span>|*Conditional*. A unique identifier to associate this field with the template source of truth.|
 |» created_by<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
@@ -28867,6 +29043,142 @@ Custom Fields Settings objects represent the many-to-many join of the Custom Fie
 
 |Property|Value|
 |---|---|
+|asana_created_field|a_v_requirements|
+|asana_created_field|account_name|
+|asana_created_field|actionable|
+|asana_created_field|align_shipping_link|
+|asana_created_field|align_status|
+|asana_created_field|allotted_time|
+|asana_created_field|appointment|
+|asana_created_field|approval_stage|
+|asana_created_field|approved|
+|asana_created_field|article_series|
+|asana_created_field|board_committee|
+|asana_created_field|browser|
+|asana_created_field|campaign_audience|
+|asana_created_field|campaign_project_status|
+|asana_created_field|campaign_regions|
+|asana_created_field|channel_primary|
+|asana_created_field|client_topic_type|
+|asana_created_field|complete_by|
+|asana_created_field|contact|
+|asana_created_field|contact_email_address|
+|asana_created_field|content_channels|
+|asana_created_field|content_channels_needed|
+|asana_created_field|content_stage|
+|asana_created_field|content_type|
+|asana_created_field|contract|
+|asana_created_field|contract_status|
+|asana_created_field|cost|
+|asana_created_field|creation_stage|
+|asana_created_field|creative_channel|
+|asana_created_field|creative_needed|
+|asana_created_field|creative_needs|
+|asana_created_field|data_sensitivity|
+|asana_created_field|deal_size|
+|asana_created_field|delivery_appt|
+|asana_created_field|delivery_appt_date|
+|asana_created_field|department|
+|asana_created_field|department_responsible|
+|asana_created_field|design_request_needed|
+|asana_created_field|design_request_type|
+|asana_created_field|discussion_category|
+|asana_created_field|do_this_task|
+|asana_created_field|editorial_content_status|
+|asana_created_field|editorial_content_tag|
+|asana_created_field|editorial_content_type|
+|asana_created_field|effort|
+|asana_created_field|effort_level|
+|asana_created_field|est_completion_date|
+|asana_created_field|estimated_time|
+|asana_created_field|estimated_value|
+|asana_created_field|expected_cost|
+|asana_created_field|external_steps_needed|
+|asana_created_field|favorite_idea|
+|asana_created_field|feedback_type|
+|asana_created_field|financial|
+|asana_created_field|funding_amount|
+|asana_created_field|grant_application_process|
+|asana_created_field|hiring_candidate_status|
+|asana_created_field|idea_status|
+|asana_created_field|ids_link|
+|asana_created_field|ids_patient_link|
+|asana_created_field|implementation_stage|
+|asana_created_field|insurance|
+|asana_created_field|interview_area|
+|asana_created_field|interview_question_score|
+|asana_created_field|itero_scan_link|
+|asana_created_field|job_s_applied_to|
+|asana_created_field|lab|
+|asana_created_field|launch_status|
+|asana_created_field|lead_status|
+|asana_created_field|localization_language|
+|asana_created_field|localization_market_team|
+|asana_created_field|localization_status|
+|asana_created_field|meeting_minutes|
+|asana_created_field|meeting_needed|
+|asana_created_field|minutes|
+|asana_created_field|mrr|
+|asana_created_field|must_localize|
+|asana_created_field|name_of_foundation|
+|asana_created_field|need_to_follow_up|
+|asana_created_field|next_appointment|
+|asana_created_field|next_steps_sales|
+|asana_created_field|num_people|
+|asana_created_field|number_of_user_reports|
+|asana_created_field|office_location|
+|asana_created_field|onboarding_activity|
+|asana_created_field|owner|
+|asana_created_field|participants_needed|
+|asana_created_field|patient_date_of_birth|
+|asana_created_field|patient_email|
+|asana_created_field|patient_phone|
+|asana_created_field|patient_status|
+|asana_created_field|phone_number|
+|asana_created_field|planning_category|
+|asana_created_field|point_of_contact|
+|asana_created_field|position|
+|asana_created_field|post_format|
+|asana_created_field|prescription|
+|asana_created_field|priority|
+|asana_created_field|priority_level|
+|asana_created_field|product|
+|asana_created_field|product_stage|
+|asana_created_field|progress|
+|asana_created_field|project_size|
+|asana_created_field|project_status|
+|asana_created_field|proposed_budget|
+|asana_created_field|publish_status|
+|asana_created_field|reason_for_scan|
+|asana_created_field|referral|
+|asana_created_field|request_type|
+|asana_created_field|research_status|
+|asana_created_field|responsible_department|
+|asana_created_field|responsible_team|
+|asana_created_field|risk_assessment_status|
+|asana_created_field|room_name|
+|asana_created_field|sales_counterpart|
+|asana_created_field|sentiment|
+|asana_created_field|shipping_link|
+|asana_created_field|social_channels|
+|asana_created_field|stage|
+|asana_created_field|status|
+|asana_created_field|status_design|
+|asana_created_field|status_of_initiative|
+|asana_created_field|system_setup|
+|asana_created_field|task_progress|
+|asana_created_field|team|
+|asana_created_field|team_marketing|
+|asana_created_field|team_responsible|
+|asana_created_field|time_it_takes_to_complete_tasks|
+|asana_created_field|timeframe|
+|asana_created_field|treatment_type|
+|asana_created_field|type_work_requests_it|
+|asana_created_field|use_agency|
+|asana_created_field|user_name|
+|asana_created_field|vendor_category|
+|asana_created_field|vendor_type|
+|asana_created_field|word_count|
 |custom_label_position|prefix|
 |custom_label_position|suffix|
 |format|currency|
@@ -29966,6 +30278,7 @@ This object determines if a user is a member of a portfolio.
       "custom_field": {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -30133,6 +30446,7 @@ Portfolios have some restrictions on size. Each portfolio has a max of 500 items
 |» custom_field<span class="param-type"> object</span>|The custom field that is applied to the `parent`.|
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|»» asana_created_field<span class="param-type"> string¦null</span>|*Conditional*. A unique identifier to associate this field with the template source of truth.|
 |»» created_by<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
 |»»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
@@ -30259,6 +30573,142 @@ Portfolios have some restrictions on size. Each portfolio has a max of 500 items
 |resource_subtype|project_status_update|
 |resource_subtype|portfolio_status_update|
 |resource_subtype|goal_status_update|
+|asana_created_field|a_v_requirements|
+|asana_created_field|account_name|
+|asana_created_field|actionable|
+|asana_created_field|align_shipping_link|
+|asana_created_field|align_status|
+|asana_created_field|allotted_time|
+|asana_created_field|appointment|
+|asana_created_field|approval_stage|
+|asana_created_field|approved|
+|asana_created_field|article_series|
+|asana_created_field|board_committee|
+|asana_created_field|browser|
+|asana_created_field|campaign_audience|
+|asana_created_field|campaign_project_status|
+|asana_created_field|campaign_regions|
+|asana_created_field|channel_primary|
+|asana_created_field|client_topic_type|
+|asana_created_field|complete_by|
+|asana_created_field|contact|
+|asana_created_field|contact_email_address|
+|asana_created_field|content_channels|
+|asana_created_field|content_channels_needed|
+|asana_created_field|content_stage|
+|asana_created_field|content_type|
+|asana_created_field|contract|
+|asana_created_field|contract_status|
+|asana_created_field|cost|
+|asana_created_field|creation_stage|
+|asana_created_field|creative_channel|
+|asana_created_field|creative_needed|
+|asana_created_field|creative_needs|
+|asana_created_field|data_sensitivity|
+|asana_created_field|deal_size|
+|asana_created_field|delivery_appt|
+|asana_created_field|delivery_appt_date|
+|asana_created_field|department|
+|asana_created_field|department_responsible|
+|asana_created_field|design_request_needed|
+|asana_created_field|design_request_type|
+|asana_created_field|discussion_category|
+|asana_created_field|do_this_task|
+|asana_created_field|editorial_content_status|
+|asana_created_field|editorial_content_tag|
+|asana_created_field|editorial_content_type|
+|asana_created_field|effort|
+|asana_created_field|effort_level|
+|asana_created_field|est_completion_date|
+|asana_created_field|estimated_time|
+|asana_created_field|estimated_value|
+|asana_created_field|expected_cost|
+|asana_created_field|external_steps_needed|
+|asana_created_field|favorite_idea|
+|asana_created_field|feedback_type|
+|asana_created_field|financial|
+|asana_created_field|funding_amount|
+|asana_created_field|grant_application_process|
+|asana_created_field|hiring_candidate_status|
+|asana_created_field|idea_status|
+|asana_created_field|ids_link|
+|asana_created_field|ids_patient_link|
+|asana_created_field|implementation_stage|
+|asana_created_field|insurance|
+|asana_created_field|interview_area|
+|asana_created_field|interview_question_score|
+|asana_created_field|itero_scan_link|
+|asana_created_field|job_s_applied_to|
+|asana_created_field|lab|
+|asana_created_field|launch_status|
+|asana_created_field|lead_status|
+|asana_created_field|localization_language|
+|asana_created_field|localization_market_team|
+|asana_created_field|localization_status|
+|asana_created_field|meeting_minutes|
+|asana_created_field|meeting_needed|
+|asana_created_field|minutes|
+|asana_created_field|mrr|
+|asana_created_field|must_localize|
+|asana_created_field|name_of_foundation|
+|asana_created_field|need_to_follow_up|
+|asana_created_field|next_appointment|
+|asana_created_field|next_steps_sales|
+|asana_created_field|num_people|
+|asana_created_field|number_of_user_reports|
+|asana_created_field|office_location|
+|asana_created_field|onboarding_activity|
+|asana_created_field|owner|
+|asana_created_field|participants_needed|
+|asana_created_field|patient_date_of_birth|
+|asana_created_field|patient_email|
+|asana_created_field|patient_phone|
+|asana_created_field|patient_status|
+|asana_created_field|phone_number|
+|asana_created_field|planning_category|
+|asana_created_field|point_of_contact|
+|asana_created_field|position|
+|asana_created_field|post_format|
+|asana_created_field|prescription|
+|asana_created_field|priority|
+|asana_created_field|priority_level|
+|asana_created_field|product|
+|asana_created_field|product_stage|
+|asana_created_field|progress|
+|asana_created_field|project_size|
+|asana_created_field|project_status|
+|asana_created_field|proposed_budget|
+|asana_created_field|publish_status|
+|asana_created_field|reason_for_scan|
+|asana_created_field|referral|
+|asana_created_field|request_type|
+|asana_created_field|research_status|
+|asana_created_field|responsible_department|
+|asana_created_field|responsible_team|
+|asana_created_field|risk_assessment_status|
+|asana_created_field|room_name|
+|asana_created_field|sales_counterpart|
+|asana_created_field|sentiment|
+|asana_created_field|shipping_link|
+|asana_created_field|social_channels|
+|asana_created_field|stage|
+|asana_created_field|status|
+|asana_created_field|status_design|
+|asana_created_field|status_of_initiative|
+|asana_created_field|system_setup|
+|asana_created_field|task_progress|
+|asana_created_field|team|
+|asana_created_field|team_marketing|
+|asana_created_field|team_responsible|
+|asana_created_field|time_it_takes_to_complete_tasks|
+|asana_created_field|timeframe|
+|asana_created_field|treatment_type|
+|asana_created_field|type_work_requests_it|
+|asana_created_field|use_agency|
+|asana_created_field|user_name|
+|asana_created_field|vendor_category|
+|asana_created_field|vendor_type|
+|asana_created_field|word_count|
 |custom_label_position|prefix|
 |custom_label_position|suffix|
 |format|currency|
@@ -30536,6 +30986,7 @@ With the introduction of “comment-only” projects in Asana, a user’s member
       "custom_field": {
         "gid": "12345",
         "resource_type": "custom_field",
+        "asana_created_field": "priority",
         "created_by": {
           "gid": "12345",
           "resource_type": "user",
@@ -30751,6 +31202,7 @@ A *project* represents a prioritized list of tasks in Asana or a board with colu
 |» custom_field<span class="param-type"> object</span>|The custom field that is applied to the `parent`.|
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|»» asana_created_field<span class="param-type"> string¦null</span>|*Conditional*. A unique identifier to associate this field with the template source of truth.|
 |»» created_by<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
 |»»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
@@ -30910,6 +31362,142 @@ A *project* represents a prioritized list of tasks in Asana or a board with colu
 |resource_subtype|project_status_update|
 |resource_subtype|portfolio_status_update|
 |resource_subtype|goal_status_update|
+|asana_created_field|a_v_requirements|
+|asana_created_field|account_name|
+|asana_created_field|actionable|
+|asana_created_field|align_shipping_link|
+|asana_created_field|align_status|
+|asana_created_field|allotted_time|
+|asana_created_field|appointment|
+|asana_created_field|approval_stage|
+|asana_created_field|approved|
+|asana_created_field|article_series|
+|asana_created_field|board_committee|
+|asana_created_field|browser|
+|asana_created_field|campaign_audience|
+|asana_created_field|campaign_project_status|
+|asana_created_field|campaign_regions|
+|asana_created_field|channel_primary|
+|asana_created_field|client_topic_type|
+|asana_created_field|complete_by|
+|asana_created_field|contact|
+|asana_created_field|contact_email_address|
+|asana_created_field|content_channels|
+|asana_created_field|content_channels_needed|
+|asana_created_field|content_stage|
+|asana_created_field|content_type|
+|asana_created_field|contract|
+|asana_created_field|contract_status|
+|asana_created_field|cost|
+|asana_created_field|creation_stage|
+|asana_created_field|creative_channel|
+|asana_created_field|creative_needed|
+|asana_created_field|creative_needs|
+|asana_created_field|data_sensitivity|
+|asana_created_field|deal_size|
+|asana_created_field|delivery_appt|
+|asana_created_field|delivery_appt_date|
+|asana_created_field|department|
+|asana_created_field|department_responsible|
+|asana_created_field|design_request_needed|
+|asana_created_field|design_request_type|
+|asana_created_field|discussion_category|
+|asana_created_field|do_this_task|
+|asana_created_field|editorial_content_status|
+|asana_created_field|editorial_content_tag|
+|asana_created_field|editorial_content_type|
+|asana_created_field|effort|
+|asana_created_field|effort_level|
+|asana_created_field|est_completion_date|
+|asana_created_field|estimated_time|
+|asana_created_field|estimated_value|
+|asana_created_field|expected_cost|
+|asana_created_field|external_steps_needed|
+|asana_created_field|favorite_idea|
+|asana_created_field|feedback_type|
+|asana_created_field|financial|
+|asana_created_field|funding_amount|
+|asana_created_field|grant_application_process|
+|asana_created_field|hiring_candidate_status|
+|asana_created_field|idea_status|
+|asana_created_field|ids_link|
+|asana_created_field|ids_patient_link|
+|asana_created_field|implementation_stage|
+|asana_created_field|insurance|
+|asana_created_field|interview_area|
+|asana_created_field|interview_question_score|
+|asana_created_field|itero_scan_link|
+|asana_created_field|job_s_applied_to|
+|asana_created_field|lab|
+|asana_created_field|launch_status|
+|asana_created_field|lead_status|
+|asana_created_field|localization_language|
+|asana_created_field|localization_market_team|
+|asana_created_field|localization_status|
+|asana_created_field|meeting_minutes|
+|asana_created_field|meeting_needed|
+|asana_created_field|minutes|
+|asana_created_field|mrr|
+|asana_created_field|must_localize|
+|asana_created_field|name_of_foundation|
+|asana_created_field|need_to_follow_up|
+|asana_created_field|next_appointment|
+|asana_created_field|next_steps_sales|
+|asana_created_field|num_people|
+|asana_created_field|number_of_user_reports|
+|asana_created_field|office_location|
+|asana_created_field|onboarding_activity|
+|asana_created_field|owner|
+|asana_created_field|participants_needed|
+|asana_created_field|patient_date_of_birth|
+|asana_created_field|patient_email|
+|asana_created_field|patient_phone|
+|asana_created_field|patient_status|
+|asana_created_field|phone_number|
+|asana_created_field|planning_category|
+|asana_created_field|point_of_contact|
+|asana_created_field|position|
+|asana_created_field|post_format|
+|asana_created_field|prescription|
+|asana_created_field|priority|
+|asana_created_field|priority_level|
+|asana_created_field|product|
+|asana_created_field|product_stage|
+|asana_created_field|progress|
+|asana_created_field|project_size|
+|asana_created_field|project_status|
+|asana_created_field|proposed_budget|
+|asana_created_field|publish_status|
+|asana_created_field|reason_for_scan|
+|asana_created_field|referral|
+|asana_created_field|request_type|
+|asana_created_field|research_status|
+|asana_created_field|responsible_department|
+|asana_created_field|responsible_team|
+|asana_created_field|risk_assessment_status|
+|asana_created_field|room_name|
+|asana_created_field|sales_counterpart|
+|asana_created_field|sentiment|
+|asana_created_field|shipping_link|
+|asana_created_field|social_channels|
+|asana_created_field|stage|
+|asana_created_field|status|
+|asana_created_field|status_design|
+|asana_created_field|status_of_initiative|
+|asana_created_field|system_setup|
+|asana_created_field|task_progress|
+|asana_created_field|team|
+|asana_created_field|team_marketing|
+|asana_created_field|team_responsible|
+|asana_created_field|time_it_takes_to_complete_tasks|
+|asana_created_field|timeframe|
+|asana_created_field|treatment_type|
+|asana_created_field|type_work_requests_it|
+|asana_created_field|use_agency|
+|asana_created_field|user_name|
+|asana_created_field|vendor_category|
+|asana_created_field|vendor_type|
+|asana_created_field|word_count|
 |custom_label_position|prefix|
 |custom_label_position|suffix|
 |format|currency|
@@ -32206,6 +32794,7 @@ A response object returned from the task count endpoint.
 {
   "gid": "12345",
   "resource_type": "task",
+  "actual_time_minutes": 200,
   "approval_status": "pending",
   "assignee_status": "upcoming",
   "completed": false,
@@ -32295,6 +32884,7 @@ A response object returned from the task count endpoint.
     {
       "gid": "12345",
       "resource_type": "custom_field",
+      "asana_created_field": "priority",
       "created_by": {
         "gid": "12345",
         "resource_type": "user",
@@ -32400,6 +32990,7 @@ The *task* is the basic object around which many operations in Asana are centere
 |---|---|
 |gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|actual_time_minutes<span class="param-type"> number¦null</span>|This value represents the sum of all the Time Tracking entries in the Actual Time field on a given Task. It is represented as a nullable long value.|
 |approval_status<span class="param-type"> string</span>|*Conditional* Reflects the approval status of this task. This field is kept in sync with `completed`, meaning `pending` translates to false while `approved`, `rejected`, and `changes_requested` translate to true. If you set completed to true, this field will be set to `approved`.|
 |assignee_status<span class="param-type"> string</span>|*Deprecated* Scheduling status of this task for the user it is assigned to. This field can only be set if the assignee is non-null. Setting this field to "inbox" or "upcoming" inserts it at the top of the section, while the other options will insert at the bottom.|
 |completed<span class="param-type"> boolean</span>|True if the task is currently marked complete, false if not.|
@@ -32465,6 +33056,7 @@ The *task* is the basic object around which many operations in Asana are centere
 |custom_fields<span class="param-type"> [object]</span>|Array of custom field values applied to the task. These represent the custom field values recorded on this project for a particular custom field. For example, these custom field values will contain an `enum_value` property for custom fields of type `enum`, a `text_value` property for custom fields of type `text`, and so on. Please note that the `gid` returned on each custom field value *is identical* to the `gid` of the custom field, which allows referencing the custom field metadata through the `/custom_fields/custom_field-gid` endpoint.|
 |» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |» resource_type<span class="param-type"> string</span>|The base type of this resource.|
+|» asana_created_field<span class="param-type"> string¦null</span>|*Conditional*. A unique identifier to associate this field with the template source of truth.|
 |» created_by<span class="param-type"> object</span>|A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks.|
 |»» gid<span class="param-type"> string</span>|Globally unique identifier of the resource, as a string.|
 |»» resource_type<span class="param-type"> string</span>|The base type of this resource.|
@@ -32549,6 +33141,142 @@ The *task* is the basic object around which many operations in Asana are centere
 |resource_subtype|milestone|
 |resource_subtype|section|
 |resource_subtype|approval|
+|asana_created_field|a_v_requirements|
+|asana_created_field|account_name|
+|asana_created_field|actionable|
+|asana_created_field|align_shipping_link|
+|asana_created_field|align_status|
+|asana_created_field|allotted_time|
+|asana_created_field|appointment|
+|asana_created_field|approval_stage|
+|asana_created_field|approved|
+|asana_created_field|article_series|
+|asana_created_field|board_committee|
+|asana_created_field|browser|
+|asana_created_field|campaign_audience|
+|asana_created_field|campaign_project_status|
+|asana_created_field|campaign_regions|
+|asana_created_field|channel_primary|
+|asana_created_field|client_topic_type|
+|asana_created_field|complete_by|
+|asana_created_field|contact|
+|asana_created_field|contact_email_address|
+|asana_created_field|content_channels|
+|asana_created_field|content_channels_needed|
+|asana_created_field|content_stage|
+|asana_created_field|content_type|
+|asana_created_field|contract|
+|asana_created_field|contract_status|
+|asana_created_field|cost|
+|asana_created_field|creation_stage|
+|asana_created_field|creative_channel|
+|asana_created_field|creative_needed|
+|asana_created_field|creative_needs|
+|asana_created_field|data_sensitivity|
+|asana_created_field|deal_size|
+|asana_created_field|delivery_appt|
+|asana_created_field|delivery_appt_date|
+|asana_created_field|department|
+|asana_created_field|department_responsible|
+|asana_created_field|design_request_needed|
+|asana_created_field|design_request_type|
+|asana_created_field|discussion_category|
+|asana_created_field|do_this_task|
+|asana_created_field|editorial_content_status|
+|asana_created_field|editorial_content_tag|
+|asana_created_field|editorial_content_type|
+|asana_created_field|effort|
+|asana_created_field|effort_level|
+|asana_created_field|est_completion_date|
+|asana_created_field|estimated_time|
+|asana_created_field|estimated_value|
+|asana_created_field|expected_cost|
+|asana_created_field|external_steps_needed|
+|asana_created_field|favorite_idea|
+|asana_created_field|feedback_type|
+|asana_created_field|financial|
+|asana_created_field|funding_amount|
+|asana_created_field|grant_application_process|
+|asana_created_field|hiring_candidate_status|
+|asana_created_field|idea_status|
+|asana_created_field|ids_link|
+|asana_created_field|ids_patient_link|
+|asana_created_field|implementation_stage|
+|asana_created_field|insurance|
+|asana_created_field|interview_area|
+|asana_created_field|interview_question_score|
+|asana_created_field|itero_scan_link|
+|asana_created_field|job_s_applied_to|
+|asana_created_field|lab|
+|asana_created_field|launch_status|
+|asana_created_field|lead_status|
+|asana_created_field|localization_language|
+|asana_created_field|localization_market_team|
+|asana_created_field|localization_status|
+|asana_created_field|meeting_minutes|
+|asana_created_field|meeting_needed|
+|asana_created_field|minutes|
+|asana_created_field|mrr|
+|asana_created_field|must_localize|
+|asana_created_field|name_of_foundation|
+|asana_created_field|need_to_follow_up|
+|asana_created_field|next_appointment|
+|asana_created_field|next_steps_sales|
+|asana_created_field|num_people|
+|asana_created_field|number_of_user_reports|
+|asana_created_field|office_location|
+|asana_created_field|onboarding_activity|
+|asana_created_field|owner|
+|asana_created_field|participants_needed|
+|asana_created_field|patient_date_of_birth|
+|asana_created_field|patient_email|
+|asana_created_field|patient_phone|
+|asana_created_field|patient_status|
+|asana_created_field|phone_number|
+|asana_created_field|planning_category|
+|asana_created_field|point_of_contact|
+|asana_created_field|position|
+|asana_created_field|post_format|
+|asana_created_field|prescription|
+|asana_created_field|priority|
+|asana_created_field|priority_level|
+|asana_created_field|product|
+|asana_created_field|product_stage|
+|asana_created_field|progress|
+|asana_created_field|project_size|
+|asana_created_field|project_status|
+|asana_created_field|proposed_budget|
+|asana_created_field|publish_status|
+|asana_created_field|reason_for_scan|
+|asana_created_field|referral|
+|asana_created_field|request_type|
+|asana_created_field|research_status|
+|asana_created_field|responsible_department|
+|asana_created_field|responsible_team|
+|asana_created_field|risk_assessment_status|
+|asana_created_field|room_name|
+|asana_created_field|sales_counterpart|
+|asana_created_field|sentiment|
+|asana_created_field|shipping_link|
+|asana_created_field|social_channels|
+|asana_created_field|stage|
+|asana_created_field|status|
+|asana_created_field|status_design|
+|asana_created_field|status_of_initiative|
+|asana_created_field|system_setup|
+|asana_created_field|task_progress|
+|asana_created_field|team|
+|asana_created_field|team_marketing|
+|asana_created_field|team_responsible|
+|asana_created_field|time_it_takes_to_complete_tasks|
+|asana_created_field|timeframe|
+|asana_created_field|treatment_type|
+|asana_created_field|type_work_requests_it|
+|asana_created_field|use_agency|
+|asana_created_field|user_name|
+|asana_created_field|vendor_category|
+|asana_created_field|vendor_type|
+|asana_created_field|word_count|
 |custom_label_position|prefix|
 |custom_label_position|suffix|
 |format|currency|

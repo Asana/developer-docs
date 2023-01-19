@@ -1923,6 +1923,151 @@ components:
                 to this field.
               type: boolean
               example: true
+            asana_created_field:
+              description: >-
+                *Conditional*. A unique identifier to associate this field with the
+                template source of truth.
+              type: string
+              readOnly: true
+              nullable: true
+              enum:
+                - a_v_requirements
+                - account_name
+                - actionable
+                - align_shipping_link
+                - align_status
+                - allotted_time
+                - appointment
+                - approval_stage
+                - approved
+                - article_series
+                - board_committee
+                - browser
+                - campaign_audience
+                - campaign_project_status
+                - campaign_regions
+                - channel_primary
+                - client_topic_type
+                - complete_by
+                - contact
+                - contact_email_address
+                - content_channels
+                - content_channels_needed
+                - content_stage
+                - content_type
+                - contract
+                - contract_status
+                - cost
+                - creation_stage
+                - creative_channel
+                - creative_needed
+                - creative_needs
+                - data_sensitivity
+                - deal_size
+                - delivery_appt
+                - delivery_appt_date
+                - department
+                - department_responsible
+                - design_request_needed
+                - design_request_type
+                - discussion_category
+                - do_this_task
+                - editorial_content_status
+                - editorial_content_tag
+                - editorial_content_type
+                - effort
+                - effort_level
+                - est_completion_date
+                - estimated_time
+                - estimated_value
+                - expected_cost
+                - external_steps_needed
+                - favorite_idea
+                - feedback_type
+                - financial
+                - funding_amount
+                - grant_application_process
+                - hiring_candidate_status
+                - idea_status
+                - ids_link
+                - ids_patient_link
+                - implementation_stage
+                - insurance
+                - interview_area
+                - interview_question_score
+                - itero_scan_link
+                - job_s_applied_to
+                - lab
+                - launch_status
+                - lead_status
+                - localization_language
+                - localization_market_team
+                - localization_status
+                - meeting_minutes
+                - meeting_needed
+                - minutes
+                - mrr
+                - must_localize
+                - name_of_foundation
+                - need_to_follow_up
+                - next_appointment
+                - next_steps_sales
+                - num_people
+                - number_of_user_reports
+                - office_location
+                - onboarding_activity
+                - owner
+                - participants_needed
+                - patient_date_of_birth
+                - patient_email
+                - patient_phone
+                - patient_status
+                - phone_number
+                - planning_category
+                - point_of_contact
+                - position
+                - post_format
+                - prescription
+                - priority
+                - priority_level
+                - product
+                - product_stage
+                - progress
+                - project_size
+                - project_status
+                - proposed_budget
+                - publish_status
+                - reason_for_scan
+                - referral
+                - request_type
+                - research_status
+                - responsible_department
+                - responsible_team
+                - risk_assessment_status
+                - room_name
+                - sales_counterpart
+                - sentiment
+                - shipping_link
+                - social_channels
+                - stage
+                - status
+                - status_design
+                - status_of_initiative
+                - system_setup
+                - task_progress
+                - team
+                - team_marketing
+                - team_responsible
+                - time_it_takes_to_complete_tasks
+                - timeframe
+                - treatment_type
+                - type_work_requests_it
+                - use_agency
+                - user_name
+                - vendor_category
+                - vendor_type
+                - word_count
+              example: priority
     CustomFieldCompact:
       allOf:
         - $ref: '#/components/schemas/AsanaResource'
@@ -5117,6 +5262,15 @@ components:
               nullable: true
               format: date
               example: '2019-09-14'
+            actual_time_minutes:
+              description: >-
+                This value represents the sum of all the Time Tracking entries in
+                the Actual Time field on a given Task. It is represented as a nullable
+                long value.
+              type: number
+              example: 200
+              readOnly: true
+              nullable: true
     TaskCompact:
       allOf:
         - $ref: '#/components/schemas/AsanaResource'
