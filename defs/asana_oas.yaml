@@ -93,6 +93,8 @@ servers:
 security:
   - personalAccessToken: []
   - oauth2: []
+x-readme:
+  proxy-enabled: false
 tags:
   - name: Attachments
     description: >-
@@ -2463,7 +2465,7 @@ components:
 
 
         * When at task is added to a project, `Event.action` will be
-        `added`, `Event.parent` will be on object with the `id` and
+        `added`, `Event.parent` will be an object with the `id` and
         `type` of the project, and there will be no `change` field.
 
 
@@ -13529,7 +13531,7 @@ paths:
       description: >-
         An existing webhook's filters can be updated by making a PUT request on the
         URL for that webhook. Note that the webhook's previous `filters` array will
-        be completely overwritten by the `filters` sent in the PUT request. 
+        be completely overwritten by the `filters` sent in the PUT request.
       tags:
         - Webhooks
       operationId: updateWebhook
@@ -13582,6 +13584,49 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /workspace/{workspace_gid}/webhooks:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/fields'
+    post:
+      summary: >-
+        Establish an unfiltered workspace webhook
+      description: >-
+        Service accounts may create a *single* webhook to recieve all events in a
+        workspace. Workspace webhooks are established like any other
+        [webhook](/docs/establish-a-webhook).
+
+        Unlike other webhooks, workspace webhooks do *not* support
+        [filters](/docs/filtering). This means it is also invalid to update a
+        workspace webhook with a PUT request.
+
+        You can fetch information about a workspace webhook and delete your
+        webhook by providing the workspace webhook gid to the normal GET and
+        DELETE methods.
+      tags:
+        - Webhooks
+      operationId: createWorkspaceWebhook
+      responses:
+        201:
+          description: Successfully created the requested webhook.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/WebhookResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
