@@ -13605,11 +13605,14 @@ paths:
       description: >-
         Service accounts may create a *single* webhook to recieve all events in a
         workspace. Workspace webhooks are established like any other
-        [webhook](/docs/establish-a-webhook).
+        [webhook](/reference/createwebhook).
+
 
         Unlike other webhooks, workspace webhooks do *not* support
-        [filters](/docs/filtering). This means it is also invalid to update a
+        [filters](/docs/webhooks-guide#filtering). This means it is also invalid to
+        update a
         workspace webhook with a PUT request.
+
 
         You can fetch information about a workspace webhook and delete your
         webhook by providing the workspace webhook gid to the normal GET and
