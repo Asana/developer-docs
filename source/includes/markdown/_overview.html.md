@@ -32,7 +32,6 @@ import com.asana.*;
 require 'asana'
 ```
 
-_**New developer documentation**: Asana will soon be launching an updated version of our developer documentation. For early access, [see this post](https://forum.asana.com/t/new-developer-documentation-launching-soon-try-the-beta-today/304771) in our developer community forum._
 
 <span class="description">
 The Asana API is a <a href="https://developer.mozilla.org/en-US/docs/Glossary/REST" target="_blank" rel="noopener noreferrer">REST</a>ful
