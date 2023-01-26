@@ -171,5 +171,7 @@ All role events operate on the _user_ resource type.
 | task_template_undeleted  | Task Template | A task template was undeleted. |
 | project_template_deleted | Project Template | A project template was deleted. |
 | project_template_undeleted    | Project Template | A project template was undeleted. |
+| story_deleted            | Story | A story was deleted. |
+| story_undeleted          | Story | A story was undeleted. |
 
 </section>
