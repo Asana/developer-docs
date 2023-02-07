@@ -7,7 +7,7 @@
   <a href="https://hub.docker.com/r/slatedocs/slate"><img src="https://img.shields.io/docker/v/slatedocs/slate?sort=semver" alt="Docker Version" /></a>
 </p>
 
-This documentation is live at: <https://developers.asana.com/docs>
+> **_NOTE:_**  This repository has been archived and is no longer being maintained. Asana's API documentation is available at [https://developers.asana.com/docs](https://developers.asana.com/docs). To access up-to-date versions of Asana's OpenAPI Specifications, visit the [openapi](https://github.com/asana/openapi) repository.
 
 # OpenAPI Spec
 
@@ -16,8 +16,8 @@ also use it to generate mock servers, client code, and many other things. You
 can read more about OpenAPI specs
 [here](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md).
 
-The up-to-date Asana OpenAPI spec is in this repository. Here's a
-[link](https://github.com/Asana/developer-docs/blob/master/defs/asana_oas.yaml).
+~The up-to-date Asana OpenAPI spec is in this repository. Here's a
+[link](https://github.com/Asana/developer-docs/blob/master/defs/asana_oas.yaml).~ See [openapi](https://github.com/asana/openapi) for up-to-date OpenAPI Specifications.
 
 If you find any issues or have any suggestions for our OpenAPI spec. Please
 create an issue in this repo or create a PR with the changes!
