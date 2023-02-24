@@ -23,6 +23,9 @@
 <div id="tab-explorer">Loading react...</div>
 
 <script>
+    if (window.location.host !== "developers-legacy.asana.com") {
+      window.location.href = "https://developers-legacy.asana.com/explorer";
+    }
     AsanaExplorer.Explorer.run();
 </script>
 
