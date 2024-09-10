@@ -1,17 +1,18 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<head>
-    <title>Asana Oauth Example: Browser Popup Receiver</title>
-    <script src="asana-explorer.js"></script>
-</head>
-<body>
-<script>
-    /**
-     * The popup that asks for user authorization will redirect back to this
-     * page. The below code does the handshake with the parent window and
-     * completes the authorization, automatically closing the window.
-     */
-    AsanaExplorer.Receiver.run();
-</script>
-</body>
+  <head>
+    <title>Redirecting...</title>
+    <meta
+      http-equiv="refresh"
+      content="0;url=https://developers.asana.com/docs/api-explorer"
+    />
+  </head>
+  <body>
+    <p>
+      If you are not redirected automatically, follow this
+      <a href="https://developers.asana.com/docs/api-explorer"
+        >link for the current API explorer</a
+      >.
+    </p>
+  </body>
 </html>
